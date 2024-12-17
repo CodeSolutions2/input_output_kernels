@@ -183,7 +183,12 @@ async function processEvent_click_CloseMenu(event) {
 
 // -------------------------------------------------
 
+document.querySelector(".has-collapsible").addEventListener('click', processEvent_click_HasCollapsible, false);
 
+async function processEvent_click_HasCollapsible(event) {
+	document.querySelector(".menu-wrapper").classList.toggle('active');
+}
+	
 // -------------------------------------------------
 
   
