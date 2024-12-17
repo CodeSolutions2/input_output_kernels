@@ -98,7 +98,31 @@
   backgroud: rgba(37, 42, 50, 0.6);
   z-index: 1;
 }
-  
+
+.header .navbar .menu {
+position: fixed;
+	  display: flex;
+	flex-direction: column;
+	top: 0; left: 0; bottom: 0;
+	  transform: translate3d (0, 0, 0);
+}
+
+/* #fae787 = yellow */
+.header .navbar .menu-item a::hover { color: #fae787 }
+
+
+/* make the side bar adjust to the page size */
+.header .navbar .menu-item.has-collapsible { position: relative; }
+	
+ /* Makes the sidebar retract */
+.header .navbar .menu-item.has-collapsible .menu-child { display: none; }
+
+.header .navbar .menu-item.active.has-collapsible .menu-child { 
+	display: block;
+	-webkit-transition: .4s;
+	transition: all 0.4s ease;
+}
+	
 </style>
   
 <script>
