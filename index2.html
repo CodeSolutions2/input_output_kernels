@@ -135,8 +135,24 @@ window.addEventListener('beforeunload', function() {
 
 // -------------------------------------------------
 
+document.querySelector(".open-menu").addEventListener('click', processEvent_click_OpenMenu, false);
+
+async function processEvent_click_OpenMenu(event) {
+	document.querySelector(".menu-wrapper").classlist.add('offcanvas');
+}
+	
+// -------------------------------------------------
+
+document.querySelector(".close-menu").addEventListener('click', processEvent_click_CloseMenu, false);
+
+async function processEvent_click_CloseMenu(event) {
+	document.querySelector(".menu-wrapper").classlist.remove('offcanvas');
+}
+
+// -------------------------------------------------
 
 
+// -------------------------------------------------
 
   
 </script>
