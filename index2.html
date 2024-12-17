@@ -19,7 +19,7 @@
 
   <ul class="menu">
   
-    <li class="menu-block"><span class="close-menu">CloseMenu</span></li>
+    <li class="menu-block"><span class="close-menu">x</span></li>
     
     <li class="menu-item"><a href="#" class="menu-link">Main topic 0</a></li>
     
@@ -56,6 +56,8 @@
    text-rendering: optimizeLegibility;
 }
 
+.body { overflow: hidden; }
+	
 .open-menu, .close-menu {
   cursor: pointer;
   border: none;
@@ -143,16 +145,17 @@
 }
 	
 
-.header .navbar .menu-link::hover { color: var(--highlight-color); }
+.header .navbar .menu-link::hover { color: var(--main-color); }
 
 .header .navbar .menu-item { position: relative; }
 .header .navbar .menu-item a { 
 	font-size: 16px;
 	text-transform: uppercase;
 	display: block;
-	color: var(--highlight-color);
+	color: var(--main-color);
 	transition: color 0.4s ease-out;
 }
+.header .navbar .menu-item a:hover { color: var(--highlight-color); }
 	
 /* make the side bar adjust to the page size */
 .header .navbar .menu-item.has-collapsible { position: relative; }
