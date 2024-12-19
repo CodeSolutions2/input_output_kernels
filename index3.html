@@ -3,6 +3,8 @@
 <head></head>
 <body>
 
+
+	
 <nav id="navbar">
 
 <!-- ------------------------------------- -->
@@ -21,7 +23,7 @@
 
 </div>
 
-<p id="navbar_header_PToggle">⛔</p>
+<p id="navbar_header_PToggle">⛔</p>	
 	
 </header>
 <!-- ------------------------------------- -->
@@ -121,7 +123,7 @@ async function processEvent_click_toggle(event) {
 	// console.log('event: ', event);
 	
 	// Change the width of the navbar
-	if (document.getElementById("navbar").style.width == 0) {
+	if (document.getElementById("navbar").style.width == "0px") {
 		// Sidebar is closed, so open 
 		document.getElementById("navbar").style.width = "250px";
 	} else {
