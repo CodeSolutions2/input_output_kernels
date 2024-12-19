@@ -12,18 +12,11 @@
 <header>
 
 <div id="navbar_header_DivContainer">
-	
 <!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-<span id="navbar_header_DivContainer_Spanimage">☰</span>
-
-<!-- HEADER : text on right side -->
-<div id="navbar_header_DivContainer_DivText">
-<span id="navbar_header_DivContainer_DivText_SpanMain">Sidebar Title</span>
+<span>☰</span>
+<span>Sidebar Title</span>
+<span id="toggle">⛔</span>
 </div>
-
-</div>
-
-<p id="navbar_header_PToggle">⛔</p>	
 	
 </header>
 <!-- ------------------------------------- -->
@@ -63,45 +56,23 @@
 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
 }
 	
-#navbar_header_DivContainer_Spanimage {
-  /* display: flex; */
-  /* align-items: center; */
- /*  justify-content: space-between; */
-	/*  position: relative;*/
-  /* width: 100%;
-  height: auto;
-  padding: 12px 24px;
-  color: var(--main-color); 
-  background: #fff;  */
-}
-
-#navbar_header_DivContainer_DivText_SpanMain {
-  border: none;
-  outline: none;
-  color: var(--main-color);
-}
-
-	
-
-#navbar_header_PToggle {
-	position: absolute; /*  position: relative; */
-	top: 50%; /* makes toggle icon centered vertically */
-	right: 0.85px; 
-	border: none;
-	outline: none;
-	color: var(--main-color);  /* var(--sidebar-color); */
-	backgroud: none;
+#navbar_header_DivContainer {
 	display: flex;
-	  align-items: center;
-	transform: translateY(-50%) rotate(180deg);
-	/*   height: 25px;
-	  width: 25px;
-	  background-color: var(--dark-color);*/
-	  border-radius: 50%;
-	font-size: 22px; 
-	justify-content: center;
-	/*   margin-bottom: 48px; */
+	align-items: center;
+	justify-content: space-between;
+	/*  position: relative;*/
+	/* width: 100%;
+	height: auto;
+	padding: 12px 24px;
+	color: var(--main-color); 
+	background: #fff;  */
 }
+
+span {
+	padding: 10px;
+	background-color: #92a892;
+}
+	
 
 
 
@@ -119,7 +90,7 @@ window.addEventListener('beforeunload', function() {
 
 // -------------------------------------------------
 
-document.getElementById("navbar_header_PToggle").addEventListener('click', processEvent_click_toggle, false);
+document.getElementById("toggle").addEventListener('click', processEvent_click_toggle, false);
 
 async function processEvent_click_toggle(event) {
 	
@@ -127,10 +98,13 @@ async function processEvent_click_toggle(event) {
 	
 	// Change the width of the navbar
 	if (document.getElementById("navbar").style.width == "0px") {
-		// Sidebar is closed, so open 
+		// Open sidebar
 		document.getElementById("navbar").style.width = "250px";
+		document.getElementById("navbar_header_DivContainer").style.display = "block";
 	} else {
+		// Close sidebar
 		document.getElementById("navbar").style.width = "0px";
+		document.getElementById("navbar_header_DivContainer").style.display = "none";
 	}
 }
 
