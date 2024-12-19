@@ -4,17 +4,19 @@
 <body>
 
 <nav id="navbar">
-
+<span id="toggle_open">⛔</span>
 <!-- ------------------------------------- -->
 <!-- HEADER : the first row of the sidebar -->
 <header>
 
-<div id="navbar_header_DivContainer">
-<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-<span>☰</span>
-<span>Sidebar Title</span>
-<span id="toggle">⛔</span>
-</div>
+	<div id="navbar_header_DivContainer">
+	<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
+	<span>☰</span>
+	<span>Sidebar Title</span>
+	<span id="toggle_close">⛔</span>
+	</div>
+
+
 	
 </header>
 <!-- ------------------------------------- -->
@@ -72,9 +74,7 @@
 
 span { padding: 10px; }
 	
-#toggle {
-	right: 10px;
-}
+#toggle_open { display: none; top: 0px; right: 0px; }
 
 
 
@@ -91,25 +91,37 @@ window.addEventListener('beforeunload', function() {
 
 // -------------------------------------------------
 
-document.getElementById("toggle").addEventListener('click', processEvent_click_toggle, false);
+document.getElementById("toggle_close").addEventListener('click', processEvent_click_toggle, false);
 
-async function processEvent_click_toggle(event) {
+async function processEvent_click_toggle_close(event) {
 	
 	// console.log('event: ', event);
 	
-	// Change the width of the navbar
-	if (document.getElementById("navbar").style.width == "0px") {
+	// Close sidebar
+	document.getElementById("navbar").style.width = "0px";
+	document.getElementById("navbar_header_DivContainer").style.display = "none";
+	
+	// Make toggle_open block
+	document.getElementById("toggle_open").style.display = "block";
+	
+}
+
+// -------------------------------------------------
+
+document.getElementById("toggle_open").addEventListener('click', processEvent_click_toggle, false);
+
+async function processEvent_click_toggle_open(event) {
+	
+	// console.log('event: ', event);
+	
 		// Open sidebar
 		document.getElementById("navbar").style.width = "250px";
 		document.getElementById("navbar_header_DivContainer").style.display = "block";
-	} else {
-		// Close sidebar
-		document.getElementById("navbar").style.width = "0px";
-		document.getElementById("navbar_header_DivContainer").style.display = "none";
-	}
+	
+	// Make toggle_open none
+		document.getElementById("toggle_open").style.display = "none";
 }
 
-	
 // -------------------------------------------------
 
   
