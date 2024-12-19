@@ -3,51 +3,30 @@
 <head></head>
 <body>
 
-<nav class="navbar">
+<nav id="navbar">
 
 <!-- ------------------------------------- -->
 <!-- HEADER : the first row of the sidebar -->
-<header class="header">
+<header>
 
-<div class="header-container">
+<div id="navbar_header_DivContainer">
 	
 <!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-<span class="header-image">📕
-<!--<svg xmlns="http://www.w3/org/2000/svg" width="24" height="16"> -->
-<!--<g fill="#252a32" fill-rule="evenodd"><path d="M0 0h24v2H0zM0 7h24v2H0zM0 14h24v2H0z" /></g> -->
-<!--</svg> -->
-</span>
+<span id="navbar_header_DivContainer_Spanimage">☰</span>
 
 <!-- HEADER : text on right side -->
-<div class="header-text">
-<span class="main">Sidebar Title</span>
+<div id="navbar_header_DivContainer_DivText">
+<span id="navbar_header_DivContainer_DivText_SpanMain">Sidebar Title</span>
 </div>
 
 </div>
 
-<p class="toggle" id="openClose_toggle">⛔</p>
+<p id="navbar_header_PToggle">⛔</p>
 	
 </header>
 <!-- ------------------------------------- -->
 
 
-	
-<div class="row-items">
-
-  <ul class="menu">
-  
-    <li class="menu-item"><a href="#" class="menu-link">Main topic 0</a></li>
-    
-    <li class="menu-item has-collapsible"><a href="#" class="menu-link">Main topic 1</a>
-	<ul class="menu-child">
-		<li class="menu-child-item"><a href="#">Sub topic 0</a></li>
-		<li class="menu-child-item"><a href="#">Sub topic 1</a></li>
-	</ul>
-    </li>
-
-  </ul>
-
-</div>
 
 </nav>
 
@@ -58,40 +37,32 @@
 /* orange = #ed6c2f*/
 :root {
 	--main-color: #2d4539;
-       --highlight-color: #ed6c2f;
+	--highlight-color: #ed6c2f;
 }
 	
 *, *::before, *::after {
 	margin: 0; 
 	padding: 0; 
-   box-sizing: border-box; 
-   list-style: none;
-   -moz-osx-font-smoothing: grayscale;
-   -webkit-font-smoothing: antialiased;
-   text-rendering: optimizeLegibility;
+	box-sizing: border-box; 
 }
 
 
-/* html { interpolate-size: allow; } */
-
-/* body { } */
-
-.navbar {
+#navbar {
   position: fixed;
   top: 0;
   left: 0px;
   height: 100%;
-  width: 250px;  /* 0 */
+  width: 250px;  /* sidebar closed = 0px, sidebar open = 250px */
   /* background-color: var(--sidebar-color); */
   padding: 10px 14px;
   transition: all 0.2s ease;
 }
 	
-.navbar .header {
+#navbar_header_DivContainer_Spanimage {
   /* display: flex; */
   /* align-items: center; */
  /*  justify-content: space-between; */
-	position: relative;
+	/*  position: relative;*/
   /* width: 100%;
   height: auto;
   padding: 12px 24px;
@@ -99,7 +70,7 @@
   background: #fff;  */
 }
 
-.navbar .header .header-container {
+#navbar_header_DivContainer_DivText_SpanMain {
   border: none;
   outline: none;
   color: var(--main-color);
@@ -107,10 +78,10 @@
 
 	
 
-.navbar .header .toggle {
+#navbar_header_PToggle {
 	position: absolute; /*  position: relative; */
 	top: 50%; /* makes toggle icon centered vertically */
-	right: 1px; /*  right: -25px;   */
+	right: 0.85px; 
 	border: none;
 	outline: none;
 	color: var(--main-color);  /* var(--sidebar-color); */
@@ -128,99 +99,7 @@
 }
 
 
-	
-	
-/* ------------------------------------------------- */
-/*              CLOSE THE NAVBAR ONCLICK             */
-/* ------------------------------------------------- */
-/* Way 0 - use offcanvas */
-/* 
-.navbar .row-items.offcanvas .menu { 
-  transform: translate3d (0, -50%, 0);
-  transition-duration: 0.7s;
-  transition-delay: 0.2s;
-}
-*/
-	
-/* Insert this content before <div> row-items.offcanvas element */
-/*
-.navbar .row-items.offcanvas::before { 
-	backgroud: rgba(37, 42, 50, 0.6);
-	z-index: 1;
-}
-*/
 
-/* Way 1 - use close */
-.navbar.close { width: 78px; }
-
-.navbar.close .header .toggle { transform: translateY(-50%); }
-	
-/* ------------------------------------------------- */
-
-	
-
-/* Insert this content before <div> row-items element */
-.navbar .row-items::before { 
-  content: "";
-  position: fixed; 
-  top: 10; left: 0; right: ; bottom: 0;
-  z-index: -1;
-  transition: background 0.5s;
-}
-	
-.navbar .row-items .menu {
-	position: fixed;
-	display: flex;
-	flex-direction: column;
-	top: 0; left: 0; bottom: 0;
-	max-width: 200px;
-	width: 100%;
-	padding: 25.6px 16px;
-	z-index: 1;
-	overflow-y: auto;
-	color: var(--main-color);
-	backgroud: #fff;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
-	transform: translate3d (0, -100%, 0);
-	transition-timing-function: cubic-bezier (0.23, 1, 0.32, 1);
-}
-
-
-
-.navbar .row-items .menu .menu-item .menu-link {
-	font-size: 16px;
-	text-transform: uppercase;
-	transition: color 0.4s ease-out;
-}
-
-.navbar .row-items .menu .menu-item .menu-link::hover { color: var(--main-color); }
-
-.navbar .row-items .menu .menu-item { position: relative; }
-	
-.navbar .row-items .menu .menu-item a { 
-	font-size: 16px;
-	text-transform: uppercase;
-	display: block;
-	color: var(--main-color);
-	transition: color 0.4s ease-out;
-}
-
-.navbar .row-items .menu .menu-item a:hover { color: var(--highlight-color); }
-	
-/* make the side bar adjust to the page size */
-.navbar .row-items .menu .menu-item.has-collapsible { position: relative; }
-	
- /* Makes the sub_menu_items flip-up */
-.navbar .row-items .menu .menu-item.has-collapsible .menu-child { display: none; }
-
-.navbar .row-items .menu .menu-item.active.has-collapsible .menu-child { 
-	display: block;
-	transition: all 0.4s ease;
-}
-
-.navbar .row-items .menu .menu-item.active.has-collapsible span::after {
-	transform: rotate(90deg);
-}
 
 	
 </style>
@@ -235,26 +114,21 @@ window.addEventListener('beforeunload', function() {
 
 // -------------------------------------------------
 
-// document.querySelector(".navbar").addEventListener('click', processEvent_click_OpenNavbar, false);
+document.getElementById("navbar_header_PToggle").addEventListener('click', processEvent_click_toggle, false);
 
-document.getElementById("openClose_toggle").addEventListener('click', processEvent_click_OpenNavbar, false);
-
-async function processEvent_click_OpenNavbar(event) {
-	// document.querySelector(".navbar").classList.add('offcanvas');
-	// OR
-	// document.querySelector(".navbar").classList.toggle('close');
-
-	console.log('event: ', event);
+async function processEvent_click_toggle(event) {
 	
+	// console.log('event: ', event);
+	
+	// Change the width of the navbar
+	if (document.getElementById("navbar").style.width == 0) {
+		// Sidebar is closed, so open 
+		document.getElementById("navbar").style.width = 250px;
+	} else {
+		document.getElementById("navbar").style.width = 0px;
+	}
 }
 
-// -------------------------------------------------
-
-document.querySelector(".has-collapsible").addEventListener('click', processEvent_click_HasCollapsible, false);
-
-async function processEvent_click_HasCollapsible(event) {
-	document.querySelector(".has-collapsible").classList.toggle('active');
-}
 	
 // -------------------------------------------------
 
