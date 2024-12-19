@@ -9,17 +9,23 @@
 <!-- HEADER : the first row of the sidebar -->
 <header class="header">
 
-
+<div class="header-container">
+	
 <!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-<span class="row-header">  
-<svg xmlns="http://www.w3/org/2000/svg" width="24" height="16">
-<g fill="#252a32" fill-rule="evenodd"><path d="M0 0h24v2H0zM0 7h24v2H0zM0 14h24v2H0z" /></g>
-</svg>
+<span class="header-image">📕
+<!--<svg xmlns="http://www.w3/org/2000/svg" width="24" height="16"> -->
+<!--<g fill="#252a32" fill-rule="evenodd"><path d="M0 0h24v2H0zM0 7h24v2H0zM0 14h24v2H0z" /></g> -->
+<!--</svg> -->
 </span>
 
 <!-- HEADER : text on right side -->
-<h1>Title</h1>
+<div class="header-text">
+<span class="main">Sidebar Title</span>
+</div>
 
+</div>
+
+<p class="toggle">⛔</p>
 	
 </header>
 <!-- ------------------------------------- -->
@@ -30,8 +36,6 @@
 
   <ul class="menu">
   
-    <li class="toggle">CLICK TO OPEN/CLOSE</li>
-    
     <li class="menu-item"><a href="#" class="menu-link">Main topic 0</a></li>
     
     <li class="menu-item has-collapsible"><a href="#" class="menu-link">Main topic 1</a>
@@ -84,14 +88,14 @@
   background: #fff;  */
 }
 
-.navbar .header .row-header {
+.navbar .header .header-container {
   cursor: pointer;
   border: none;
   outline: none;
   color: var(--main-color);
 }
 
-.navbar .row-items .menu .toggle {
+.navbar .header .toggle {
 	cursor: pointer;
 	position: absolute; /*  position: relative; */
 	top: 0; /*  top: 50%; */
@@ -119,22 +123,26 @@
 /*              CLOSE THE NAVBAR ONCLICK             */
 /* ------------------------------------------------- */
 /* Way 0 - use offcanvas */
+/* 
 .navbar .row-items.offcanvas .menu { 
   transform: translate3d (0, -50%, 0);
   transition-duration: 0.7s;
   transition-delay: 0.2s;
 }
-
+*/
+	
 /* Insert this content before <div> row-items.offcanvas element */
+/*
 .navbar .row-items.offcanvas::before { 
 	backgroud: rgba(37, 42, 50, 0.6);
 	z-index: 1;
 }
+*/
 
 /* Way 1 - use close */
 .navbar.close { width: 78px; }
 
-.navbar.close .row-items .menu .toggle { transform: translateY(-50%); }
+.navbar.close .header .toggle { transform: translateY(-50%); }
 	
 /* ------------------------------------------------- */
 
