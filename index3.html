@@ -41,7 +41,10 @@
 	box-sizing: border-box; 
 }
 
-
+.header {
+	border: 1px;
+}
+	
 #navbar {
   position: fixed;
   top: 0;
@@ -99,7 +102,7 @@ async function processEvent_click_toggle(event) {
 	// Change the width of the navbar
 	if (document.getElementById("navbar").style.width == "0px") {
 		// Open sidebar
-		document.getElementById("navbar").style.width = "250px";
+		document.getElementById("navbar").style.width = "230px";
 		document.getElementById("navbar_header_DivContainer").style.display = "block";
 	} else {
 		// Close sidebar
