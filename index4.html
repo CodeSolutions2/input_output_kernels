@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<nav id="navbar">
+<span id="toggle_open">⛔</span>
+<!-- ------------------------------------- -->
+<!-- HEADER : the first row of the sidebar -->
+<header>
+
+	<div id="navbar_header_DivContainer">
+	<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
+	<span>☰</span>
+	<span>Sidebar Title</span>
+	<span id="toggle_close">⛔</span>
+	</div>
+
+
+	
+</header>
+<!-- ------------------------------------- -->
+
+
+
+</nav>
+
+<!-- ------------------------------------- -->
+	
+<style>
+/* dark green = #2d4539  */
+/* orange = #ed6c2f*/
+:root {
+	--main-color: #2d4539;
+	--highlight-color: #ed6c2f;
+}
+	
+*, *::before, *::after {
+	margin: 0; 
+	padding: 0; 
+	box-sizing: border-box; 
+}
+
+.header {
+	border: 1px;
+	background-color: #92a892;
+}
+	
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0px;
+	display: flex;
+	flex-direction: column;
+  height: 100%;
+  width: 250px;  /* sidebar closed = 0px, sidebar open = 250px */
+  /* background-color: var(--sidebar-color); */
+  padding: 10px 14px;
+  transition: all 0.2s ease;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
+}
+	
+#navbar_header_DivContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/*  position: relative;*/
+	/* width: 100%;
+	height: auto;
+	padding: 12px 24px;
+	color: var(--main-color); 
+	background: #fff;  */
+}
+
+span { padding: 10px; }
+	
+#toggle_open { display: none; top: 0px; left: 0px; }
+
+
+
+	
+</style>
+  
+<script>
+  
+// -----------------------------------------
+	
+window.addEventListener('beforeunload', function() {
+	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
+});
+
+// -------------------------------------------------
+
+document.getElementById("toggle_close").addEventListener('click', processEvent_click_toggle_close, false);
+
+async function processEvent_click_toggle_close(event) {
+	
+	// console.log('event: ', event);
+	
+	// Close sidebar
+	document.getElementById("navbar").style.width = "0px";
+	document.getElementById("navbar_header_DivContainer").style.display = "none";
+	
+	// Make toggle_open block
+	document.getElementById("toggle_open").style.display = "block";
+	
+}
+
+// -------------------------------------------------
+
+document.getElementById("toggle_open").addEventListener('click', processEvent_click_toggle_open, false);
+
+async function processEvent_click_toggle_open(event) {
+	
+	// console.log('event: ', event);
+	
+		// Open sidebar
+		document.getElementById("navbar").style.width = "250px";
+		document.getElementById("navbar_header_DivContainer").style.display = "block";
+	
+	// Make toggle_open none
+		document.getElementById("toggle_open").style.display = "none";
+}
+
+// -------------------------------------------------
+
+  
+</script>
+</body>
+</html>
