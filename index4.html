@@ -25,7 +25,7 @@
 	<ul>
 		<li>
 			<a href="#" class="active" id="entry0">
-				<span class="icon"><i class="fas fa-volcano"></i></span>
+				<span class="icon"><i class="fas fa-volcano"></i>Text</span>
 				<span class="icontext">Observation 0: Disaster and Data</span>
 			</a>
 		</li>
@@ -96,20 +96,22 @@
 	background: #fff;  */
 }
 
-span { padding: 10px; background: var(--light-green); }
+span { padding: 10px; }
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
 /*  Remove the bullet points from the unlabel list */
 #navbar_DivMainContainer ul { list-style-type: none; }
 	
-#navbar_DivMainContainer ul li a{
-    display: block;
-    padding: 20px;
-    /* color: #fff; */
-    position: relative;
-    margin-bottom: 1px;
-    white-space: nowrap;
+#navbar_DivMainContainer ul li a {
+	background: var(--light-green);
+	/* color: #fff; */
+	display: block;
+	margin-bottom: 1px;
+	padding: 20px;
+	position: relative;
+    	text-align: center;
+	white-space: nowrap;
 }
 	
 #navbar_DivMainContainer ul li a:before{
@@ -119,20 +121,19 @@ span { padding: 10px; background: var(--light-green); }
   left: 0;
   width: 3px;
   height: 100%;
-  background: var(--light-green);
+  background: var(--dark-green);  /* changes the color at the left edge of the icon row */
   display: none;
 }
 
-	
-#navbar_DivMainContainer ul li a span.icon{ margin-right: 10px; display: inline-block; }
+#navbar_DivMainContainer ul li a span.icon{ margin: 0; margin-right: 10px; display: inline-block; }
 #navbar_DivMainContainer ul li a span.icontext{ display: inline-block; }
-/* ul li a.hover{ background: #4360b5; color: #fff; } */
-/* ul li a.active{ background: #4360b5; color: #fff; } */
+	
+#navbar_DivMainContainer ul li a.hover{ background: #4360b5; color: #fff; }
+#navbar_DivMainContainer ul li a.active{ background: #4360b5; color: #fff; }
+	
 #navbar_DivMainContainer ul li a.hover:before{ display: block; }
 #navbar_DivMainContainer ul li a.active:before{ display: block; }
-#navbar_DivMainContainer ul li a{ text-align: center; }
-#navbar_DivMainContainer ul li a span.icon{ margin: 0; }
-#navbar_DivMainContainer ul li a span.icontext{ display: none; }
+
 	
 </style>
 
