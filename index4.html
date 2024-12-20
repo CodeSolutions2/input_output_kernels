@@ -22,9 +22,15 @@
 <br><br>
 	
 <div id="navbar_DivMainContainer">
-  <ul>
-  <li><a href="#" class="active" id="entry0"><span class="icon"><i class="fas fa-volcano"></i></span><span class="icontext">Observation 0: Disaster and Data</span></a></li>
-  <li><a href="#" class="active" id="entry1"><span class="icon"><i class="fas fa-robot"></i></span><span class="icontext">Observation 1: Self-evolution through transformation</span></a></li>
+	<ul>
+		<li>
+			<a href="#" class="active" id="entry0">
+				<span class="icon"><i class="fas fa-volcano"></i></span>
+				<span class="icontext">Observation 0: Disaster and Data</span>
+			</a>
+		</li>
+  
+	<li><a href="#" class="active" id="entry1"><span class="icon"><i class="fas fa-robot"></i></span><span class="icontext">Observation 1: Self-evolution through transformation</span></a></li>
     <li><a href="#" class="active" id="entry2"><span class="icon"><i class="fas fa-money-bills"></i></span><span class="icontext">Observation 2: Ironic importance of debit</span></a></li>
     <li><a href="#" class="active" id="entry3"><span class="icon"><i class="fas fa-gifts"></i></span><span class="icontext">Observation 3: Your problems are your Secret Gifts</span></a></li>
     <li><a href="#" class="active" id="entry4"><span class="icon"><i class="fas fa-star-of-life"></i></span><span class="icontext">Observation 4: Take responsibility for your life</span></a></li>
@@ -96,6 +102,9 @@ span { padding: 10px; }
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
+/*  Remove the bullet points from the unlabel list */
+#navbar_DivMainContainer ul { list-style-type: none; }
+	
 #navbar_DivMainContainer ul li a{
     display: block;
     padding: 20px;
