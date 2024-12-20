@@ -93,9 +93,8 @@
 	flex-direction: column;
 	height: 100%;
 	width: 250px;  /* sidebar closed = 0px, sidebar open = 250px */
-  padding: 10px 14px;
-  transition: all 0.2s ease;
-	
+	padding: 10px 14px;
+	transition: all 0.2s ease;
 }
 	
 #navbar_header_DivContainer {
@@ -110,13 +109,13 @@
 	background: #fff;  */
 }
 
-#navbar_DivMainContainer {
+.navbar_DivMainContainer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	/*  position: relative;*/
-	/* width: 100%;
-	height: auto;
+	position: relative;
+	width: 250px;
+	/* height: auto;
 	padding: 12px 24px;
 	color: var(--dark-green); 
 	background: #fff;  */
@@ -127,10 +126,10 @@ span { padding: 10px; }
 #toggle_open { display: none; top: 0px; left: 0px; }
 
 /*  Remove the bullet points from the unlabel list */
-#navbar_DivMainContainer ul { list-style-type: none; }
+.navbar_DivMainContainer_class ul { list-style-type: none; }
 
 /* Appearance of icons without cursor interaction */
-#navbar_DivMainContainer ul li a {
+.navbar_DivMainContainer_class ul li a {
 	background: var(--mid-green); /* icon row background color */
 	color: var(--light-grey); /* icon and icontext color */
 	display: block;
@@ -141,7 +140,7 @@ span { padding: 10px; }
 	white-space: nowrap;
 }
 	
-#navbar_DivMainContainer ul li a:before {
+.navbar_DivMainContainer_class ul li a:before {
 	background: var(--dark-green);  /* icon row background color - left edge of the icon row */
 	content: "";
 	display: none;
