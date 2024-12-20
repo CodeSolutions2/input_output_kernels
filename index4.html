@@ -4,7 +4,7 @@
 <body>
 
 <nav id="navbar">
-<span id="toggle_open">⛔</span>
+<span id="toggle_open">⛔<b style="color: #6e130c;">Open/Close</b></span>
 <!-- ------------------------------------- -->
 <!-- HEADER : the first row of the sidebar -->
 <header>
@@ -21,24 +21,24 @@
 	
 <div id="navbar_DivMainContainer">
 	<div id="navbar_DivMainContainer_entry0">
-		<span><i class="fas fa-volcano"></i></span>
-		<span>Observation 0: Disaster and Data</span>
+		<span><i class="fas fa-temperature-4"></i></span>
+		<span>Main topic 0</span>
 	</div>
 	<div id="navbar_DivMainContainer_entry1">
-		<span><i class="fas fa-robot"></i></span>
-		<span>Observation 1: Self-evolution through transformation</span>
+		<span><i class="fas fa-mountain-sun"></i></span>
+		<span>Main topic 1</span>
 	</div>
 	<div id="navbar_DivMainContainer_entry2">
-		<span><i class="fas fa-money-bills"></i></span>
-		<span>Observation 2: Ironic importance of debit</span>
+		<span><i class="fas fa-share-square"></i></span>
+		<span>Main topic 2</span>
 	</div>
 	<div id="navbar_DivMainContainer_entry3">
-		<span><i class="fas fa-gifts"></i></span>
-		<span>Observation 3: Your problems are your Secret Gifts</span>
+		<span><i class="fas fa-magnifying-glass-plus"></i></span>
+		<span>Main topic 3</span>
 	</div>
 	<div id="navbar_DivMainContainer_entry4">
-		<span><i class="fas fa-star-of-life"></i></span>
-		<span>Observation 4: Take responsibility for your life</span>
+		<span><i class="fas fa-arrow-turn-down"></i></span>
+		<span>Main topic 4</span>
 	</div>
 </div>
   
@@ -128,9 +128,6 @@ window.addEventListener('beforeunload', function() {
 document.getElementById("toggle_close").addEventListener('click', processEvent_click_toggle_close, false);
 
 async function processEvent_click_toggle_close(event) {
-	
-	// console.log('event: ', event);
-	
 	// Close sidebar
 	document.getElementById("navbar").style.width = "0px";
 	document.getElementById("navbar_header_DivContainer").style.display = "none";
@@ -145,9 +142,6 @@ async function processEvent_click_toggle_close(event) {
 document.getElementById("toggle_open").addEventListener('click', processEvent_click_toggle_open, false);
 
 async function processEvent_click_toggle_open(event) {
-	
-	// console.log('event: ', event);
-	
 	// Open sidebar
 	document.getElementById("navbar").style.width = "250px";
 	document.getElementById("navbar_header_DivContainer").style.display = "block";
@@ -182,6 +176,86 @@ document.getElementById("navbar_DivMainContainer_entry0").addEventListener('clic
 async function processEvent_click_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
 	document.getElementById("navbar_DivMainContainer_entry0").style.color = light_grey;
+}
+	
+// -------------------------------------------------
+
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('mouseover', processEvent_mouseover_entry1, false);
+async function processEvent_mouseover_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('mouseleave', processEvent_mouseleave_entry1, false);
+async function processEvent_mouseleave_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('click', processEvent_click_entry1, false);
+async function processEvent_click_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = light_grey;
+}
+	
+// -------------------------------------------------
+
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('mouseover', processEvent_mouseover_entry2, false);
+async function processEvent_mouseover_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('mouseleave', processEvent_mouseleave_entry2, false);
+async function processEvent_mouseleave_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('click', processEvent_click_entry2, false);
+async function processEvent_click_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = light_grey;
+}
+	
+// -------------------------------------------------
+
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('mouseover', processEvent_mouseover_entry3, false);
+async function processEvent_mouseover_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('mouseleave', processEvent_mouseleave_entry3, false);
+async function processEvent_mouseleave_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('click', processEvent_click_entry3, false);
+async function processEvent_click_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = light_grey;
+}
+	
+// -------------------------------------------------
+
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('mouseover', processEvent_mouseover_entry4, false);
+async function processEvent_mouseover_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('mouseleave', processEvent_mouseleave_entry4, false);
+async function processEvent_mouseleave_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('click', processEvent_click_entry4, false);
+async function processEvent_click_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = light_grey;
 }
 	
 // -------------------------------------------------
