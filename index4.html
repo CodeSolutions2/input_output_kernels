@@ -11,9 +11,8 @@
 
 	<div id="navbar_header_DivContainer">
 	<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-	<span>☰</span>
-	<span>Sidebar Title</span>
-	<span id="toggle_close">⛔</span>
+	<span>Webapp Sections</span>
+	<span id="toggle_close">⛔<b style="color: red;">Open/Close</b></span>
 	</div>
 	
 </header>
@@ -63,7 +62,7 @@
 }
 	
 #navbar {
-	background-color: var(--mid-grey);
+	background-color: var(--light-green);
 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
 	position: fixed;
 	top: 0;
@@ -83,7 +82,7 @@ header { background-color: var(--light-grey); }
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	width: 100%;
+	width: 100%; /* make the width of the container be within the width of the navbar */
 	height: auto;
 }
 
@@ -163,11 +162,13 @@ const dark_text = "#000000";
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseleave', processEvent_mouseleave_entry0, false);
 async function processEvent_mouseleave_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('click', processEvent_click_entry0, false);
