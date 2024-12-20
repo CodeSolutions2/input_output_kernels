@@ -42,11 +42,9 @@
 <!-- ------------------------------------- -->
 	
 <style>
-/* dark green = #2d4539  */
-/* orange = #ed6c2f*/
 :root {
-	--main-color: #2d4539;
-	--highlight-color: #ed6c2f;
+	--dark-green: #2d4539;
+	--light-green: #92a892;
 }
 	
 *, *::before, *::after {
@@ -57,7 +55,7 @@
 
 .header {
 	border: 1px;
-	background-color: #92a892;
+	background-color: var(--light-green);
 }
 	
 #navbar {
@@ -82,7 +80,7 @@
 	/* width: 100%;
 	height: auto;
 	padding: 12px 24px;
-	color: var(--main-color); 
+	color: var(--dark-green); 
 	background: #fff;  */
 }
 
@@ -94,7 +92,7 @@
 	/* width: 100%;
 	height: auto;
 	padding: 12px 24px;
-	color: var(--main-color); 
+	color: var(--dark-green); 
 	background: #fff;  */
 }
 
@@ -121,7 +119,7 @@ span { padding: 10px; }
   left: 0;
   width: 3px;
   height: 100%;
-  /* background: #92a6e2; */
+  background: var(--light-green);
   display: none;
 }
 
