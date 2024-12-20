@@ -77,11 +77,6 @@
 	margin: 0; 
 	padding: 0;
 }
-
-.header {
-	background-color: var(--light-green);
-	border: 1px;
-}
 	
 #navbar {
 	background-color: var(--light-green);
@@ -212,7 +207,18 @@ async function processEvent_click_toggle_open(event) {
 
 // -------------------------------------------------
 
-	
+document.getElementById("entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
+
+async function processEvent_click_toggle_open(event) {
+	document.getElementById("entry0").style.background = "#74a674";
+}
+
+document.getElementById("entry0").addEventListener('click', processEvent_mouseover_entry0, false);
+
+async function processEvent_click_toggle_open(event) {
+	document.getElementById("entry0").style.background = "#2d4539";
+}
+
 	
 // -------------------------------------------------
 // "hover" = Appearance of icons when cursor is on the icon
