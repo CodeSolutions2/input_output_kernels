@@ -11,8 +11,8 @@
 
 	<div id="navbar_header_DivContainer">
 	<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
-	<span>Webapp Sections</span>
-	<span id="toggle_close">⛔<b style="color: #6e130c;">Open/Close</b></span>
+	<span style="text-align: left">Webapp Sections</span>
+	<span id="toggle_close" style="text-align: right">⛔<b style="color: #6e130c;">Open/Close</b></span>
 	</div>
 	
 </header>
@@ -21,8 +21,8 @@
 	
 <div id="navbar_DivMainContainer">
 	<div id="navbar_DivMainContainer_entry0">
-		<span><i class="fas fa-volcano"></i></span>
-		<span>Observation 0: Disaster and Data</span>
+		<span style="text-align: left"><i class="fas fa-volcano"></i></span>
+		<span style="text-align: right">Observation 0: Disaster and Data</span>
 	</div>
 	<div id="navbar_DivMainContainer_entry1">
 		<span><i class="fas fa-robot"></i></span>
@@ -78,7 +78,7 @@ header { background-color: var(--light-grey); }
 #navbar_header_DivContainer {
 	display: flex;
 	align-items: center;
-	text-align: center;
+	/* text-align: center; */
 	justify-content: space-between;
 	position: relative;
 	width: 100%; /* make the width of the container be within the width of the navbar */
@@ -91,7 +91,7 @@ header { background-color: var(--light-grey); }
 	display: flex; /* make the html elements stretch to fit the screen size */
 	flex-direction: column; /* make the html elements stack up in a column */
 	align-items: center; /* make the html elements under the div align center */
-	text-align: center;
+	/* text-align: center; */
 	justify-content: space-between;
 	position: relative;
 	width: 100%; /* make the width of the container be within the width of the navbar */
@@ -182,8 +182,8 @@ async function processEvent_click_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
 	document.getElementById("navbar_DivMainContainer_entry0").style.color = light_grey;
 }
-
 	
+// -------------------------------------------------
 
   
 </script>
