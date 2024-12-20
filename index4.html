@@ -24,10 +24,10 @@
 <div id="navbar_DivMainContainer">
 	<ul>
 		<li>
-			<a href="#" id="entry0">
-				<span id="icon"><i class="fas fa-volcano"></i></span>
-				<span id="icontext">Observation 0: Disaster and Data</span>
-			</a>
+			<div id="navbar_DivMainContainer_entry0">
+				<span><i class="fas fa-volcano"></i></span>
+				<span>Observation 0: Disaster and Data</span>
+			</div>
 		</li>
   
 		<li>
@@ -66,9 +66,9 @@
 	
 <style>
 :root {
-	--dark-green: #2d4539;
-	--mid-green: #74a674;
 	--light-green: #92a892;
+	--mid-green: #74a674;
+	--dark-green: #2d4539;
 	--light-grey: #f2f2f2;
 }
 	
@@ -207,19 +207,23 @@ async function processEvent_click_toggle_open(event) {
 
 // -------------------------------------------------
 
+const light_green = "#92a892";
 const mid_green = "#74a674";
 const dark_green = "#2d4539";
 
-document.getElementById("entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
-
+document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
-	document.getElementById("entry0").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.background = mid_green;
 }
 
-document.getElementById("entry0").addEventListener('click', processEvent_click_entry0, false);
+document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseleave', processEvent_mouseleave_entry0, false);
+async function processEvent_mouseleave_entry0(event) {
+	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
+}
 
+document.getElementById("navbar_DivMainContainer_entry0").addEventListener('click', processEvent_click_entry0, false);
 async function processEvent_click_entry0(event) {
-	document.getElementById("entry0").style.background = dark_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.background = dark_green;
 }
 
 	
