@@ -78,18 +78,20 @@ header { background-color: var(--light-grey); }
 #navbar_header_DivContainer {
 	display: flex;
 	align-items: center;
+	text-align: center;
 	justify-content: space-between;
 	position: relative;
 	width: 100%; /* make the width of the container be within the width of the navbar */
 	height: auto;
-	margin-left: none;
-	margin-right: none;
+	border-left: none;
+	border-right: none;
 }
 
 #navbar_DivMainContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	display: flex; /* make the html elements stretch to fit the screen size */
+	flex-direction: column; /* make the html elements stack up in a column */
+	align-items: center; /* make the html elements under the div align center */
+	text-align: center;
 	justify-content: space-between;
 	position: relative;
 	width: 100%; /* make the width of the container be within the width of the navbar */
@@ -98,9 +100,10 @@ header { background-color: var(--light-grey); }
 	background-color: var(--light-green);
 }
 
-span { padding: 10px;
-      display: block;
-     }
+span { 
+	padding: 10px;
+	display: block; /* make the element with each span align with itself */
+}
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
