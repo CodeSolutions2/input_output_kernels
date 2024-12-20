@@ -21,7 +21,7 @@
 	
 <br><br>
 	
-<div id="navbar_DivMainContainer">
+<div id="navbar_DivMainContainer" class="navbar_DivMainContainer_class">
 	<ul>
 		<li>
 			<a href="#" class="active" id="entry0">
@@ -73,17 +73,19 @@
 }
 	
 *, *::before, *::after {
-	margin: 0; 
-	padding: 0; 
 	box-sizing: border-box; 
+	margin: 0; 
+	padding: 0;
 }
 
 .header {
-	border: 1px;
 	background-color: var(--light-green);
+	border: 1px;
 }
 	
 #navbar {
+	background-color: var(--light-green);
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
 	position: fixed;
 	top: 0;
 	left: 0px;
@@ -91,10 +93,9 @@
 	flex-direction: column;
 	height: 100%;
 	width: 250px;  /* sidebar closed = 0px, sidebar open = 250px */
-  /* background-color: var(--sidebar-color); */
   padding: 10px 14px;
   transition: all 0.2s ease;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
+	
 }
 	
 #navbar_header_DivContainer {
@@ -152,14 +153,14 @@ span { padding: 10px; }
 }
 
 /* "hover" = Appearance of icons when cursor is on the icon */
-#navbar_DivMainContainer ul li a.hover:before{ display: block; }
-#navbar_DivMainContainer ul li a.hover{ background: var(--light-green); color: var(--light-grey); }
-#navbar_DivMainContainer ul li a.hover:after{ background: var(--light-green); display: block; }
+.navbar_DivMainContainer_class ul li a.hover:before{ display: block; }
+.navbar_DivMainContainer_class ul li a.hover{ background: var(--light-green); color: var(--light-grey); }
+.navbar_DivMainContainer_class ul li a.hover:after{ background: var(--light-green); display: block; }
 
 /* "active" = Appearance of icons when cursor clicks on the icon */
-#navbar_DivMainContainer ul li a.active:before{ display: block; }
-#navbar_DivMainContainer ul li a.active{ background: var(--dark-green); color: var(--light-grey); }
-#navbar_DivMainContainer ul li a.active:after{ background: var(--dark-green); display: block; }
+.navbar_DivMainContainer_class ul li a.active:before{ display: block; }
+.navbar_DivMainContainer_class ul li a.active{ background: var(--dark-green); color: var(--light-grey); }
+.navbar_DivMainContainer_class ul li a.active:after{ background: var(--dark-green); display: block; }
 
 #navbar_DivMainContainer ul li a span.icon{ margin: 0; margin-right: 10px; display: inline-block; }
 #navbar_DivMainContainer ul li a span.icontext{ display: inline-block; }
@@ -217,6 +218,12 @@ async function processEvent_click_toggle_open(event) {
 	document.getElementById("entry3").style.display = "block";
 	document.getElementById("entry4").style.display = "block";
 }
+
+// -------------------------------------------------
+
+	
+	
+// -------------------------------------------------
 
 // -------------------------------------------------
 
