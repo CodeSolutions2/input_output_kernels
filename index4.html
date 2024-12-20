@@ -25,15 +25,24 @@
 	<ul>
 		<li>
 			<a href="#" class="active" id="entry0">
-				<span class="icon"><i class="fas fa-volcano"></i>Text</span>
+				<span class="icon"><i class="fas fa-volcano"></i></span>
 				<span class="icontext">Observation 0: Disaster and Data</span>
 			</a>
 		</li>
   
-	<li><a href="#" class="active" id="entry1"><span class="icon"><i class="fas fa-robot"></i></span><span class="icontext">Observation 1: Self-evolution through transformation</span></a></li>
-    <li><a href="#" class="active" id="entry2"><span class="icon"><i class="fas fa-money-bills"></i></span><span class="icontext">Observation 2: Ironic importance of debit</span></a></li>
-    <li><a href="#" class="active" id="entry3"><span class="icon"><i class="fas fa-gifts"></i></span><span class="icontext">Observation 3: Your problems are your Secret Gifts</span></a></li>
-    <li><a href="#" class="active" id="entry4"><span class="icon"><i class="fas fa-star-of-life"></i></span><span class="icontext">Observation 4: Take responsibility for your life</span></a></li>
+		<li>
+			<a href="#" class="active" id="entry1">
+				<span class="icon"><i class="fas fa-robot"></i></span>
+				<span class="icontext">Observation 1: Self-evolution through transformation</span>
+			</a>
+		</li>
+		
+		<li>
+			<a href="#" class="active" id="entry2"><span class="icon"><i class="fas fa-money-bills"></i></span><span class="icontext">Observation 2: Ironic importance of debit</span></a></li>
+		<li>
+			<a href="#" class="active" id="entry3"><span class="icon"><i class="fas fa-gifts"></i></span><span class="icontext">Observation 3: Your problems are your Secret Gifts</span></a></li>
+		<li>
+			<a href="#" class="active" id="entry4"><span class="icon"><i class="fas fa-star-of-life"></i></span><span class="icontext">Observation 4: Take responsibility for your life</span></a></li>
   </ul>
 </div>
   
@@ -44,6 +53,7 @@
 <style>
 :root {
 	--dark-green: #2d4539;
+	--mid-green: #74a674;
 	--light-green: #92a892;
 }
 	
@@ -104,11 +114,11 @@ span { padding: 10px; }
 #navbar_DivMainContainer ul { list-style-type: none; }
 	
 #navbar_DivMainContainer ul li a {
-	background: var(--light-green);
+	background: var(--mid-green);
 	/* color: #fff; */
 	display: block;
 	margin-bottom: 1px;
-	padding: 20px;
+	padding: 10px;
 	position: relative;
     	text-align: center;
 	white-space: nowrap;
@@ -128,8 +138,8 @@ span { padding: 10px; }
 #navbar_DivMainContainer ul li a span.icon{ margin: 0; margin-right: 10px; display: inline-block; }
 #navbar_DivMainContainer ul li a span.icontext{ display: inline-block; }
 	
-#navbar_DivMainContainer ul li a.hover{ background: #4360b5; color: #fff; }
-#navbar_DivMainContainer ul li a.active{ background: #4360b5; color: #fff; }
+#navbar_DivMainContainer ul li a.hover{ background: var(--mid-green); color: #fff; }
+#navbar_DivMainContainer ul li a.active{ background: var(--light-green); color: #fff; }
 	
 #navbar_DivMainContainer ul li a.hover:before{ display: block; }
 #navbar_DivMainContainer ul li a.active:before{ display: block; }
