@@ -18,14 +18,16 @@
 	
 </header>
 <!-- ------------------------------------- -->
-
+	
+<br><br>
+	
 <div id="navbar_DivMainContainer">
   <ul>
-  <li><a href="#" class="active" id="entry0"><span class="icon"><i class="fas fa-volcano"></i></span><span class="title">Observation 0: Disaster and Data</span></a></li>
-  <li><a href="#" class="active" id="entry1"><span class="icon"><i class="fas fa-robot"></i></span><span class="title">Observation 1: Self-evolution through transformation</span></a></li>
-    <li><a href="#" class="active" id="entry2"><span class="icon"><i class="fas fa-money-bills"></i></span><span class="title">Observation 2: Ironic importance of debit</span></a></li>
-    <li><a href="#" class="active" id="entry3"><span class="icon"><i class="fas fa-gifts"></i></span><span class="title">Observation 3: Your problems are your Secret Gifts</span></a></li>
-    <li><a href="#" class="active" id="entry4"><span class="icon"><i class="fas fa-star-of-life"></i></span><span class="title">Observation 4: Take responsibility for your life</span></a></li>
+  <li><a href="#" class="active" id="entry0"><span class="icon"><i class="fas fa-volcano"></i></span><span class="text">Observation 0: Disaster and Data</span></a></li>
+  <li><a href="#" class="active" id="entry1"><span class="icon"><i class="fas fa-robot"></i></span><span class="text">Observation 1: Self-evolution through transformation</span></a></li>
+    <li><a href="#" class="active" id="entry2"><span class="icon"><i class="fas fa-money-bills"></i></span><span class="text">Observation 2: Ironic importance of debit</span></a></li>
+    <li><a href="#" class="active" id="entry3"><span class="icon"><i class="fas fa-gifts"></i></span><span class="text">Observation 3: Your problems are your Secret Gifts</span></a></li>
+    <li><a href="#" class="active" id="entry4"><span class="icon"><i class="fas fa-star-of-life"></i></span><span class="text">Observation 4: Take responsibility for your life</span></a></li>
   </ul>
 </div>
   
@@ -78,12 +80,52 @@
 	background: #fff;  */
 }
 
+#navbar_DivMainContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/*  position: relative;*/
+	/* width: 100%;
+	height: auto;
+	padding: 12px 24px;
+	color: var(--main-color); 
+	background: #fff;  */
+}
+
 span { padding: 10px; }
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
+ul li a{
+    display: block;
+    padding: 20px;
+    /* color: #fff; */
+    position: relative;
+    margin-bottom: 1px;
+    white-space: nowrap;
+}
+	
+ul li a:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  /* background: #92a6e2; */
+  display: none;
+}
 
-
+	
+ul li a span.icon{ margin-right: 10px; display: inline-block; }
+ul li a span.text{ display: inline-block; }
+/* ul li a.hover{ background: #4360b5; color: #fff; } */
+/* ul li a.active{ background: #4360b5; color: #fff; } */
+ul li a.hover:before{ display: block; }
+ul li a.active:before{ display: block; }
+ul li a{ text-align: center; }
+ul li a span.icon{ margin: 0; }
+ul li a span.text{ display: none; }
 	
 </style>
 
