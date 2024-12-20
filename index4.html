@@ -21,7 +21,7 @@
 	
 <br><br>
 	
-<div id="navbar_DivMainContainer" class="navbar_DivMainContainer_class">
+<div id="navbar_DivMainContainer">
 	<ul>
 		<li>
 			<a href="#" class="active" id="entry0">
@@ -109,7 +109,7 @@
 	background: #fff;  */
 }
 
-.navbar_DivMainContainer {
+#navbar_DivMainContainer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -126,10 +126,10 @@ span { padding: 10px; }
 #toggle_open { display: none; top: 0px; left: 0px; }
 
 /*  Remove the bullet points from the unlabel list */
-.navbar_DivMainContainer_class ul { list-style-type: none; }
+#navbar_DivMainContainer_class ul { list-style-type: none; }
 
 /* Appearance of icons without cursor interaction */
-.navbar_DivMainContainer_class ul li a {
+#navbar_DivMainContainer_class ul li a {
 	background: var(--mid-green); /* icon row background color */
 	color: var(--light-grey); /* icon and icontext color */
 	display: block;
@@ -140,7 +140,7 @@ span { padding: 10px; }
 	white-space: nowrap;
 }
 	
-.navbar_DivMainContainer_class ul li a:before {
+#navbar_DivMainContainer_class ul li a:before {
 	background: var(--dark-green);  /* icon row background color - left edge of the icon row */
 	content: "";
 	display: none;
@@ -151,15 +151,7 @@ span { padding: 10px; }
 	width: 3px;
 }
 
-/* "hover" = Appearance of icons when cursor is on the icon */
-.navbar_DivMainContainer_class ul li a.hover:before{ display: block; }
-.navbar_DivMainContainer_class ul li a.hover{ background: var(--light-green); color: var(--light-grey); }
-.navbar_DivMainContainer_class ul li a.hover:after{ background: var(--light-green); display: block; }
 
-/* "active" = Appearance of icons when cursor clicks on the icon */
-.navbar_DivMainContainer_class ul li a.active:before{ display: block; }
-.navbar_DivMainContainer_class ul li a.active{ background: var(--dark-green); color: var(--light-grey); }
-.navbar_DivMainContainer_class ul li a.active:after{ background: var(--dark-green); display: block; }
 
 #navbar_DivMainContainer ul li a span.icon{ margin: 0; margin-right: 10px; display: inline-block; }
 #navbar_DivMainContainer ul li a span.icontext{ display: inline-block; }
@@ -223,7 +215,15 @@ async function processEvent_click_toggle_open(event) {
 	
 	
 // -------------------------------------------------
+// "hover" = Appearance of icons when cursor is on the icon
+// .navbar_DivMainContainer_class ul li a.hover:before{ display: block; }
+// .navbar_DivMainContainer_class ul li a.hover{ background: var(--light-green); color: var(--light-grey); }
+// .navbar_DivMainContainer_class ul li a.hover:after{ background: var(--light-green); display: block; }
 
+// "active" = Appearance of icons when cursor clicks on the icon
+// .navbar_DivMainContainer_class ul li a.active:before{ display: block; }
+// .navbar_DivMainContainer_class ul li a.active{ background: var(--dark-green); color: var(--light-grey); }
+// .navbar_DivMainContainer_class ul li a.active:after{ background: var(--dark-green); display: block; }
 // -------------------------------------------------
 
   
