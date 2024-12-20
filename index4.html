@@ -160,7 +160,11 @@ async function processEvent_click_toggle_close(event) {
 	
 	// Make toggle_open block
 	document.getElementById("toggle_open").style.display = "block";
-	
+	document.getElementById("entry0").style.display = "none";
+	document.getElementById("entry1").style.display = "none";
+	document.getElementById("entry2").style.display = "none";
+	document.getElementById("entry3").style.display = "none";
+	document.getElementById("entry4").style.display = "none";
 }
 
 // -------------------------------------------------
@@ -171,12 +175,17 @@ async function processEvent_click_toggle_open(event) {
 	
 	// console.log('event: ', event);
 	
-		// Open sidebar
-		document.getElementById("navbar").style.width = "250px";
-		document.getElementById("navbar_header_DivContainer").style.display = "block";
-	
+	// Open sidebar
+	document.getElementById("navbar").style.width = "250px";
+	document.getElementById("navbar_header_DivContainer").style.display = "block";
+
 	// Make toggle_open none
-		document.getElementById("toggle_open").style.display = "none";
+	document.getElementById("toggle_open").style.display = "none";
+	document.getElementById("entry0").style.display = "block";
+	document.getElementById("entry1").style.display = "block";
+	document.getElementById("entry2").style.display = "block";
+	document.getElementById("entry3").style.display = "block";
+	document.getElementById("entry4").style.display = "block";
 }
 
 // -------------------------------------------------
