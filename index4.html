@@ -53,6 +53,7 @@
 	--mid-green: #74a674;
 	--dark-green: #2d4539;
 	--light-grey: #f2f2f2;
+	--mid-grey: #c8c8c8;
 }
 	
 *, *::before, *::after {
@@ -61,10 +62,8 @@
 	padding: 0;
 }
 	
-header { background-color: var(--light-grey); }
-	
 #navbar {
-	background-color: var(--light-green);
+	background-color: var(--mid-grey);
 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.24);
 	position: fixed;
 	top: 0;
@@ -76,6 +75,8 @@ header { background-color: var(--light-grey); }
 	padding: 10px 14px;
 	transition: all 0.2s ease;
 }
+
+header { background-color: var(--light-grey); }
 	
 #navbar_header_DivContainer {
 	display: flex;
@@ -94,8 +95,8 @@ header { background-color: var(--light-grey); }
 	position: relative;
 	width: 250px;
 	height: auto;
-	/* color: var(--dark-green); */
-	/* background: #fff; */
+	color: var(--light-grey);
+	background-color: var(--light-green);
 }
 
 span { padding: 10px; }
@@ -155,22 +156,27 @@ async function processEvent_click_toggle_open(event) {
 
 const light_green = "#92a892";
 const mid_green = "#74a674";
-
+const dark_text = "#000000";
+	
 // -------------------------------------------------
 	
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px"; 
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseleave', processEvent_mouseleave_entry0, false);
 async function processEvent_mouseleave_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px";
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('click', processEvent_click_entry0, false);
 async function processEvent_click_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px";
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
 }
 
 	
