@@ -12,7 +12,7 @@
 	<div id="navbar_header_DivContainer">
 	<!-- HEADER : image on left side (this is usually the [threebar-menu] ) -->
 	<span>Webapp Sections</span>
-	<span id="toggle_close">⛔<b style="color: red;">Open/Close</b></span>
+	<span id="toggle_close">⛔<b style="color: #6e130c;">Open/Close</b></span>
 	</div>
 	
 </header>
@@ -49,10 +49,8 @@
 <style>
 :root {
 	--light-green: #92a892;
-	--mid-green: #74a674;
-	--dark-green: #2d4539;
+	--mid-green: #85a185;
 	--light-grey: #f2f2f2;
-	--mid-grey: #c8c8c8;
 }
 	
 *, *::before, *::after {
@@ -84,6 +82,8 @@ header { background-color: var(--light-grey); }
 	position: relative;
 	width: 100%; /* make the width of the container be within the width of the navbar */
 	height: auto;
+	margin-left: none;
+	margin-right: none;
 }
 
 #navbar_DivMainContainer {
@@ -92,13 +92,15 @@ header { background-color: var(--light-grey); }
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	width: 100%;
+	width: 100%; /* make the width of the container be within the width of the navbar */
 	height: auto;
 	color: var(--light-grey);
 	background-color: var(--light-green);
 }
 
-span { padding: 10px; }
+span { padding: 10px;
+      display: block;
+     }
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
@@ -154,27 +156,28 @@ async function processEvent_click_toggle_open(event) {
 // -------------------------------------------------
 
 const light_green = "#92a892";
-const mid_green = "#74a674";
-const dark_text = "#000000";
+const mid_green = "#85a185";
+const dark_grey = "#000000";
+const light_grey = "#f2f2f2";
 	
 // -------------------------------------------------
 	
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = mid_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_grey;
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseleave', processEvent_mouseleave_entry0, false);
 async function processEvent_mouseleave_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = light_grey;
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('click', processEvent_click_entry0, false);
 async function processEvent_click_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
+	document.getElementById("navbar_DivMainContainer_entry0").style.color = light_grey;
 }
 
 	
