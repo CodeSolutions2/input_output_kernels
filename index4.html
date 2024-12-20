@@ -24,37 +24,37 @@
 <div id="navbar_DivMainContainer">
 	<ul>
 		<li>
-			<a href="#" class="active" id="entry0">
-				<span class="icon"><i class="fas fa-volcano"></i></span>
-				<span class="icontext">Observation 0: Disaster and Data</span>
+			<a href="#" id="entry0">
+				<span id="icon"><i class="fas fa-volcano"></i></span>
+				<span id="icontext">Observation 0: Disaster and Data</span>
 			</a>
 		</li>
   
 		<li>
-			<a href="#" class="active" id="entry1">
-				<span class="icon"><i class="fas fa-robot"></i></span>
-				<span class="icontext">Observation 1: Self-evolution through transformation</span>
+			<a href="#" id="entry1">
+				<span id="icon"><i class="fas fa-robot"></i></span>
+				<span id="icontext">Observation 1: Self-evolution through transformation</span>
 			</a>
 		</li>
 		
 		<li>
-			<a href="#" class="active" id="entry2">
-				<span class="icon"><i class="fas fa-money-bills"></i></span>
-				<span class="icontext">Observation 2: Ironic importance of debit</span>
+			<a href="#" id="entry2">
+				<span id="icon"><i class="fas fa-money-bills"></i></span>
+				<span id="icontext">Observation 2: Ironic importance of debit</span>
 			</a>
 		</li>
 		
 		<li>
-			<a href="#" class="active" id="entry3">
-				<span class="icon"><i class="fas fa-gifts"></i></span>
-				<span class="icontext">Observation 3: Your problems are your Secret Gifts</span>
+			<a href="#" id="entry3">
+				<span id="icon"><i class="fas fa-gifts"></i></span>
+				<span id="icontext">Observation 3: Your problems are your Secret Gifts</span>
 			</a>
 		</li>
 		
 		<li>
-			<a href="#" class="active" id="entry4">
-				<span class="icon"><i class="fas fa-star-of-life"></i></span>
-				<span class="icontext">Observation 4: Take responsibility for your life</span>
+			<a href="#" id="entry4">
+				<span id="icon"><i class="fas fa-star-of-life"></i></span>
+				<span id="icontext">Observation 4: Take responsibility for your life</span>
 			</a>
 		</li>
 	</ul>
@@ -207,16 +207,19 @@ async function processEvent_click_toggle_open(event) {
 
 // -------------------------------------------------
 
+const mid_green = "#74a674";
+const dark_green = "#2d4539";
+
 document.getElementById("entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 
-async function processEvent_click_toggle_open(event) {
-	document.getElementById("entry0").style.background = "#74a674";
+async function processEvent_mouseover_entry0(event) {
+	document.getElementById("entry0").style.background = mid_green;
 }
 
-document.getElementById("entry0").addEventListener('click', processEvent_mouseover_entry0, false);
+document.getElementById("entry0").addEventListener('click', processEvent_click_entry0, false);
 
-async function processEvent_click_toggle_open(event) {
-	document.getElementById("entry0").style.background = "#2d4539";
+async function processEvent_click_entry0(event) {
+	document.getElementById("entry0").style.background = dark_green;
 }
 
 	
