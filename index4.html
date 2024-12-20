@@ -83,7 +83,7 @@ header { background-color: var(--light-grey); }
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	width: 250px;
+	width: 100%;
 	height: auto;
 }
 
@@ -93,7 +93,7 @@ header { background-color: var(--light-grey); }
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	width: 250px;
+	width: 100%;
 	height: auto;
 	color: var(--light-grey);
 	background-color: var(--light-green);
@@ -103,7 +103,7 @@ span { padding: 10px; }
 	
 #toggle_open { display: none; top: 0px; left: 0px; }
 
-#navbar_DivMainContainer_entry0  { width: 250px; }
+
 
 	
 </style>
@@ -163,19 +163,16 @@ const dark_text = "#000000";
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = mid_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px"; 
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseleave', processEvent_mouseleave_entry0, false);
 async function processEvent_mouseleave_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px";
 }
 
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('click', processEvent_click_entry0, false);
 async function processEvent_click_entry0(event) {
 	document.getElementById("navbar_DivMainContainer_entry0").style.background = light_green;
-	document.getElementById("navbar_DivMainContainer_entry0").style.width = "250px";
 	document.getElementById("navbar_DivMainContainer_entry0").style.color = dark_text;
 }
 
