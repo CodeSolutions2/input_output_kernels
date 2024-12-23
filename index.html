@@ -3,19 +3,26 @@
 <head></head>
 <body>
 
-<div id="MainContainer" style="display: block; margin-left: 255px;">
+<div id="MainContainer" style="display: block; margin-left: 255px; margin-right: 50px;">
 	
-	<h1>Data Science Observations in a Chaotic World: How to be more responsible and why it is important</h1>
+	<h1>Data Science Observations in a Chaotic World: how to be more responsible and why it is important</h1>
 	
 	<ol type="A">
 		<li>The purpose of this interactive responsibility webapp book, using prompt engineering, is to give advice about how to act more responsible in frustrating situations, like searching for a job or acheiving success in a life-endeavor.</li>
 		<li>It explains different situations, and then gives suggestions for how to perceive and/or transform these situations into more logical and solveable situations.</li>
 		<li>Self-responsibility guidance messages: in addition to the interactive responsibility webapp book using the sidebar links, click the button below to randomly show messages about self-responsibility.</li>
 	</ol>
-	
+
+	<!-- ------------------------------------- -->
+	<br><br>
+	<!-- ------------------------------------- -->
+
+	<h2>Self-resposibility Momentary Guidance Message</h2>
 	<textarea id="self_resposibility_guidance_messages" style="display: block; background-color: goldenrod; border-radius: 0.5px;" rows="10" cols="100" placeholder="Click the button to show a self resposibility guidance messages"></textarea>
 	<button id="guidance_messages" onclick="guidance_messages()">Show a self-responsibility momentary guidance message</button>
 
+	<!-- ------------------------------------- -->
+	<br><br>
 	<!-- ------------------------------------- -->
 
 	<div id="MainContainer_entry0" style="display: none; text-align: left;">
@@ -254,8 +261,10 @@ async function guidance_messages() {
 	var row_arr = response.split('\n');
 	const selected_row = Math.floor(Math.random()*row_arr.length);
 
+	const regexp = /\n/g;
+	
 	// Present message in div
-	document.getElementById("self_resposibility_guidance_messages").textContent = row_arr.at(selected_row);
+	document.getElementById("self_resposibility_guidance_messages").textContent = row_arr.at(selected_row).replace(regexp, "");
   
 }
 
