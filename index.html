@@ -72,11 +72,11 @@
 	<h3>[3] Model responses discussing the problem</h3>
 	<p>The first response box ranks the users problem from 0 to 100, where 0 is not a severe daily-life problem and 100 is a severe daily-life problem.  The second and thrid response boxes give a metaphorical comparison of your daily-life disaster/problem to a real natural and hand-made disaster.<br></p>
 
-	<textarea id="outData_disaster_ranking" style='display:none; text-align: left;' rows="1" cols="50" placeholder="Model response: ranking"></textarea>
+	<textarea id="outData_disaster_ranking" style='text-align: left;' rows="1" cols="50" placeholder="Model response: ranking"></textarea>
 	<br>
-	<textarea id="outData_natural_disaster" style='display:none; text-align: left;' rows="4" cols="100" placeholder="Model response: natual disaster"></textarea>
+	<textarea id="outData_natural_disaster" style='text-align: left;' rows="4" cols="100" placeholder="Model response: natual disaster"></textarea>
 	<br>
-	<textarea id="outData_humanmade_disaster" style='display:none; text-align: left;' rows="4" cols="100" placeholder="Model response: human-made disaster"></textarea>
+	<textarea id="outData_humanmade_disaster" style='text-align: left;' rows="4" cols="100" placeholder="Model response: human-made disaster"></textarea>
 
 	<p><br>Reflect upon the metaphorical responses with respect to your problems. Perhaps a problem that seemed like a disaster, is not in fact a disaster. And, perhaps, long-term problems that seemed normal might actually be serious problems that need corrective planning in order to repair. Knowing the severity of your problems, can help you to take correct actions and be responsible for your life.</p>
 
@@ -116,63 +116,63 @@
 	<hr/>
 	<h2>Data Science Prompt</h2>
 	<!-- Exercise 1 -->
-	<h3 id="observation1_para_part5" style='display:none; text-align: left;'> Exercise 1: obtain a realistic opinion from an LLM on how long it takes to transition from your current career path or lifestyle to a new career path or lifestyle</h3>
+	<h3> Exercise 1: obtain a realistic opinion from an LLM on how long it takes to transition from your current career path or lifestyle to a new career path or lifestyle</h3>
 
-    <h3 id="observation1_para_part6" style='display:none; text-align: left;'>[1] Existing experience or background in the desired career path or lifestyle</h3>
-    <p id="observation1_para_part7" style='display:none; text-align: left;'>Enter your existing experience or anything that you currently know about the desired career path or lifestyle that you would like to pursue. For example, an ideal input for career path improvement is "understanding of machine learning and deep learning" if you already know about AI modeling but do not have a title in the field of Data Science. An ideal input for lifestyle improvement is "understanding how to put on makeup" if you desire to have a more beautiful appearance, or "performing basic exercising techniques to be healthy"/"knowing how to cook basic recipes" if you want to be physically healthier.</p>
-    <input id="input_experience_background" type="text" value="" placeholder="Experience background" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[1] Existing experience or background in the desired career path or lifestyle</h3>
+    <p>Enter your existing experience or anything that you currently know about the desired career path or lifestyle that you would like to pursue. For example, an ideal input for career path improvement is "understanding of machine learning and deep learning" if you already know about AI modeling but do not have a title in the field of Data Science. An ideal input for lifestyle improvement is "understanding how to put on makeup" if you desire to have a more beautiful appearance, or "performing basic exercising techniques to be healthy"/"knowing how to cook basic recipes" if you want to be physically healthier.</p>
+    <input id="input_experience_background" type="text" value="" placeholder="Experience background" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part8" style='display:none; text-align: left;'>[2] Highest level of education regarding career path or lifestyle</h3>
-    <p id="observation1_para_part9" style='display:none; text-align: left;'>Enter your highest level of educational background including the educational level and the title acheived. For example, an ideal input for career path improvement is "PhD in numerical analysis and control theory" if this is your highest level of education. An ideal input for lifestyle improvement is "youtube training on how to put on makeup and style hair" if the lifestyle topic is about having a beautiful appearance, or "read a book on exercising techniques"/"read a book on how to cook" if lifestyle topic is about being physically healthier.</p>
-    <input id="input_educational_background" type="text" value="" placeholder="Enter current educational background" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[2] Highest level of education regarding career path or lifestyle</h3>
+    <p>Enter your highest level of educational background including the educational level and the title acheived. For example, an ideal input for career path improvement is "PhD in numerical analysis and control theory" if this is your highest level of education. An ideal input for lifestyle improvement is "youtube training on how to put on makeup and style hair" if the lifestyle topic is about having a beautiful appearance, or "read a book on exercising techniques"/"read a book on how to cook" if lifestyle topic is about being physically healthier.</p>
+    <input id="input_educational_background" type="text" value="" placeholder="Enter current educational background" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part10" style='display:none; text-align: left;'>[3] Desired career path or lifestyle title</h3>
-    <p id="observation1_para_part11" style='display:none; text-align: left;'>Enter the title of the career path or lifestyle that you would like to obtain in the future. For example, an ideal input for career path improvement is "Data Scientist". An ideal input for lifestyle improvement could be "a person that has a beautiful appearance" if you desire to have a more beautiful appearance, or "a person with a healthy body" if you want to be physically healthier.</p>
-    <input id="input_career_path_title_end" type="text" value="" placeholder="Enter desired career path keyword" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[3] Desired career path or lifestyle title</h3>
+    <p>Enter the title of the career path or lifestyle that you would like to obtain in the future. For example, an ideal input for career path improvement is "Data Scientist". An ideal input for lifestyle improvement could be "a person that has a beautiful appearance" if you desire to have a more beautiful appearance, or "a person with a healthy body" if you want to be physically healthier.</p>
+    <input id="input_career_path_title_end" type="text" value="" placeholder="Enter desired career path keyword" rows="1" cols="100" style='text-align: left; width: 400px;'>
     
-    <h3 id="observation1_para_part12" style='display:none; text-align: left;'>[4] Input OpenAI key</h3>
-    <p id="observation1_para_part13" style="display:none; text-align: left;">Obtain an OpenAI key at <a href="https://openai.com/">OpenAI</a>.  After filling in the fields and OpenAI key, click the Run Selection button.</p>
+    <h3>[4] Input OpenAI key</h3>
+    <p>Obtain an OpenAI key at <a href="https://openai.com/">OpenAI</a>.  After filling in the fields and OpenAI key, click the Run Selection button.</p>
     
-    <input id="observation1_apikey" type="text" value="" placeholder="Enter OpenAI key" rows="1" cols="50" style='display:none; text-align: left; width: 400px;'>
+    <input id="observation1_apikey" type="text" value="" placeholder="Enter OpenAI key" rows="1" cols="50" style='text-align: left; width: 400px;'>
     <br><br>
-    <button id="observation1_para_part14" onclick="observation1_run_selection_exercise1()" style='display:none; text-align: left;'>Run Selection</button>
+    <button onclick="observation1_run_selection_exercise1()">Run Selection</button>
     
-    <h3 id="observation1_para_part15" style='display:none; text-align: left;'><br>[5] Model responses discussing how long it will take to transition to a new career or lifestyle<br></h3>
+    <h3><br>[5] Model responses discussing how long it will take to transition to a new career or lifestyle<br></h3>
     
     <textarea id="outData_how_long_to_transition" style='display:none; text-align: left;' rows="10" cols="100" placeholder="Model response: transition_time" style='text-align: left;'></textarea>
     <!-- Exercise 2 -->
-    <h3 id="observation1_para_part16" style='display:none; text-align: left;'> Exercise 2: obtain a schedule of requirements to accomplish to transition from your current career path or lifestyle to your desired career path or lifestyle</h3>
+    <h3> Exercise 2: obtain a schedule of requirements to accomplish to transition from your current career path or lifestyle to your desired career path or lifestyle</h3>
 
-    <p id="observation1_para_part31" style='display:none; text-align: left;'>The set prompt string for this exercise is:</p>
+    <p>The set prompt string for this exercise is:</p>
     
-    <textarea id="observation1_promptbox_ex2" style='display:none; text-align: left;' rows="3" cols="100" placeholder="prompt string"></textarea>
+    <textarea id="observation1_promptbox_ex2" rows="3" cols="100" placeholder="prompt string"></textarea>
     
-    <h3 id="observation1_para_part17" style='display:none; text-align: left;'>[1] Highest level of education regarding career path or lifestyle</h3>
-    <p id="observation1_para_part18" style='display:none; text-align: left;'>Enter your highest level of educational background including the educational level and the title acheived. For example, an ideal input for career path improvement is "PhD in numerical analysis and control theory" if this is your highest level of education. An ideal input for lifestyle improvement is "youtube training on how to put on makeup and style hair" if the lifestyle topic is about having a beautiful appearance, or "read a book on exercising techniques"/"read a book on how to cook" if lifestyle topic is about being physically healthier.</p>
-    <input id="input_career_path_title_start_ex2" type="text" value="" placeholder="Enter current educational background" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[1] Highest level of education regarding career path or lifestyle</h3>
+    <p>Enter your highest level of educational background including the educational level and the title acheived. For example, an ideal input for career path improvement is "PhD in numerical analysis and control theory" if this is your highest level of education. An ideal input for lifestyle improvement is "youtube training on how to put on makeup and style hair" if the lifestyle topic is about having a beautiful appearance, or "read a book on exercising techniques"/"read a book on how to cook" if lifestyle topic is about being physically healthier.</p>
+    <input id="input_career_path_title_start_ex2" type="text" value="" placeholder="Enter current educational background" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part19" style='display:none; text-align: left;'>[2] Desired career path or lifestyle title</h3>
-    <p id="observation1_para_part20" style='display:none; text-align: left;'>Enter the title of the career path or lifestyle that you would like to obtain in the future. For example, an ideal input for career path improvement is "Data Scientist". An ideal input for lifestyle improvement could be "a person that has a beautiful appearance" if you desire to have a more beautiful appearance, or "a person with a healthy body" if you want to be physically healthier.</p>
-    <input id="input_career_path_title_end_ex2" type="text" value="" placeholder="Enter desired career path keyword" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[2] Desired career path or lifestyle title</h3>
+    <p>Enter the title of the career path or lifestyle that you would like to obtain in the future. For example, an ideal input for career path improvement is "Data Scientist". An ideal input for lifestyle improvement could be "a person that has a beautiful appearance" if you desire to have a more beautiful appearance, or "a person with a healthy body" if you want to be physically healthier.</p>
+    <input id="input_career_path_title_end_ex2" type="text" value="" placeholder="Enter desired career path keyword" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part21" style='display:none; text-align: left;'>[3] Desired number of assignments/calendar events</h3>
-    <p id="observation1_para_part22" style='display:none; text-align: left;'>Enter the desired number of assignments to obtain your desired career path or lifestyle. Keep in mind, depending on the difficulty of the subject one may need more time to acheive the desired career path or lifestyle. For example, enter "48" if you realistically think that you can perform 48 learning assignments in 2 years to transition your career as a postdoctorat researcher to a Data Sientist; 48 assignments is equivalent to an assignment every 2 weeks for 2 years. </p>
-    <input id="input_number_of_calendar_events_ex2" type="text" value="" placeholder="Desired number of assignments/calendar events" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[3] Desired number of assignments/calendar events</h3>
+    <p>Enter the desired number of assignments to obtain your desired career path or lifestyle. Keep in mind, depending on the difficulty of the subject one may need more time to acheive the desired career path or lifestyle. For example, enter "48" if you realistically think that you can perform 48 learning assignments in 2 years to transition your career as a postdoctorat researcher to a Data Sientist; 48 assignments is equivalent to an assignment every 2 weeks for 2 years. </p>
+    <input id="input_number_of_calendar_events_ex2" type="text" value="" placeholder="Desired number of assignments/calendar events" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part23" style='display:none; text-align: left;'>[4] Desired time-period to obtain the desired career path or lifestyle</h3>
-    <p id="observation1_para_part24" style='display:none; text-align: left;'>Enter the desired time-period to obtain your desired career path or lifestyle. For example, enter "2 years" to transition from a career as a postdoctorat researcher to a Data Sientist. Another example regarding lifestyle improvement, enter "5 months" to transition from a person with a plain appearance to a person with a beautiful appearance.</p>
-    <input id="input_time_length_ex2" type="text" value="" placeholder="Desired time-period" rows="1" cols="100" style='display:none; text-align: left; width: 400px;'>
+    <h3>[4] Desired time-period to obtain the desired career path or lifestyle</h3>
+    <p>Enter the desired time-period to obtain your desired career path or lifestyle. For example, enter "2 years" to transition from a career as a postdoctorat researcher to a Data Sientist. Another example regarding lifestyle improvement, enter "5 months" to transition from a person with a plain appearance to a person with a beautiful appearance.</p>
+    <input id="input_time_length_ex2" type="text" value="" placeholder="Desired time-period" rows="1" cols="100" style='text-align: left; width: 400px;'>
 
-    <h3 id="observation1_para_part25" style='display:none; text-align: left;'>[5] Input OpenAI key</h3>
-    <p id="observation1_para_part26" style="display:none; text-align: left;">Obtain an OpenAI key at <a href="https://openai.com/">OpenAI</a>.  After filling in the fields and OpenAI key, click the Run Selection button.</p>
+    <h3>[5] Input OpenAI key</h3>
+    <p>Obtain an OpenAI key at <a href="https://openai.com/">OpenAI</a>.  After filling in the fields and OpenAI key, click the Run Selection button.</p>
     
-    <input id="observation1_apikey_ex2" type="text" value="" placeholder="Enter OpenAI key" rows="1" cols="50" style='display:none; text-align: left; width: 400px;'>
+    <input id="observation1_apikey_ex2" type="text" value="" placeholder="Enter OpenAI key" rows="1" cols="50" style='text-align: left; width: 400px;'>
     <br><br>
-    <button id="observation1_para_part27" onclick="observation1_run_selection_exercise2()" style='display:none; text-align: left;'>Run Selection</button>
+    <button onclick="observation1_run_selection_exercise2()" style='text-align: left;'>Run Selection</button>
     
-    <h3 id="observation1_para_part28" style='display:none; text-align: left;'><br>[6] Model responses: calendar/schedule of assignments to transition to a new career or lifestyle<br></h3>
+    <h3 id="observation1_para_part28" style='text-align: left;'><br>[6] Model responses: calendar/schedule of assignments to transition to a new career or lifestyle<br></h3>
     
-    <textarea id="outData_calendar" style='display:none; text-align: left;' rows="10" cols="100" placeholder="Model response: calendar" style='text-align: left;'></textarea>
+    <textarea id="outData_calendar" style='text-align: left;' rows="10" cols="100" placeholder="Model response: calendar" style='text-align: left;'></textarea>
     
     <h2><br>References</h2>	
     <ol>
