@@ -41,7 +41,45 @@
 		<li>one becomes less connected to reality due to fear and lack of interest in building a productive future and life; they become isolated and have less access to modern technology.
 		<li>one creates limited mental beliefs of what they can and can not do because they do not understand the full range of possible choices that are available. In short many people whom experience disaster/destruction in their life lack education about the activities that they are involved in, poor life decisions are often made without up-to-date knowledge about societal related activities and career.
 	</ol>
+
+	<p>Creation and destruction are similar to the Birth and Death cycle in numerical modeling, people who destroy are likely to die-out due to lack and those who create are likely to survive due to growth and improvement. I have observed that many people who have had disaster or tremendous loss in their life, have anger and resentment for their losses, making violence and destruction justified. Therefore, just by being exposed to unfortunate situations, it is human nature to repeat destruction in some form (ie: vandalism, abuse, harassment). People exposed to disaster may influence people to destroy things, simply due to conditioned behavior that everyone deems as normal.
+	<br><br>
+Not only is disaster a physical phenomenon, it has lasting physical and psychological effects. Physical and psychological effects include depression, anxiety, post-traumatic stress disorder (PTSD), gastro-intestinal disorders [2]. By understanding which features/factors are involved with disaster, perhaps individual change and self-empowerment can be obtained by simple day-to-day behaviors related to reversing disaster exposure behavior.</p>
+
+	<hr/>
+	<h2>Data Science Prompt</h2>
+
+	<h3>[1] Input daily-life problem</h3>	
+	<p>Enter a daily-life problem, to see what type of disaster it is equivalent to. Comparing a daily-life problem to a disaster may help one have a better persepctive on one's life, such that they can make better future life decisions.</p>
+
+	<input id="input_text" type="text" value="" placeholder="Enter daily-life problem" rows="1" cols="100" style='text-align: left; width: 400px;'>
+
+	<h3>[2] Input OpenAI key</h3>
+<p>Obtain an OpenAI key at <a href="https://openai.com/">OpenAI</a>.  After entering your daily-life problem and OpenAI key, click the Run Selection button.</p>
+
+	<input id="apikey" type="text" value="" placeholder="Enter OpenAI key" rows="1" cols="50" style='text-align: left; width: 400px;'>
 	
+	<button onclick="observation0_run_selection()" style='text-align: left;'>Run Selection</button>
+	
+
+<h3>[3] Model responses discussing the problem</h3>
+<p>The first response box ranks the users problem from 0 to 100, where 0 is not a severe daily-life problem and 100 is a severe daily-life problem.  The second and thrid response boxes give a metaphorical comparison of your daily-life disaster/problem to a real natural and hand-made disaster.<br></p>
+
+<textarea id="outData_disaster_ranking" style='display:none; text-align: left;' rows="1" cols="50" placeholder="Model response: ranking"></textarea>
+<!-- <br> -->
+<textarea id="outData_natural_disaster" style='display:none; text-align: left;' rows="4" cols="100" placeholder="Model response: natual disaster"></textarea>
+<!-- <br> -->
+<textarea id="outData_humanmade_disaster" style='display:none; text-align: left;' rows="4" cols="100" placeholder="Model response: human-made disaster"></textarea>
+
+<p id="observation0_para_part14" style="display:none; text-align: left;"><br>Reflect upon the metaphorical responses with respect to your problems. Perhaps a problem that seemed like a disaster, is not in fact a disaster. And, perhaps, long-term problems that seemed normal might actually be serious problems that need corrective planning in order to repair. Knowing the severity of your problems, can help you to take correct actions and be responsible for your life.</p>
+
+<h2 id="observation0_para_part11" style='display:none; text-align: left;'><br>References</h2>	
+<ol id="observation0_para_part12" style="display:none; text-align: left;">
+  <li> Dictionary.com: definition of 'destroy': https://www.dictionary.com/browse/destroy
+  <li> Disaster and its impact on mental health: A narrative review. J Family Med Prim Care. 2019 Oct; 8(10): 3090–3095. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6857396/
+</ol>
+
+		
 	</div>
 	<!-- ------------------------------------- -->
 
@@ -170,8 +208,15 @@ span {
 
 
 <script>
-  
-// -----------------------------------------
+
+// -------------------------------------------------
+
+const light_green = "#92a892";
+const mid_green = "#85a185";
+const dark_grey = "#000000";
+const light_grey = "#f2f2f2";
+	
+// -------------------------------------------------
 	
 window.addEventListener('beforeunload', function() {
 	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
@@ -212,13 +257,6 @@ async function processEvent_click_toggle_open(event) {
 }
 
 // -------------------------------------------------
-
-const light_green = "#92a892";
-const mid_green = "#85a185";
-const dark_grey = "#000000";
-const light_grey = "#f2f2f2";
-	
-// -------------------------------------------------
 	
 document.getElementById("navbar_DivMainContainer_entry0").addEventListener('mouseover', processEvent_mouseover_entry0, false);
 async function processEvent_mouseover_entry0(event) {
@@ -244,9 +282,113 @@ async function processEvent_click_entry0(event) {
 }
 	
 // -------------------------------------------------
+	
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('mouseover', processEvent_mouseover_entry1, false);
+async function processEvent_mouseover_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('mouseleave', processEvent_mouseleave_entry1, false);
+async function processEvent_mouseleave_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry1").addEventListener('click', processEvent_click_entry1, false);
+async function processEvent_click_entry1(event) {
+	document.getElementById("navbar_DivMainContainer_entry1").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry1").style.color = light_grey;
+	document.getElementById("MainContainer_entry0").style.display = "none";
+	document.getElementById("MainContainer_entry1").style.display = "block";
+	document.getElementById("MainContainer_entry2").style.display = "none";
+	document.getElementById("MainContainer_entry3").style.display = "none";
+	document.getElementById("MainContainer_entry4").style.display = "none";
+}
+	
+// -------------------------------------------------
+	
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('mouseover', processEvent_mouseover_entry2, false);
+async function processEvent_mouseover_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('mouseleave', processEvent_mouseleave_entry2, false);
+async function processEvent_mouseleave_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry2").addEventListener('click', processEvent_click_entry2, false);
+async function processEvent_click_entry2(event) {
+	document.getElementById("navbar_DivMainContainer_entry2").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry2").style.color = light_grey;
+	document.getElementById("MainContainer_entry0").style.display = "none";
+	document.getElementById("MainContainer_entry1").style.display = "none";
+	document.getElementById("MainContainer_entry2").style.display = "block";
+	document.getElementById("MainContainer_entry3").style.display = "none";
+	document.getElementById("MainContainer_entry4").style.display = "none";
+}
+	
+// -------------------------------------------------
+	
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('mouseover', processEvent_mouseover_entry3, false);
+async function processEvent_mouseover_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('mouseleave', processEvent_mouseleave_entry3, false);
+async function processEvent_mouseleave_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry3").addEventListener('click', processEvent_click_entry3, false);
+async function processEvent_click_entry3(event) {
+	document.getElementById("navbar_DivMainContainer_entry3").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry3").style.color = light_grey;
+	document.getElementById("MainContainer_entry0").style.display = "none";
+	document.getElementById("MainContainer_entry1").style.display = "none";
+	document.getElementById("MainContainer_entry2").style.display = "none";
+	document.getElementById("MainContainer_entry3").style.display = "block";
+	document.getElementById("MainContainer_entry4").style.display = "none";
+}
+	
+// -------------------------------------------------
+	
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('mouseover', processEvent_mouseover_entry4, false);
+async function processEvent_mouseover_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = mid_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = dark_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('mouseleave', processEvent_mouseleave_entry4, false);
+async function processEvent_mouseleave_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = light_grey;
+}
+
+document.getElementById("navbar_DivMainContainer_entry4").addEventListener('click', processEvent_click_entry4, false);
+async function processEvent_click_entry4(event) {
+	document.getElementById("navbar_DivMainContainer_entry4").style.background = light_green;
+	document.getElementById("navbar_DivMainContainer_entry4").style.color = light_grey;
+	document.getElementById("MainContainer_entry0").style.display = "none";
+	document.getElementById("MainContainer_entry1").style.display = "none";
+	document.getElementById("MainContainer_entry2").style.display = "none";
+	document.getElementById("MainContainer_entry3").style.display = "none";
+	document.getElementById("MainContainer_entry4").style.display = "block";
+}
+	
+// -------------------------------------------------
 
 
 
+
+
+
+// -------------------------------------------------
 
 // -------------------------------------------------
 
@@ -299,6 +441,65 @@ async function jQuery_txt_GET(url) {
 }
 
 // -----------------------------------------------
+
+async function observation0_run_selection() {
+	
+	const problem = document.getElementById("input_text").value;
+	const OPENAI_API_KEY = document.getElementById("apikey").value;
+	
+	const model_name = 'gpt-3.5-turbo'
+	const system_content = "You are a helpful assistant"
+	const assistant_content = "Loosing one's job in daily-life is the same severity as an earthquake."
+	const temperature = 0;
+	const url = 'https://api.openai.com/v1/chat/completions'
+	
+	var headers = {"Content-Type": "application/json", "Authorization": 'Bearer ' + OPENAI_API_KEY}
+      
+	// -----------------------------------
+	    
+	// Output 0: ranking severity of disaster
+	var prompt0 = `On a scale from 0 to 100, what is the severity of ${problem} in terms of daily-life, where 0 is not severe and 100 is severe. Use the least number of words.`
+	var messages0 = [{"role": "system", "content": system_content}, {"role": "user", "content": prompt0}, {"role": "assistant", "content": assistant_content}];
+	var data0 = {"model": model_name, 'messages': messages0, 'temperature': temperature};
+	var options0 = {method : 'post', headers: headers, body : JSON.stringify(data0)};
+
+	// Output 0: Print text part of JSON response only with user message
+        await fetch(url, options0)
+		.then(res => res.json())
+		.then(res => {document.getElementById("outData_disaster_ranking").innerHTML = JSON.parse(JSON.stringify(res))['choices'][0]['message']['content'];})
+	      	.catch(error => { console.log(error); });
+
+	// -----------------------------------
+
+	// Output 1: natural disaster
+	var prompt1 = `Using a metaphor comparison between daily-life and natural disaster, what is the daily-life problem : ${problem}, equivalent to in terms of natural disaster. Use the least number of words.`
+	var messages1 = [{"role": "system", "content": system_content}, {"role": "user", "content": prompt1}, {"role": "assistant", "content": assistant_content}];
+	var data1 = {"model": model_name, 'messages': messages1, 'temperature': temperature};
+	var options1 = {method : 'post', headers: headers, body : JSON.stringify(data1)};
+
+	// Output 1: Print text part of JSON response only with user message
+        await fetch(url, options1)
+		.then(res => res.json())
+		.then(res => {document.getElementById("outData_natural_disaster").innerHTML = JSON.parse(JSON.stringify(res))['choices'][0]['message']['content'];})
+		.catch(error => { console.log(error); });
+	
+	// -----------------------------------
+	
+	// Output 2: human-made disaster
+	var prompt2 = `Using a metaphor comparison between daily-life and human-made disaster, what is the daily-life problem : ${problem}, equivalent to in terms of human-made disaster. Use the least number of words.`
+	var messages2 = [{"role": "system", "content": system_content}, {"role": "user", "content": prompt2}, {"role": "assistant", "content": assistant_content}];
+	var data2 = {"model": model_name, 'messages': messages2, 'temperature': temperature};
+	var options2 = {method : 'post', headers: headers, body : JSON.stringify(data2)};
+
+	// Output 2: Print text part of JSON response only with user message
+        await fetch(url, options2)
+		.then(res => res.json())
+		.then(res => {document.getElementById("outData_humanmade_disaster").innerHTML = JSON.parse(JSON.stringify(res))['choices'][0]['message']['content'];})
+		.catch(error => { console.log(error); });
+	
+	// -----------------------------------
+	
+}
 
 // -----------------------------------------------
 
