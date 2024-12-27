@@ -21,10 +21,7 @@ jobs:
           # sudo pip install -U tensorflow;
           # Import libraries
           # import tensorflow as tf;
-          python -c "import os; import sys; from PIL import Image; import numpy as np; import requests; def fetch_an_image(url, desired_file_name): response = requests.get(url); 
-          with open(desired_file_name, 'wb') as file:
-            file.write(response.content);
-          url = 'https://storage.googleapis.com/memetics-motivation/success_512x512_0.png'; desired_file_name = 'image_to_receive_a_style.png'; fetch_an_image(url, desired_file_name); ";
+          python -c "import os; import sys; from PIL import Image; import numpy as np; import requests; def functionName(x): return x * 2; print(functionName(4));";
 
           
           
