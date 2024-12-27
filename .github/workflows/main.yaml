@@ -18,17 +18,16 @@ jobs:
 
       - name: run code
         run: |
-          # sudo pip install -U tensorflow;
+          sudo pip install -U tensorflow;
           sudo pip install pillow;
           sudo pip install numpy;
-          # Import libraries
-          # import tensorflow as tf;
           cat > out.py << EOF
           import os 
           import sys
           from PIL import Image
           import numpy as np
           import requests
+          import tensorflow as tf
           # ----------------------
           def fetch_an_image(url, desired_file_name):
             response = requests.get(url)
@@ -37,16 +36,31 @@ jobs:
                 file.write(response.content)
           # ----------------------
           def make_a_3shapeArray_a_4shapeArray(file_name, img_w, img_h):
-            # Resized fetched image: (img_w, img_h, 4) = (width, height, RGB_alpha)
+            
             arr_3shape = np.array(Image.open(file_name).resize((img_w, img_h)))
-            # print("arr_3shape.shape: ", arr_3shape.shape)
+            print("arr_3shape.shape: ", arr_3shape.shape)
+            
             # Remove alpha layer
             arr_3shape = arr_3shape[:, :, 0:3]
             print("arr_3shape.shape: ", arr_3shape.shape)
+            
             arr_4shape = np.expand_dims(arr_3shape, axis=0) # (1, img_w, img_h, 4) = (1, width, height, RGB_alpha)
             return arr_4shape
           # ----------------------
+          def save_3d_tf_array_to_file(tf_arr, output_fileName):
 
+            # tf_arr shape : (batch_size=1, img_w, img_h)
+            
+            # Remove batch dimension
+            np_arr_2d_float = np.squeeze(tf_arr.numpy()) 
+            print('np_arr_2d_float.shape: ', np_arr_2d_float.shape) # (img_w, img_h) 
+            
+            # Convert to int dtype
+            np_arr_2d_int = np.array(np_arr_2d_float, dtype=np.uint8)
+            
+            # Save image to file
+            image_out = Image.fromarray(np_arr_2d_int)
+            image_out.save(output_fileName+".png")
           # ----------------------
 
 
@@ -58,7 +72,7 @@ jobs:
           # ----------------------
           # [0] Fetch the original image
           # ----------------------
-          url = 'https://storage.googleapis.com/memetics-motivation/success_512x512_0.png'
+          url = 'https://storage.googleapis.com/neural-style-transfer/original/original2.png'
           desired_file_name = "image_to_receive_a_style.png"
           
           # Saves image to file path
@@ -71,7 +85,7 @@ jobs:
           # ----------------------
           # [1] Fetch the style image
           # ----------------------
-          url = 'https://storage.googleapis.com/memetics-motivation/success_neutral_512x512_1.png'
+          url = 'https://storage.googleapis.com/neural-style-transfer/style/style0.png'
           desired_file_name = "image_to_give_a_style.png"
           
           # Saves image to file path
@@ -92,10 +106,23 @@ jobs:
           generated_arr_tf = tf.clip_by_value(generated_arr_tf, clip_value_min=0.0, clip_value_max=1.0)
           
           print('generated_arr_tf.shape: ', generated_arr_tf.shape)    # (1, img_w, img_h, 4)
-
+          # ----------------------
+          save_3d_tf_array_to_file(generated_arr_tf, "initial_generated_arr")
           # ----------------------
           EOF
           python out.py;
 
+      - name: Save output files to repo
+        run: |
+          repoOwner=$(echo "${{ github.repository }}" | cut -d '/' -f 1);
+          repoOwnerEmail="j622amilah@gmail.com";
+          repoName=$(echo "${{ github.repository }}" | cut -d '/' -f 2);
+          git config --global user.email ${repoOwnerEmail};
+          git config --global user.name ${repoOwner};
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${repoOwner}/${repoName}.git
+          git reset  
+          git add /home/runner/work/${repoName}/${repoName}/initial_generated_arr.png
+          git commit -m "add output files to repo"
+          git push
           
           
