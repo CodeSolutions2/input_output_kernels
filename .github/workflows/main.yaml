@@ -156,6 +156,8 @@ jobs:
           # ----------------------
           # [3] Load the pre-trained VGG19 model
           # ----------------------
+          input_layer = tf.keras.layers.Input(shape=(224, 224, 3))
+          
           # include_top=False means do not include the layers close to the output.
           # Inputs should be from [0, 255].
           base_model = tf.keras.applications.VGG19(include_top=False,
@@ -169,8 +171,6 @@ jobs:
           # ----------------------
           # [4] Define the models input
           # ----------------------
-          input_layer = tf.keras.layers.Input(shape=(224, 224, 3))
-          
           x = base_model(input_layer)
 
           # List the layers
