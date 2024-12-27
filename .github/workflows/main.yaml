@@ -24,10 +24,76 @@ jobs:
           # Import libraries
           # import tensorflow as tf;
           cat > out.py << EOF
-          import os; import sys; from PIL import Image; import numpy as np; import requests;
-          def functionName(x):
-            return x * 2;
-          print(functionName(4));
+          import os 
+          import sys
+          from PIL import Image
+          import numpy as np
+          import requests
+          # ----------------------
+          def fetch_an_image(url, desired_file_name):
+            response = requests.get(url)
+          
+            with open(desired_file_name, 'wb') as file:
+                file.write(response.content)
+          # ----------------------
+          def make_a_3shapeArray_a_4shapeArray(file_name, img_w, img_h):
+            # Resized fetched image: (img_w, img_h, 4) = (width, height, RGB_alpha)
+            arr_3shape = np.array(Image.open(file_name).resize((img_w, img_h)))
+            # print("arr_3shape.shape: ", arr_3shape.shape)
+            # Remove alpha layer
+            arr_3shape = arr_3shape[:, :, 0:3]
+            print("arr_3shape.shape: ", arr_3shape.shape)
+            arr_4shape = np.expand_dims(arr_3shape, axis=0) # (1, img_w, img_h, 4) = (1, width, height, RGB_alpha)
+            return arr_4shape
+          # ----------------------
+
+          # ----------------------
+
+
+          # ----------------------
+
+          # ----------------------
+          img_w = 224
+          img_h = 224
+          # ----------------------
+          # [0] Fetch the original image
+          # ----------------------
+          url = 'https://storage.googleapis.com/memetics-motivation/success_512x512_0.png'
+          desired_file_name = "image_to_receive_a_style.png"
+          
+          # Saves image to file path
+          fetch_an_image(url, desired_file_name)
+          
+          # Read in image and convert to a 4D array
+          org_arr_np = make_a_3shapeArray_a_4shapeArray(desired_file_name, img_w, img_h)
+          print('np.max(org_arr_np): ', np.max(org_arr_np))
+          print('np.min(org_arr_np): ', np.min(org_arr_np))
+          # ----------------------
+          # [1] Fetch the style image
+          # ----------------------
+          url = 'https://storage.googleapis.com/memetics-motivation/success_neutral_512x512_1.png'
+          desired_file_name = "image_to_give_a_style.png"
+          
+          # Saves image to file path
+          fetch_an_image(url, desired_file_name)
+          
+          # Read in image and convert to a 4D array
+          style_arr_np = make_a_3shapeArray_a_4shapeArray(desired_file_name, img_w, img_h)
+          print('np.max(style_arr_np): ', np.max(style_arr_np))
+          print('np.min(style_arr_np): ', np.min(style_arr_np))
+          # ----------------------
+          # [2] Randomly initialize the generated_arr
+          # ----------------------
+          # tf.Variable is a tensor that does not change type or shape.
+          # Add noise to the original image.
+          generated_arr_tf = tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
+          noise_tf = tf.random.uniform(tf.shape(generated_arr_tf), -0.25, 0.25)
+          generated_arr_tf = tf.add(generated_arr_tf, noise)
+          generated_arr_tf = tf.clip_by_value(generated_arr_tf, clip_value_min=0.0, clip_value_max=1.0)
+          
+          print('generated_arr_tf.shape: ', generated_arr_tf.shape)    # (1, img_w, img_h, 4)
+
+          # ----------------------
           EOF
           python out.py;
 
