@@ -16,6 +16,8 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v4
 
-      - run: |
-          import os;
-          print('test')
+      - name: Run python code
+        uses: actions/setup-python@v2
+        with:
+          script: |
+            print("....")
