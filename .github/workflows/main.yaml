@@ -162,7 +162,6 @@ jobs:
           # Inputs should be from [0, 255].
           base_model = tf.keras.applications.VGG19(include_top=False,
                                             input_shape=(224, 224, 3),
-                                            output_shape=(224, 224, 3),  
                                             weights='imagenet',
                                             input_tensor=input_layer,
                                             classes=1000,
@@ -174,7 +173,7 @@ jobs:
           x = base_model(input_layer)
 
           # List the layers
-          base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x))
+          # base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x)) # lambda layers requires an output shape
           print('base_model_layers: ', base_model_layers)
           # ----------------------
           # [4] Create two models from the VGG19 model layers
