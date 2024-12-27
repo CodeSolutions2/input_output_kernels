@@ -21,7 +21,7 @@ jobs:
           # sudo pip install -U tensorflow;
           # Import libraries
           # import tensorflow as tf;
-          python -c "import os; import sys; from PIL import Image; import numpy as np; import requests; '\n'; def functionName(x): '\n'; return x * 2; '\n'; print(functionName(4));";
+          python -c "import os; import sys; from PIL import Image; import numpy as np; import requests; def functionName(x): '\n'; return x * 2; '\n'; print(functionName(4));";
 
           
           
