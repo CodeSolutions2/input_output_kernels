@@ -19,6 +19,7 @@ jobs:
       - name: run code
         run: |
           # sudo pip install -U tensorflow;
+          sudo pip install pillow;
           # Import libraries
           # import tensorflow as tf;
           cat > out.py << EOF
