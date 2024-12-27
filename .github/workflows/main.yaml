@@ -65,17 +65,18 @@ jobs:
             image_out = Image.fromarray(np_arr_3shape_int)
             image_out.save(output_fileName+".png")
           # ----------------------
-          def np_normalize_3shapeArray(np_arr_3shape):
-
-            print('np.max(np_arr_3shape): ', np.max(np_arr_3shape))  # 255
-            print('np.min(np_arr_3shape): ', np.min(np_arr_3shape))  # 0
-          
-            # Check if max-min > 1
-            if ( np.abs(np.max(np_arr_3shape) - np.min(np_arr_3shape)) > 1):
-              # Array_image is not normalized
-              np_arr_3shape = np_arr_3shape/255;
-              
-            return np_arr_3shape
+          def np_convert_arr_0to255_neg1to1(arr_0to255):
+            # convert array range [0,255] to [-1,1]
+            out0 = arr_0to255/255
+            out1 = (out0 - 0.5)
+            arr_neg1to1 = out1/np.max(out1)
+            return arr_neg1to1
+          # ----------------------
+          def np_convert_arr_to_0to255(arr):
+            # Convert any range array to the range [0, 255]
+            out0 = arr + np.min(arr)
+            out1 = out0/np.max(out0)
+            return out1 * 255
           # ----------------------
           def tf_convert_to_np(tf_arr):
             return tf_arr.numpy();
@@ -83,6 +84,10 @@ jobs:
           
           # ----------------------
 
+          # ----------------------
+
+          # ----------------------
+          
           # ----------------------
           img_w = 224
           img_h = 224
@@ -98,8 +103,9 @@ jobs:
           # Read in image, convert to a 4shape array
           org_arr_np = np_filename_to_3shapeArray(desired_file_name, img_w, img_h)
 
-          # Normalize the image from [-1, 1]
-          org_arr_np = np_normalize_3shapeArray(org_arr_np)
+          # Convert the array range to [0, 255].
+          org_arr_np = np_convert_arr_to_0to255(org_arr_np)
+          
           # ----------------------
           # [1] Fetch the style image
           # ----------------------
@@ -112,65 +118,89 @@ jobs:
           # Read in image and convert to a 4shape array
           style_arr_np = np_filename_to_3shapeArray(desired_file_name, img_w, img_h)
           
-          # Normalize the image from [-1, 1]
-          style_arr_np = np_normalize_3shapeArray(style_arr_np)
-
-          # np_save_3shapeArray_to_file(style_arr_np, "style_arr_np")
+          # Convert the array range to [0, 255].
+          style_arr_np = np_convert_arr_to_0to255(style_arr_np)
+          
           # ----------------------
           # [2] Randomly initialize the generated_arr
           # ----------------------
           # tf.Variable is a tensor that does not change type or shape.
-          generated_arr_tf = tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
+          # generated_arr_tf = tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
+          # noise_tf = tf.random.uniform(tf.shape(generated_arr_tf), -0.25, 0.25)
+          # generated_arr_tf = tf.add(generated_arr_tf, noise_tf) # Add noise to the original image.
+          # generated_arr_tf = tf.clip_by_value(generated_arr_tf, clip_value_min=0.0, clip_value_max=1.0)
           
-          noise_tf = tf.random.uniform(tf.shape(generated_arr_tf), -0.25, 0.25)
-          
-          generated_arr_tf = tf.add(generated_arr_tf, noise_tf) # Add noise to the original image.
-          generated_arr_tf = tf.clip_by_value(generated_arr_tf, clip_value_min=0.0, clip_value_max=1.0)
-          
-          print('generated_arr_tf.shape: ', generated_arr_tf.shape)    # (1, img_w, img_h, 3)
+          np_noise = np.random.uniform(low=-0.25, high=0.25, size=np.shape(org_arr_np))
+          print('max : ', np.max(np_noise))  # 0.25
+          print('min: ', np.min(np_noise))  # -0.25
 
-          generated_arr_np = tf_convert_to_np(generated_arr_tf)
+          # Convert the array range to [-1, 1]
+          np_org_arr_neg1to1 = np_convert_arr_0to255_neg1to1(org_arr_np)
+          print('max : ', np.max(np_org_arr_neg1to1))  # 1
+          print('min: ', np.min(np_org_arr_neg1to1))  # -1
+
+          # Add noise to the original array
+          np_generated_arr_neg1to1 = np_org_arr_neg1to1 + np_noise
+
+          # Convert the array range to [0, 255].
+          np_generated_arr_0to255 = np_convert_arr_to_0to255(np_generated_arr_neg1to1)
+
+          np_save_3shapeArray_to_file(np_generated_arr_0to255, "np_generated_arr_0to255")
           
-          np_save_3shapeArray_to_file(generated_arr_np, "generated_arr_np")
+          # Convert to tf format  [0, 255]
+          tf_generated_arr = tf.Variable(tf.image.convert_image_dtype(np_generated_arr_0to255, tf.float32))
+          print('tf_generated_arr.shape: ', tf_generated_arr.shape)    # (1, img_w, img_h, 3)
+
+          
+          
           # ----------------------
           # [3] Load the pre-trained VGG19 model
           # ----------------------
           # include_top=False means do not include the layers close to the output.
           # Inputs should be from [0, 255].
-          vgg = tf.keras.applications.VGG19(include_top=False,
-                                            input_shape=(img_w, img_h, 3),
+          
+          input_layer = tf.keras.layers.Input(shape=(224, 224, 3))
+          
+          base_model = tf.keras.applications.VGG19(include_top=False,
+                                            input_shape=(224, 224, 3),
                                             weights='imagenet',
+                                            input_tensor=input_layer,
                                             classes=1000,
                                             classifier_activation='softmax')
-          vgg.trainable = False
+          base_model.trainable = False
           # ----------------------
           # [4] Create two models from the VGG19 model layers
           # ----------------------
-          inputs = [vgg.input]
+          x = base_model(input_layer)
 
           # Original model
-          SELECTED_ORG_LAYERS = [('block5_conv4', 1)]
-          outputs_org = [vgg.get_layer(layer[0]).output for layer in SELECTED_ORG_LAYERS] # acts like a filter
-          model_org = tf.keras.Model(inputs, outputs_org) 
+          # SELECTED_ORG_LAYERS = [('block5_conv4', 1)]
+          # outputs = [base_model.get_layer(layer[0]).output for layer in SELECTED_ORG_LAYERS] # acts like a filter
+          # OR
+          outputs = tf.keras.layers.Lambda(lambda x: base_model(x)["block5_conv4"])(x)
+          
+          model_org = tf.keras.Model(input_layer, outputs)
+          model_org.summary()
           
           # Style model
-          SELECTED_STYLE_LAYERS = [('block1_conv1', 0.2), ('block2_conv1', 0.2), ('block3_conv1', 0.2), ('block4_conv1', 0.2), ('block5_conv1', 0.2)]
-          outputs_style = [vgg.get_layer(layer[0]).output for layer in SELECTED_STYLE_LAYERS] # acts like a filter
-          model_style = tf.keras.Model(inputs, outputs_style)
+          # SELECTED_STYLE_LAYERS = [('block1_conv1', 0.2), ('block2_conv1', 0.2), ('block3_conv1', 0.2), ('block4_conv1', 0.2), ('block5_conv1', 0.2)]
+          # outputs_style = [vgg.get_layer(layer[0]).output for layer in SELECTED_STYLE_LAYERS] # acts like a filter
+          # model_style = tf.keras.Model(inputs, outputs_style)
           # ----------------------
           # [5] Define the cost function for training
           # ----------------------
-          optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
+          # optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
           # ----------------------
           # [6] Compute the Original image Encoding (a_O)
           # ----------------------
-          org_arr_tf_float =  tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
-          a_O = model_org(org_arr_tf_float)
+          # org_arr_tf_float =  tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
+          # x = tf.keras.applications.vgg19.preprocess_input(org_arr_tf_float)
+          # a_O = model_org(org_arr_tf_float)
           # ----------------------
           # [7] Compute the Style image Encoding (a_S)
           # ----------------------
-          style_arr_tf_float =  tf.Variable(tf.image.convert_image_dtype(style_arr_np, tf.float32))
-          a_S = model_style(style_arr_tf_float)
+          # style_arr_tf_float =  tf.Variable(tf.image.convert_image_dtype(style_arr_np, tf.float32))
+          # a_S = model_style(style_arr_tf_float)
           # ----------------------
           EOF
           python out.py;
@@ -184,7 +214,7 @@ jobs:
           git config --global user.name ${repoOwner};
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${repoOwner}/${repoName}.git
           git reset  
-          git add /home/runner/work/${repoName}/${repoName}/initial_generated_arr.png
+          git add /home/runner/work/${repoName}/${repoName}/np_generated_arr_0to255.png
           git commit -m "add output files to repo"
           git push
           
