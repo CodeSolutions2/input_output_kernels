@@ -102,7 +102,7 @@ jobs:
           # Add noise to the original image.
           generated_arr_tf = tf.Variable(tf.image.convert_image_dtype(org_arr_np, tf.float32))
           noise_tf = tf.random.uniform(tf.shape(generated_arr_tf), -0.25, 0.25)
-          generated_arr_tf = tf.add(generated_arr_tf, noise)
+          generated_arr_tf = tf.add(generated_arr_tf, noise_tf)
           generated_arr_tf = tf.clip_by_value(generated_arr_tf, clip_value_min=0.0, clip_value_max=1.0)
           
           print('generated_arr_tf.shape: ', generated_arr_tf.shape)    # (1, img_w, img_h, 4)
