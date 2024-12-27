@@ -158,12 +158,9 @@ jobs:
           # ----------------------
           # include_top=False means do not include the layers close to the output.
           # Inputs should be from [0, 255].
-          
-          
-          
           base_model = tf.keras.applications.VGG19(include_top=False,
                                             input_shape=(224, 224, 3),
-                                            output_shape=(BATCH_SIZE, 128),  
+                                            output_shape=(224, 224, 3),  
                                             weights='imagenet',
                                             input_tensor=input_layer,
                                             classes=1000,
