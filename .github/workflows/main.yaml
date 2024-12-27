@@ -159,28 +159,38 @@ jobs:
           # include_top=False means do not include the layers close to the output.
           # Inputs should be from [0, 255].
           
-          input_layer = tf.keras.layers.Input(shape=(224, 224, 3))
+          
           
           base_model = tf.keras.applications.VGG19(include_top=False,
                                             input_shape=(224, 224, 3),
+                                            output_shape=(BATCH_SIZE, 128),  
                                             weights='imagenet',
                                             input_tensor=input_layer,
                                             classes=1000,
                                             classifier_activation='softmax')
           base_model.trainable = False
           # ----------------------
-          # [4] Create two models from the VGG19 model layers
+          # [4] Define the models input
           # ----------------------
+          input_layer = tf.keras.layers.Input(shape=(224, 224, 3))
+          
           x = base_model(input_layer)
 
+          # List the layers
+          base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x))
+          print('base_model_layers: ', base_model_layers)
+          # ----------------------
+          # [4] Create two models from the VGG19 model layers
+          # ----------------------
           # Original model
+          # ----------------------
           # SELECTED_ORG_LAYERS = [('block5_conv4', 1)]
           # outputs = [base_model.get_layer(layer[0]).output for layer in SELECTED_ORG_LAYERS] # acts like a filter
           # OR
-          outputs = tf.keras.layers.Lambda(lambda x: base_model(x)["block5_conv4"])(x)
+          # outputs = tf.keras.layers.Lambda(lambda x: base_model(x)["block5_conv4"])(x)
           
-          model_org = tf.keras.Model(input_layer, outputs)
-          model_org.summary()
+          # model_org = tf.keras.Model(input_layer, outputs)
+          # model_org.summary()
           
           # Style model
           # SELECTED_STYLE_LAYERS = [('block1_conv1', 0.2), ('block2_conv1', 0.2), ('block3_conv1', 0.2), ('block4_conv1', 0.2), ('block5_conv1', 0.2)]
