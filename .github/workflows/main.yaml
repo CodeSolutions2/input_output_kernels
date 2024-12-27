@@ -172,8 +172,9 @@ jobs:
           # ----------------------
           # base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x)) # lambda layers requires an output shape
           # OR
-          base_model_layers_0 = [print(layer.name) for layer in base_model(input_layer)]
-          print('base_model_layers_0: ', base_model_layers_0)
+          # base_model_layers_0 = [print(layer.name) for layer in base_model(input_layer)]
+          # print('base_model_layers_0: ', base_model_layers_0)
+          # Iterating over a symbolic KerasTensor is not supported
           # OR
           base_model_layers_1 = [print(layer.name) for layer in base_model.layers]
           print('base_model_layers_1: ', base_model_layers_1)
