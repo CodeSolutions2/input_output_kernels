@@ -168,16 +168,20 @@ jobs:
                                             classifier_activation='softmax')
           base_model.trainable = False
           # ----------------------
-          # [4] Define the models input
+          # [4] List the layers
+          # ----------------------
+          # base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x)) # lambda layers requires an output shape
+          # OR
+          base_model_layers_0 = [print(layer.name) for layer in base_model(input_layer)]
+          print('base_model_layers_0: ', base_model_layers_0)
+          # OR
+          base_model_layers_1 = [print(layer.name) for layer in base_model.layers]
+          print('base_model_layers_1: ', base_model_layers_1)
+          # ----------------------
+          # [5] Define two models from the VGG19 model layers
           # ----------------------
           x = base_model(input_layer)
-
-          # List the layers
-          # base_model_layers = tf.keras.layers.Lambda(lambda x: base_model(x)) # lambda layers requires an output shape
-          print('base_model_layers: ', base_model_layers)
-          # ----------------------
-          # [4] Create two models from the VGG19 model layers
-          # ----------------------
+          
           # Original model
           # ----------------------
           # SELECTED_ORG_LAYERS = [('block5_conv4', 1)]
