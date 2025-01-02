@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>  
+
+<h1>Input output kernels webapp</h1>
+The purpose of this webapp is the use different computational kernels to run code snippets.
+<ol type="A">
+	<li>Input code.</li>
+	<li>Select the kernel.</li>
+	<li>Push run button.</li>
+	<li>View output from the kernel.</li>
+</ol>
+  
+<br><br>
+  
+<h3>[Step 0] Select the kernel.</h3>
+<label for="select_dropdown_option_label">Select a drop down option:</label>
+<select name="dropdown_options" id="dropdown_options" style="display:block">
+<option value="---">Select an option</option>
+<option value="python">python</option>
+<option value="javascript">javascript</option>
+<option value="matlab">matlab</option>
+
+<br><br>
+
+<h3>[Step 1] Push run button.</h3>
+<button id="run_selection" onclick="run_selection()" style="display:block">Step 2: run selection</button>
+
+<br><br>
+  
+<div id="notification"></div>
+  
+<!-- ---------------------------------------- -->
+
+<table id="input_output" style='text-align: left; width: 300px; display:none'>
+<!-- dynamically add rows here -->
+</table>
+
+<!-- ---------------------------------------- -->
+<!-- CSS -->
+<style>
+div { padding: 10px; display:block; font-family:courier; font-size:15px; height:10px; }
+	
+div#notification { position: relative; color: #3236a8; }
+
+</style>
+
+<!-- --------------------------------------------------- -->
+
+<script type="module" crossorigin="*" redirect="follow" mode="cors">
+import { run_backend_process } from "https://cdn.jsdelivr.net/npm/library_to_run_github_actions@1.0.1/dist/library_to_run_GitHub_Actions.js";
+module.run_backend_process = run_backend_process;
+</script>
+
+<!-- --------------------------------------------------- -->
+  
+<script>
+
+// -----------------------------------------------
+	
+window.addEventListener('beforeunload', function() {
+	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
+	document.getElementById("dropdown_options").selectedIndex = 0;
+});
+
+// -----------------------------------------------
+
+async function processEvent_dropdown_options(event) {
+	
+	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
+    await print_input();
+	}
+	
+} 
+
+document.getElementById("dropdown_options").addEventListener("change", processEvent_dropdown_options, false);
+	
+// -----------------------------------------------
+
+const module = {};
+
+// ----------------------------------------------------
+  
+async function run_selection() {
+	
+	var input_code = document.getElementById('textarea').value;
+	// console.log("input_code: ", input_code);
+  
+	// -------------------
+  
+	var dropdown_option_type = document.getElementById("dropdown_options").value;
+
+  if (dropdown_option_type == 'python') {
+
+  
+  } else if (dropdown_option_type == 'javascript') {
+
+  } else if (dropdown_option_type == 'matlab') {
+
+  } else {
+		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
+  }
+
+// -----------------------------------------------
+
+// -----------------------------------------------
+
+async function print_input() {
+  
+	let tbl = document.getElementById("input_output");
+	let tblBody = document.createElement("tbody");
+	
+	// Add to Frontend: Create a cellText OR textarea
+	let row = document.createElement("tr");
+	let cell = document.createElement("td");
+  cell.style.backgroundColor = "#cacccf";
+	
+  // let cellText = document.createTextNode(`: ${document.getElementById("input_text").value}`);
+	// cell.appendChild(cellText);
+	// OR
+  var textarea = document.createElement("textarea");
+  cell.appendChild(textarea);
+  
+  cell.style.border = "10px solid rgba(0, 0, 0, 0)";
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+	tbl.appendChild(tblBody);
+
+}
+  
+// -----------------------------------------------
+
+async function print_output() {
+
+	document.getElementById("input_output").style.display = "block";
+	
+	let tbl = document.getElementById("input_output");
+	let tblBody = document.createElement("tbody");
+	
+	// Add chatbot output to Frontend: Create a cellText OR textarea
+	row = document.createElement("tr");
+	cell = document.createElement("td");
+	cell.style.backgroundColor = "#dbc49e";
+	cellText = document.createTextNode(`Output: ${output}`);
+	cell.appendChild(cellText);
+	cell.style.border = "10px solid rgba(0, 0, 0, 0)";
+	row.appendChild(cell);
+	tblBody.appendChild(row);
+	tbl.appendChild(tblBody);
+	
+}
+
+// -----------------------------------------------
+</script>
+</body>
+</html>
