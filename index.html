@@ -33,7 +33,7 @@ The purpose of this webapp is the use different computational kernels to run cod
   
 <!-- ---------------------------------------- -->
 
-<table id="input_output" style='text-align: left; width: 300px; display:block'>
+<table id="input_output">
 <!-- dynamically add rows here -->
 </table>
 
@@ -44,6 +44,13 @@ div { padding: 10px; display:block; font-family:courier; font-size:15px; height:
 	
 div#notification { position: relative; color: #3236a8; }
 
+table {vertical-align: top; border-collapse: collapse; position: relative; z-index: 0; border: 0px solid black; }
+
+table#input_output { text-align: left; width: 300px; display:block; }
+	
+tr {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
+th, td {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
+	
 </style>
 
 <!-- --------------------------------------------------- -->
@@ -101,21 +108,25 @@ async function run_selection() {
 		        RepoAobj.n = 1;
 		      	RepoAobj.foldername = 'src'; // foldername in RepoB
 		        RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
-
-  if (dropdown_option_type == 'python') {
-	  RepoAobj.input_text = input_code+"|python";
-  } else if (dropdown_option_type == 'javascript') {
-RepoAobj.input_text = input_code+"|javascript";
-  } else if (dropdown_option_type == 'matlab') {
-RepoAobj.input_text = input_code+"|matlab";
-  } else {
+	
+	if (dropdown_option_type == 'python') {
+		RepoAobj.input_text = input_code+"|python";
+	} else if (dropdown_option_type == 'javascript') {
+		RepoAobj.input_text = input_code+"|javascript";
+	} else if (dropdown_option_type == 'matlab') {
+		RepoAobj.input_text = input_code+"|matlab";
+	} else {
 		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
-  }
+	}
+
+	// -------------------
 
 	// Save the file in the repository
-			await module.run_backend_process(RepoAobj);
+	await module.run_backend_process(RepoAobj);
 
-// Wait for file creation
+	// -------------------
+	
+	// Wait for file creation
 	var flag = "run";
 	var i = 0;
 	while (flag == "run" && i < 20) {
@@ -125,53 +136,52 @@ RepoAobj.input_text = input_code+"|matlab";
 		i += 1;
 		console.log('i: ', i);
 	}
-
+	
+	// -------------------
+	
 }
 	
 // -----------------------------------------------
 
 async function print_input() {
   
-	let tbl = document.getElementById("input_output");
-	let tblBody = document.createElement("tbody");
+	var tbl = document.getElementById("input_output");
+	var tblBody = document.createElement("tbody");
 	
 	// Add to Frontend: Create a cellText OR textarea
-	let row = document.createElement("tr");
-	let cell = document.createElement("td");
-  cell.style.backgroundColor = "#cacccf";
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
+	cell.style.backgroundColor = "#cacccf";
 	
-  // let cellText = document.createTextNode(`: ${document.getElementById("input_text").value}`);
-	// cell.appendChild(cellText);
-	// OR
-  var textarea = document.createElement("textarea");
+	var textarea = document.createElement("textarea");
 	textarea.class = "textarea";
-  cell.appendChild(textarea);
-  
-  cell.style.border = "10px solid rgba(0, 0, 0, 0)";
+	cell.appendChild(textarea);
+	cell.style.border = "10px solid rgba(0, 0, 0, 0)";
+	
 	row.appendChild(cell);
 	tblBody.appendChild(row);
 	tbl.appendChild(tblBody);
-
 }
   
 // -----------------------------------------------
 
 async function print_output(output) {
 	
-	let tbl = document.getElementById("input_output");
-	let tblBody = document.createElement("tbody");
+	var tbl = document.getElementById("input_output");
+	var tblBody = document.createElement("tbody");
 	
 	// Add chatbot output to Frontend: Create a cellText OR textarea
-	row = document.createElement("tr");
-	cell = document.createElement("td");
+	var row = document.createElement("tr");
+	var cell = document.createElement("td");
 	cell.style.backgroundColor = "#dbc49e";
-	cellText = document.createTextNode(`Output: ${output}`);
+	
+	var cellText = document.createTextNode(`Output: ${output}`);
 	cell.appendChild(cellText);
 	cell.style.border = "10px solid rgba(0, 0, 0, 0)";
+	
 	row.appendChild(cell);
 	tblBody.appendChild(row);
 	tbl.appendChild(tblBody);
-	
 }
 
 // -----------------------------------------------
