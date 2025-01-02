@@ -35,6 +35,9 @@ The purpose of this webapp is the use different computational kernels to run cod
 
 <div id="input_output"></div>
 
+<textarea class="textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea>
+
+
 <!-- ---------------------------------------- -->
 <!-- CSS -->
 <style>
@@ -135,24 +138,21 @@ async function run_selection() {
 // -----------------------------------------------
 
 async function print_empty_input_cell() {
-
-	var div_span = document.createElement("span");
-		div_span.innerText = "test";
-		document.getElementById("input_output").appendChild(div_span);
 	
-	// var div_span = document.createElement("span");
-	// var textarea = document.createElement("textarea");
-	// textarea.class = "textarea";
+	var div_span = await document.createElement("span");
+	var textarea = await document.createElement("textarea");
+	textarea.class = "textarea";
 	
-	// div_span.appendChild(textarea);
-	// document.getElementById("input_output").appendChild(div_span);
+	div_span.appendChild(textarea);
+	var div_main = await document.getElementById("input_output");
+	div_main.appendChild(div_span);
 }
   
 // -----------------------------------------------
 
 async function print_output(output) {
 	
-	var div_span = document.createElement("span");
+	var div_span = await document.createElement("span");
 	
 	div_span.innerText = `${output}`;
 	
