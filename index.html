@@ -33,9 +33,9 @@ The purpose of this webapp is the use different computational kernels to run cod
   
 <!-- ---------------------------------------- -->
 
-<table id="input_output">
-<!-- dynamically add rows here -->
-</table>
+<div id="input_output">
+<!-- dynamically add span elements here -->
+</div>
 
 <!-- ---------------------------------------- -->
 <!-- CSS -->
@@ -43,10 +43,6 @@ The purpose of this webapp is the use different computational kernels to run cod
 div { padding: 10px; display:block; font-family:courier; font-size:15px; height:10px; }
 	
 div#notification { position: relative; color: #3236a8; }
-
-table {vertical-align: top; border-collapse: collapse; position: relative; z-index: 0; border: 0px solid black; }
-
-table#input_output { text-align: left; width: 300px; display:block; }
 	
 tr {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
 th, td {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
@@ -77,9 +73,7 @@ async function processEvent_dropdown_options(event) {
 	
 	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
 		
-		// document.getElementById("input_output").style.display = "block";
-		
-		await print_input();
+		await print_empty_input_cell();
 	}
 	
 } 
@@ -143,45 +137,25 @@ async function run_selection() {
 	
 // -----------------------------------------------
 
-async function print_input() {
-  
-	var tbl = document.getElementById("input_output");
-	var tblBody = document.createElement("tbody");
+async function print_empty_input_cell() {
 	
-	// Add to Frontend: Create a cellText OR textarea
-	var row = document.createElement("tr");
-	var cell = document.createElement("td");
-	cell.style.backgroundColor = "#cacccf";
-	
+	var div_span = document.createElement("span");
 	var textarea = document.createElement("textarea");
 	textarea.class = "textarea";
-	cell.appendChild(textarea);
-	cell.style.border = "10px solid rgba(0, 0, 0, 0)";
 	
-	row.appendChild(cell);
-	tblBody.appendChild(row);
-	tbl.appendChild(tblBody);
+	div_span.appendChild(textarea);
+	document.getElementById("input_output").appendChild(div_span);
 }
   
 // -----------------------------------------------
 
 async function print_output(output) {
 	
-	var tbl = document.getElementById("input_output");
-	var tblBody = document.createElement("tbody");
+	var div_span = document.createElement("span");
 	
-	// Add chatbot output to Frontend: Create a cellText OR textarea
-	var row = document.createElement("tr");
-	var cell = document.createElement("td");
-	cell.style.backgroundColor = "#dbc49e";
+	div_span.innerText = `${output}`;
 	
-	var cellText = document.createTextNode(`Output: ${output}`);
-	cell.appendChild(cellText);
-	cell.style.border = "10px solid rgba(0, 0, 0, 0)";
-	
-	row.appendChild(cell);
-	tblBody.appendChild(row);
-	tbl.appendChild(tblBody);
+	document.getElementById("input_output").appendChild(div_span);
 }
 
 // -----------------------------------------------
