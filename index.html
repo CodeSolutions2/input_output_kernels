@@ -33,7 +33,7 @@ The purpose of this webapp is the use different computational kernels to run cod
   
 <!-- ---------------------------------------- -->
 
-<table id="input_output" style='text-align: left; width: 300px; display:none'>
+<table id="input_output" style='text-align: left; width: 300px; display:block'>
 <!-- dynamically add rows here -->
 </table>
 
@@ -69,7 +69,8 @@ window.addEventListener('beforeunload', function() {
 async function processEvent_dropdown_options(event) {
 	
 	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
-		document.getElementById("input_output").style.display = "block";
+		
+		// document.getElementById("input_output").style.display = "block";
 		
 		await print_input();
 	}
