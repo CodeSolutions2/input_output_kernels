@@ -70,7 +70,6 @@ window.addEventListener('beforeunload', function() {
 async function processEvent_dropdown_options(event) {
 	
 	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
-		
 		await print_empty_input_cell();
 	}
 	
@@ -122,7 +121,7 @@ async function run_selection() {
 	var flag = "run";
 	var i = 0;
 	while (flag == "run" && i < 20) {
-		await print_result()
+		await print_empty_input_cell()
 			.then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
 			.catch(error => { console.log("error: ", error); });
 		i += 1;
@@ -136,13 +135,17 @@ async function run_selection() {
 // -----------------------------------------------
 
 async function print_empty_input_cell() {
-	
+
 	var div_span = document.createElement("span");
-	var textarea = document.createElement("textarea");
-	textarea.class = "textarea";
+		div_span.innerText = "test";
+		document.getElementById("input_output").appendChild(div_span);
 	
-	div_span.appendChild(textarea);
-	document.getElementById("input_output").appendChild(div_span);
+	// var div_span = document.createElement("span");
+	// var textarea = document.createElement("textarea");
+	// textarea.class = "textarea";
+	
+	// div_span.appendChild(textarea);
+	// document.getElementById("input_output").appendChild(div_span);
 }
   
 // -----------------------------------------------
