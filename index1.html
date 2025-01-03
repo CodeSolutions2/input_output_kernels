@@ -67,9 +67,10 @@ async function run_counter() {
 	// Determine if the HTML DOM value has changed 
 	
 	// Callback function to execute when a change in the HTML DOM is observed
-	const processCallback_to_detect_change = (mutationList, observer) => {
+	window.processCallback_to_detect_change = (mutationList, observer) => {
 		console.log('mutationList: ', mutationList);
 	}
+
 	
 	const observer = new MutationObserver(processCallback_to_detect_change);
 
