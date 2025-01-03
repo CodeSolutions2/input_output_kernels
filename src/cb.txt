@@ -1,1 +1,2 @@
-a=[4, 3];print(a.sort());|python
+a=[4, 3]
+print(a.sort())|python
