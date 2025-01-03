@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>  
+
+<h1>Input output kernels webapp</h1>
+The purpose of this webapp is the use different computational kernels to run code snippets.
+<ol type="A">
+	<li>Select the kernel.</li>
+	<li>Input code.</li>
+	<li>Push run button.</li>
+	<li>View output from the kernel.</li>
+</ol>
+  
+<br><br>
+  
+<h3>[Step 0] Select the kernel.</h3>
+<label for="select_dropdown_option_label">Select a drop down option:</label>
+<select name="dropdown_options" id="dropdown_options" style="display:block">
+<option value="---">Select an option</option>
+<option value="python">python</option>
+<option value="javascript">javascript</option>
+<option value="matlab">matlab</option>
+
+<br><br>
+
+<h3>[Step 1] Push run button.</h3>
+<button id="run_selection" onclick="run_selection()" style="display:block">Step 2: run selection</button>
+
+<br><br>
+  
+<div id="notification"></div>
+  
+<!-- ---------------------------------------- -->
+
+<div id="input_output"></div>
+
+<textarea class="textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea>
+  
+<!-- ---------------------------------------- -->
+<!-- CSS -->
+<style>
+div { padding: 10px; display:block; font-family:courier; font-size:15px; height:10px; }
+	
+div#notification { position: relative; color: #3236a8; }
+	
+tr {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
+th, td {vertical-align: top; border: 0px solid black; padding: 20px 10px; }
+	
+</style>
+  
+</body>
+  
+<!-- --------------------------------------------------- -->
+
+<script type="module" crossorigin="*" redirect="follow" mode="cors">
+import { run_backend_process } from "https://cdn.jsdelivr.net/npm/library_to_run_github_actions@1.0.1/dist/library_to_run_GitHub_Actions.js";
+module.run_backend_process = run_backend_process;
+</script>
+
+<!-- --------------------------------------------------- -->
+  
+<script>
+
+// -----------------------------------------------
+	
+window.addEventListener('beforeunload', function() {
+	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
+	document.getElementById("dropdown_options").selectedIndex = 0;
+});
+
+// -----------------------------------------------
+
+async function processEvent_dropdown_options(event) {
+	
+	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
+		await print_empty_input_cell();
+	}
+	
+} 
+
+document.getElementById("dropdown_options").addEventListener("change", processEvent_dropdown_options, false);
+	
+// -----------------------------------------------
+
+const module = {};
+
+// ----------------------------------------------------
+  
+async function run_selection() {
+	
+	var input_code = document.querySelector('.textarea').value;
+	console.log("input_code: ", input_code);
+  
+	// -------------------
+  
+	var dropdown_option_type = document.getElementById("dropdown_options").value;
+
+	var RepoAobj = {};
+		        RepoAobj.repoOwner = 'CodeSolutions2';
+		        RepoAobj.repoA_name = 'temp_repo';
+		        RepoAobj.repoB_name = 'temp_repo';  
+		        RepoAobj.n = 1;
+		      	RepoAobj.foldername = 'src'; // foldername in RepoB
+		        RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
+	
+	if (dropdown_option_type == 'python') {
+		RepoAobj.input_text = input_code+"|python";
+	} else if (dropdown_option_type == 'javascript') {
+		RepoAobj.input_text = input_code+"|javascript";
+	} else if (dropdown_option_type == 'matlab') {
+		RepoAobj.input_text = input_code+"|matlab";
+	} else {
+		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
+	}
+
+	// -------------------
+
+	// Save the file in the repository
+	await module.run_backend_process(RepoAobj);
+
+	// -------------------
+	
+	// Wait for file creation
+	var flag = "run";
+	var i = 0;
+	while (flag == "run" && i < 20) {
+		await print_empty_input_cell()
+			.then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
+			.catch(error => { console.log("error: ", error); });
+		i += 1;
+		console.log('i: ', i);
+	}
+	
+	// -------------------
+	
+}
+	
+// -----------------------------------------------
+
+async function print_empty_input_cell() {
+	
+	var div_span = await document.createElement("span");
+	var textarea = await document.createElement("textarea");
+	textarea.class = "textarea";
+	
+	div_span.appendChild(textarea);
+	var div_main = await document.getElementById("input_output");
+	div_main.appendChild(div_span);
+}
+  
+// -----------------------------------------------
+
+async function print_output(output) {
+	
+	var div_span = await document.createElement("span");
+	
+	div_span.innerText = `${output}`;
+	
+	document.getElementById("input_output").appendChild(div_span);
+}
+
+// -----------------------------------------------
+	
+async function print_result() {
+	await GET_repo_file_info_RESTAPI_fast()
+		.then(async function (output) { 
+			if (output != '404: Not Found') {
+				console.log("output: ", output);
+				await print_output(output); 
+			}
+		})
+		.catch(error => { console.log("error: ", error); });
+}
+
+
+async function GET_repo_file_info_RESTAPI_fast() {
+	return await fetch('https://raw.githubusercontent.com/CodeSolutions2/temp_repo/main/output.txt')
+		.then(res => res.text())
+		.then(async function (text_out) { return  text_out; })
+		.catch(error => { console.log("error: ", error); });
+}
+
+// -----------------------------------------------
+
+
+	
+</script>
+</html>
