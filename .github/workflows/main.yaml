@@ -23,14 +23,14 @@ jobs:
           # Select the all the rows/lines except the last row/line
           # head = maximum rows/lines to select + 1 = (n-1) + 1 = n
           # tail = (head) - (desired row/line to start at) = n - 0 = n
-          n=$(cat src/cb.txt | wc -l)
-          CODE=$(cat src/cb.txt | head -n n
+          n=$(cat src/cb.txt | wc -l);
+          CODE=$(cat src/cb.txt | head -n n);
           # OR
-          # CODE=$(cat src/cb.txt | head -n n | tail -n n
+          # CODE=$(cat src/cb.txt | head -n n | tail -n n);
           echo "CODE = $CODE";
           # ---------------------------------------
           # Select the last row/line
-          KERNEL=$(echo "$FILE_TEXT" | tail -n 1)
+          KERNEL=$(echo "$FILE_TEXT" | tail -n 1);
           echo "KERNEL = $KERNEL";
           # ---------------------------------------
           # Remove the input file from the repository
