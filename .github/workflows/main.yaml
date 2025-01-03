@@ -24,9 +24,9 @@ jobs:
           # head = maximum rows/lines to select + 1 = (n-1) + 1 = n
           # tail = (head) - (desired row/line to start at) = n - 0 = n
           n=$(cat src/cb.txt | wc -l);
-          CODE=$(cat src/cb.txt | head -n n);
+          CODE=$(cat src/cb.txt | head -n $n);
           # OR
-          # CODE=$(cat src/cb.txt | head -n n | tail -n n);
+          # CODE=$(cat src/cb.txt | head -n $n | tail -n $n);
           echo "CODE = $CODE";
           # ---------------------------------------
           # Select the last row/line
