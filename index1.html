@@ -46,6 +46,8 @@ document.getElementById("counter_display").addEventListener("input", processEven
 
 // -----------------------------------------------
 
+var observer;
+	
 // Options for the observer (which mutations to observe)
 const config = { attributes: true, childList: true, subtree: true };
 	
@@ -67,13 +69,15 @@ async function run_counter() {
 	// Determine if the HTML DOM value has changed 
 	
 	// Callback function to execute when a change in the HTML DOM is observed
-	window.processCallback_to_detect_change = (mutationList, observer) => {
-		console.log('mutationList: ', mutationList);
-	}
+	// window.processCallback_to_detect_change = (mutationList) => { console.log('mutationList: ', mutationList); }
+	// const observer = new MutationObserver(processCallback_to_detect_change);
 
+	// OR
 	
-	const observer = new MutationObserver(processCallback_to_detect_change);
-
+	observer = new MutationObserver(function(mutationList) {
+		console.log('inside MutationObserver: ', targetNode.textContent);
+		console.log('mutationList: ', mutationList);
+	});
 	
 
 	observer.observe(targetNode, config);
