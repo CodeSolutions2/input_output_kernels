@@ -33,6 +33,8 @@ jobs:
           if [ -f "$KERNEL" == "python" ]; then
             echo $CODE  > out.py;
             python out.py > output.txt;
+            echo "OUTPUT";
+            cat output.txt;
           elif [ -f "$KERNEL" == "javascript" ]; then
             echo "javascript";
           elif [ -f "$KERNEL" == "matlab" ]; then
