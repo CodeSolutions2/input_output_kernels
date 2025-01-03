@@ -8,6 +8,8 @@
 
 <button id="run_counter" onclick="run_counter()" style="display:block">run_counter</button>
 
+<button id="disconnect" onclick="disconnect()" style="display:block">disconnect</button>
+	
 </body>
 
 <script>
@@ -44,25 +46,47 @@ document.getElementById("counter_display").addEventListener("input", processEven
 
 // -----------------------------------------------
 
+// Options for the observer (which mutations to observe)
+const config = { attributes: true, childList: true, subtree: true };
+	
 async function run_counter() {
+
+	// Update the HTML DOM value
+	var targetNode = document.getElementById("counter_display");
 	
 	// Way 0: with div element
-	document.getElementById("counter_display").textContent = await Number(document.getElementById("counter_display").textContent) + 1;
+	targetNode.textContent = await Number(targetNode.textContent) + 1;
 	// RESULT: it can count only once, but it can not trigger the eventlistener
 	
 	// Way 1: with global variable and div element
 	// console.log('counter_value_number: ', counter_value_number);
 	// document.getElementById("counter_display").textContent = await String(counter_value_number + 1);
-
-	// Way 2: 
-	// var event = new CustomEvent("event_name", {detail: detail})
-
 	
+	// -------------------
+
+	// Determine if the HTML DOM value has changed 
+	const observer = new MutationObserver(processCallback_to_detect_change);
+
+	// Callback function to execute when a change in the HTML DOM is observed
+	const processCallback_to_detect_change = (mutationList, observer) => {
+		console.log('mutationList: ', mutationList);
+	}
+
+	observer.observe(targetNode, config);
 
 	// -------------------
 }
+
+
+async function disconnect() {
+	observer.disconnect();
+}
+// -----------------------------------------------
+
+
 	
 // -----------------------------------------------
-  
+
+// -----------------------------------------------
 </script>
 </html>
