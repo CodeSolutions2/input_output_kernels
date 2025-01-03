@@ -1,1 +1,1 @@
-a=4;print("a:", a);|python
+a=[4, 3];print(a.sort());|python
