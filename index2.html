@@ -13,7 +13,9 @@ The purpose of this webapp is the use different computational kernels to run cod
 </ol>
   
 <br><br>
-  
+
+<!-- ---------------------------------------- -->
+	
 <h3>[Step 0] Select the kernel.</h3>
 <label for="select_dropdown_option_label">Select a drop down option:</label>
 <select name="dropdown_options" id="dropdown_options" style="display:block">
@@ -23,8 +25,17 @@ The purpose of this webapp is the use different computational kernels to run cod
 	<option value="matlab">matlab</option>
 </select>
 	
-<br><br>
+<!-- ---------------------------------------- -->
 
+<div id="input_output">
+<span><textarea id="input_textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea></span>
+<span><div id="output_div"></span>
+</div>
+
+<br><br>
+	
+<!-- ---------------------------------------- -->
+	
 <h3>[Step 1] Push run button.</h3>
 <button id="run_selection" onclick="run_selection()" style="display:block">Step 2: run selection</button>
 
@@ -32,12 +43,7 @@ The purpose of this webapp is the use different computational kernels to run cod
   
 <div id="notification"></div>
   
-<!-- ---------------------------------------- -->
 
-<div id="input_output">
-<span><textarea id="input_textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea></span>
-<span><div id="output_div"></span>
-</div>
   
 <!-- ---------------------------------------- -->
 <!-- CSS -->
