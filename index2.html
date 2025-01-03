@@ -33,9 +33,10 @@ The purpose of this webapp is the use different computational kernels to run cod
   
 <!-- ---------------------------------------- -->
 
-<div id="input_output"></div>
-
-<textarea class="textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea>
+<div id="input_output">
+<span><textarea id="input_textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea></span>
+<span><div id="output_div"></span>
+</div>
   
 <!-- ---------------------------------------- -->
 <!-- CSS -->
@@ -71,25 +72,13 @@ window.addEventListener('beforeunload', function() {
 
 // -----------------------------------------------
 
-async function processEvent_dropdown_options(event) {
-	
-	if (document.getElementById("dropdown_options").selectedIndex != 0 ) {
-		await print_empty_input_cell();
-	}
-	
-} 
-
-document.getElementById("dropdown_options").addEventListener("change", processEvent_dropdown_options, false);
-	
-// -----------------------------------------------
-
 const module = {};
 
 // ----------------------------------------------------
   
 async function run_selection() {
 	
-	var input_code = document.querySelector('.textarea').value;
+	var input_code = document.getElementById('input_textarea').value;
 	console.log("input_code: ", input_code);
   
 	// -------------------
@@ -125,7 +114,7 @@ async function run_selection() {
 	var flag = "run";
 	var i = 0;
 	while (flag == "run" && i < 20) {
-		await print_empty_input_cell()
+		await print_result()
 			.then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
 			.catch(error => { console.log("error: ", error); });
 		i += 1;
@@ -138,26 +127,10 @@ async function run_selection() {
 	
 // -----------------------------------------------
 
-async function print_empty_input_cell() {
-	
-	var div_span = await document.createElement("span");
-	var textarea = await document.createElement("textarea");
-	textarea.class = "textarea";
-	
-	await div_span.appendChild(textarea);
-	
-	await document.getElementById("input_output").appendChild(div_span);
-}
-  
-// -----------------------------------------------
-
 async function print_output(output) {
-	
-	var div_span = await document.createElement("span");
-	
-	div_span.innerText = `${output}`;
-	
-	document.getElementById("input_output").appendChild(div_span);
+	var output_arr = output.split('\n');
+	var output_html = output_arr.map((ind, val) => { return val+"<br><br>"; }).join('');
+	document.getElementById("output_div").innerHTML = output_html;
 }
 
 // -----------------------------------------------
@@ -166,6 +139,7 @@ async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
 		.then(async function (output) { 
 			if (output != '404: Not Found') {
+				// File was found
 				console.log("output: ", output);
 				await print_output(output); 
 			}
