@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body> 
+
+<!--Counter-->
+<div id="counter_display" style="display:block; text-align: left; width: 600px;"></div>
+
+<button id="run_counter" onclick="run_counter()" style="display:block">run_counter</button>
+
+</body>
+
+<script>
+
+var counter_value_number;
+  
+// -----------------------------------------------
+	
+window.addEventListener('beforeunload', function() {
+	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
+});
+
+
+// -----------------------------------------------
+// async function processEvent_text_input(event) {
+async function processEvent_text_input() {
+
+	console.log('counter changed', counter_value_number);
+	
+	if (Number(document.getElementById("counter_value").value) < 10) {
+		await run_counter();
+		console.log("here");
+		// -------------------
+		
+		// Update event
+		document.getElementById("counter_display").textContent = document.getElementById("counter_value").value;
+	} 
+	
+}
+	
+//document.getElementById("counter_value").addEventListener("change", processEvent_text_input, false);
+
+// -----------------------------------------------
+
+async function run_counter() {
+
+	counter_value_number = await Number(document.getElementById("counter_value").value);
+	console.log('counter_value_number: ', counter_value_number);
+
+  // -------------------
+
+	document.getElementById("counter_value").value = await String(counter_value_number + 1);
+	console.log('new counter_value_number: ', document.getElementById("counter_value").value);
+
+	// -------------------
+}
+	
+// -----------------------------------------------
+  
+</script>
+</html>
