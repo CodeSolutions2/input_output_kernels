@@ -118,11 +118,11 @@ async function run_selection() {
 	RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
 	
 	if (dropdown_option_type == 'python') {
-		RepoAobj.input_text = input_code+"|python";
+		RepoAobj.input_text = input_code+"\npython";
 	} else if (dropdown_option_type == 'javascript') {
-		RepoAobj.input_text = input_code+"|javascript";
+		RepoAobj.input_text = input_code+"\njavascript";
 	} else if (dropdown_option_type == 'matlab') {
-		RepoAobj.input_text = input_code+"|matlab";
+		RepoAobj.input_text = input_code+"\nmatlab";
 	} else {
 		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
 	}
