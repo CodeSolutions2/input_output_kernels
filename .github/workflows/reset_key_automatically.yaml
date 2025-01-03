@@ -1,8 +1,11 @@
 name: automatically reset (salt, encrypt) repository key
 
+
 on:
-  schedule:
-    - cron: '1 0,3,6,7,11,12,15,19,18,23 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
       
 jobs:
   reset_key:
