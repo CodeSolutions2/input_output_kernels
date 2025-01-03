@@ -76,12 +76,19 @@ jobs:
             # OR
             # -------------------
             # Run the code in out.py, Save the output in a file
-            python out.py > output.txt;
+            # python out.py > output.txt;
             # Print the output
-            echo "OUTPUT";
-            cat output.txt;
+            # echo "OUTPUT";
+            # cat output.txt;
             # -------------------
-            
+            # OR
+            # -------------------
+            OUTPUT="$(python -c $CODE)";
+            # Save the output in a file
+            echo "$OUTPUT" > output.txt;
+            # Print the output
+            echo "OUTPUT = $OUTPUT";
+            # -------------------
             
           elif [ -f "$KERNEL" == "javascript" ]; then
             echo "javascript";
