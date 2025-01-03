@@ -18,7 +18,7 @@ jobs:
       - name: Reset the key automatically
         uses: actions/github-script@v6
         env:
-          REPO_TOKEN0: "${{ secrets.REPO_TOKEN0 }}"
+          INPUT_OUTPUT_KERNELS_TOKEN0: "${{ secrets.INPUT_OUTPUT_KERNELS_TOKEN0 }}"
         with:
           result-encoding: string
           script: |
@@ -74,7 +74,7 @@ jobs:
 
             // --------------------------------
 
-            var new_auth = process.env.REPO_TOKEN0;
+            var new_auth = process.env.INPUT_OUTPUT_KERNELS_TOKEN0;
             // console.log('new_auth: ', new_auth);
 
             // --------------------------------
