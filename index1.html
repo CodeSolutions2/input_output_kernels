@@ -14,13 +14,21 @@
 
 <script>
 
-// var counter_value_number;
+var observer;
   
 // -----------------------------------------------
 	
 window.addEventListener('beforeunload', function() {
 	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
 	document.getElementById("counter_display").textContent = 0;
+
+	observer = new MutationObserver(function(mutationList) {
+		console.log('inside MutationObserver: ', document.getElementById("counter_display").textContent);
+		console.log('mutationList: ', mutationList);
+	});
+	
+	const config = { attributes: true, childList: true, subtree: true };
+	observer.observe(targetNode, config);
 });
 
 
@@ -46,11 +54,6 @@ document.getElementById("counter_display").addEventListener("input", processEven
 
 // -----------------------------------------------
 
-var observer;
-	
-// Options for the observer (which mutations to observe)
-const config = { attributes: true, childList: true, subtree: true };
-	
 async function run_counter() {
 
 	// Update the HTML DOM value
@@ -74,13 +77,7 @@ async function run_counter() {
 
 	// OR
 	
-	observer = new MutationObserver(function(mutationList) {
-		console.log('inside MutationObserver: ', targetNode.textContent);
-		console.log('mutationList: ', mutationList);
-	});
 	
-
-	observer.observe(targetNode, config);
 
 	// -------------------
 }
