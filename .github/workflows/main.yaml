@@ -59,12 +59,6 @@ jobs:
             # -------------------
             # Parse the text and save to out.py
             echo $CODE  > out.py;
-            # -------------------
-            # Print out.py
-            echo "out.py";
-            cat out.py;
-            # -------------------
-            
           elif [ -f "$KERNEL" == "javascript" ]; then
             echo "javascript";
           elif [ -f "$KERNEL" == "matlab" ]; then
