@@ -27,8 +27,9 @@ The purpose of this webapp is the use different computational kernels to run cod
 	
 <!-- ---------------------------------------- -->
 
-<div id="input_output">
+<div id="input_output_cell">
 <span><textarea id="input_textarea"  wrap="soft" rows="10" cols="100" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 400px;"></textarea></span>
+<span><button id="run_selection" onclick="run_selection()" style="display:none">Run selection</button></span>
 <span><div id="output_div"></span>
 </div>
 
@@ -36,11 +37,6 @@ The purpose of this webapp is the use different computational kernels to run cod
 	
 <!-- ---------------------------------------- -->
 	
-<h3>[Step 1] Push run button.</h3>
-<button id="run_selection" onclick="run_selection()" style="display:block">Step 2: run selection</button>
-
-<br><br>
-  
 <div id="notification"></div>
   
 
@@ -77,6 +73,24 @@ window.addEventListener('beforeunload', function() {
 	document.getElementById("dropdown_options").selectedIndex = 0;
 });
 
+// -----------------------------------------------
+
+async function processEvent_dropdown_options(event) {
+	
+	// Make something change when text is typed into the text input
+	
+	if (document.getElementById("input_textarea").value.length > 0) {
+		// If something is typed into the text input box
+		// Make a button appear
+		document.getElementById("run_selection").style.display = 'block';
+	} else {
+		document.getElementById("run_selection").style.display = 'none';
+	}
+	
+} 
+
+document.getElementById("input_textarea").addEventListener("change", processEvent_text_input, false);
+	
 // -----------------------------------------------
 
 const module = {};
