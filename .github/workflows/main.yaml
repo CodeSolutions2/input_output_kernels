@@ -58,10 +58,16 @@ jobs:
           if [ -f "$KERNEL" == "python" ]; then
             # -------------------
             # Parse the text and save to out.py
-            echo $CODE  > out.py;
+            file = "<<EOF ${CODE@Q} EOF"
+            output=$(python < $file)
+            # echo $CODE  > out.py;
+            
           elif [ -f "$KERNEL" == "javascript" ]; then
             echo "javascript";
           elif [ -f "$KERNEL" == "matlab" ]; then
             echo "matlab";
           fi;
           # ---------------------------------------
+
+    
+          
