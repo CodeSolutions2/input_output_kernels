@@ -53,13 +53,15 @@ jobs:
           git push;
           # ---------------------------------------
           # Parse the text and save to out.py
-          cat > out.py <<EOF ${CODE@Q} EOF
-          python out.py
+          # cat > out.py <<EOF ${CODE@Q} EOF
+          # python out.py
           # ---------------------------------------
-          output=$(python < $file)
+          # output=$(python < $file)
+          # echo "output = $output";
+          # ---------------------------------------
+          echo $CODE  > out.py;
+          output=$(python out.py)
           echo "output = $output";
-          # OR
-          # echo $CODE  > out.py;
           # ---------------------------------------
 
     
