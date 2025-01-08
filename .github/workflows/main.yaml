@@ -40,6 +40,17 @@ jobs:
           # ---------------------------------------
           # Remove the input file from the repository
           rm -rf src/cb.txt;
+          # ---------------------------------------
+          if [ -f "$KERNEL" == "python" ]; then
+            echo -e "$CODE" > out.py
+            python out.py > output.txt;
+          elif [ -f "$KERNEL" == "javascript" ]; then
+            echo "javascript";
+          elif [ -f "$KERNEL" == "matlab" ]; then
+            echo "matlab";
+          fi;
+          # ---------------------------------------
+          # Push changes to the repository
           repoOwner=$(echo "${{ github.repository }}" | cut -d '/' -f 1);
           repoName=$(echo "${{ github.repository }}" | cut -d '/' -f 2);
           repoOwnerEmail="j622amilah@gmail.com";
@@ -49,14 +60,9 @@ jobs:
           git checkout main;
           git branch --set-upstream-to origin/main;
           git merge main --ff-only;
-          git add /home/runner/work/$repoName/$repoName/src/cb.txt; 
+          git add /home/runner/work/temp_repo/temp_repo/src/output.txt; /home/runner/work/temp_repo/temp_repo/src/cb.txt; 
           git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
           git push;
-          # ---------------------------------------
-          echo -e "$CODE" > out.py
-          # ---------------------------------------
-          output=$(python out.py)
-          echo "output = $output";
           # ---------------------------------------
 
     
