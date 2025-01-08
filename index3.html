@@ -152,8 +152,9 @@ async function run_selection() {
 	
 // -----------------------------------------------
 
-async function print_output(output) {
-	var output_arr = output.split('\n');
+async function print_output(output_arr) {
+	var output_str = output_arr.join('');
+	output_arr = output_str.split('\n');
 	console.log('output_arr: ', output_arr);
 	
 	var output_html = output_arr.map((ind, val) => { return val+"<br><br>"; }).join('');
@@ -167,7 +168,7 @@ async function print_output(output) {
 async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
 		.then(async function (text_out) { 
-			if (text_out != '404: Not Found') {
+			if (text_out != '404: Not Found' || text_out != 'None') {
 				// File was found
 				console.log("text_out: ", text_out);
 				await print_output(text_out); 
