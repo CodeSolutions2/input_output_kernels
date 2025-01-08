@@ -154,7 +154,7 @@ async function print_output(output_arr) {
 	// Remove empty spaces 
 	output_arr = output_arr.filter((x) => x.length != 0); 
 	
-	var output_html = output_arr.map((ind, val) => { return val+"<br><br>"; }).join('');
+	var output_html = output_arr.map((val, ind) => { return val+"<br><br>"; }).join('');
 	console.log('output_html: ', output_html);
 	
 	document.getElementById("output_div").innerHTML = output_html;
