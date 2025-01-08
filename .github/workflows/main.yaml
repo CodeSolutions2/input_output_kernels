@@ -52,22 +52,14 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
           git push;
           # ---------------------------------------
-
-          
+          # Parse the text and save to out.py
+          file = "<<EOF ${CODE@Q} EOF"
+          echo "file = $file";
           # ---------------------------------------
-          if [ -f "$KERNEL" == "python" ]; then
-            echo "python";
-            # -------------------
-            # Parse the text and save to out.py
-            # file = "<<EOF ${CODE@Q} EOF"
-            # output=$(python < $file)
-            # echo $CODE  > out.py;
-            # -------------------
-          elif [ -f "$KERNEL" == "javascript" ]; then
-            echo "javascript";
-          elif [ -f "$KERNEL" == "matlab" ]; then
-            echo "matlab";
-          fi;
+          output=$(python < $file)
+          echo "output = $output";
+          # OR
+          # echo $CODE  > out.py;
           # ---------------------------------------
 
     
