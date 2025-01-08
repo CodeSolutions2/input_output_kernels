@@ -139,12 +139,12 @@ async function run_selection() {
 	var flag = "run";
 	var i = 0;
 	while (flag == "run" && i < 20) {
-    await print_result()
-      .then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
-      .catch(error => { console.log("error: ", error); });
-    i += 1;
-    console.log('i: ', i);
-  }
+		flag = await print_result()
+			.then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
+			.catch(error => { console.log("error: ", error); });
+		i = i + 1;
+		console.log('i: ', i);
+	}
 	
 	// -------------------
 	
@@ -154,7 +154,11 @@ async function run_selection() {
 
 async function print_output(output) {
 	var output_arr = output.split('\n');
+	console.log('output_arr: ', output_arr);
+	
 	var output_html = output_arr.map((ind, val) => { return val+"<br><br>"; }).join('');
+	console.log('output_html: ', output_html);
+	
 	document.getElementById("output_div").innerHTML = output_html;
 }
 
@@ -162,11 +166,14 @@ async function print_output(output) {
 	
 async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
-		.then(async function (output) { 
-			if (output != '404: Not Found') {
+		.then(async function (text_out) { 
+			if (text_out != '404: Not Found') {
 				// File was found
-				console.log("output: ", output);
-				await print_output(output); 
+				console.log("text_out: ", text_out);
+				await print_output(text_out); 
+				return "stop";
+			} else {
+				return "run";
 			}
 		})
 		.catch(error => { console.log("error: ", error); });
