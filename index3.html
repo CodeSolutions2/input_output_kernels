@@ -175,7 +175,7 @@ async function print_result() {
 			for (i=0; i<text_out_arr.length; i++) {
 				for (j=0; j<not_text.length; j++) {
 					if (text_out_arr.at(i) != not_text.at(j)) {
-						output.append(not_text.at(j));
+						output.push(not_text.at(j));
 					}
 				}
 			}
