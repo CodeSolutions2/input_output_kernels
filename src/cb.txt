@@ -1,5 +1,0 @@
-a=[10, 30, 5, 4, 60]
-print(sorted(a))
-b=[10, 44, 6]
-print(sum(a))
-python
