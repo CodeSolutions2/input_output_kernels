@@ -163,6 +163,8 @@ async function print_output(output_str) {
 async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
 		.then(async function (text_out) { 
+			console.log("text_out: ", text_out);
+			
 			if (text_out.length > 1) {
 			    // text_out is a string
 			    text_out_arr = text_out.split('\n');
@@ -170,7 +172,7 @@ async function print_result() {
 			    // text_out is an array
 			    text_out_arr = text_out;
 			}
-			console.log("text_out_arr: ", text_out_arr)
+			console.log("text_out_arr: ", text_out_arr);
 			return text_out_arr;
 		})
 		.then(async function (text_out_arr) { 
