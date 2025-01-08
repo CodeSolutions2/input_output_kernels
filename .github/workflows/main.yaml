@@ -41,13 +41,13 @@ jobs:
           # Remove the input file from the repository
           rm -rf src/cb.txt;
           # ---------------------------------------
-          if [ -f "$KERNEL" == "python" ]; then
+          if [[ $KERNEL = "python" ]]; then
             echo "python";
             echo -e "$CODE" > out.py
             python out.py > output.txt;
-          elif [ -f "$KERNEL" == "javascript" ]; then
+          elif [[ $KERNEL = "javascript" ]]; then
             echo "javascript";
-          elif [ -f "$KERNEL" == "matlab" ]; then
+          elif [[ $KERNEL = "matlab" ]]; then
             echo "matlab";
           fi;
           # ---------------------------------------
