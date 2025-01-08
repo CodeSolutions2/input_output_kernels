@@ -23,6 +23,7 @@ jobs:
           # Print file contents
           echo "FILE_CONTENTS = ";
           cat src/cb.txt;
+          echo "";
           # ---------------------------------------
           # Select the all the rows/lines except the last row/line
           # head = maximum rows/lines to select + 1 = (n-1) + 1 = n
@@ -52,14 +53,13 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
           git push;
           # ---------------------------------------
-          # Parse the text and save to out.py
-          # cat > out.py <<EOF ${CODE@Q} EOF
-          # python out.py
+          cat > out.py <<EOF "${CODE@Q}" EOF
           # ---------------------------------------
           # output=$(python < $file)
           # echo "output = $output";
           # ---------------------------------------
-          echo $CODE  > out.py;
+          # echo $CODE  > out.py;
+          # ---------------------------------------
           output=$(python out.py)
           echo "output = $output";
           # ---------------------------------------
