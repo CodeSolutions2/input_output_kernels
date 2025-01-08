@@ -45,6 +45,7 @@ jobs:
             echo "python";
             echo -e "$CODE" > out.py
             python out.py > output.txt;
+            cat output.txt;
           elif [[ $KERNEL = "javascript" ]]; then
             echo "javascript";
           elif [[ $KERNEL = "matlab" ]]; then
