@@ -21,9 +21,9 @@ jobs:
         run: |
           # ---------------------------------------
           # Print file contents
-          echo "FILE_CONTENTS = ";
-          cat src/cb.txt;
-          echo "";
+          # echo "FILE_CONTENTS = ";
+          # cat src/cb.txt;
+          # echo "";
           # ---------------------------------------
           # Select the all the rows/lines except the last row/line
           # head = maximum rows/lines to select + 1 = (n-1) + 1 = n
@@ -42,6 +42,7 @@ jobs:
           rm -rf src/cb.txt;
           # ---------------------------------------
           if [ -f "$KERNEL" == "python" ]; then
+            echo "python";
             echo -e "$CODE" > out.py
             python out.py > output.txt;
           elif [ -f "$KERNEL" == "javascript" ]; then
