@@ -1,5 +1,5 @@
-a = 40
-b = 50
+a = 4
+b = 5
 c = a + b
 print("c: ", c)
 python
