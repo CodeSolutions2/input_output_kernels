@@ -164,25 +164,22 @@ async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
 		.then(async function (text_out) { 
 			const not_text = ['404: Not Found', 'None', ''];
-
 			if (text_out.length > 1) {
 				// text_out is a string
 				text_out_arr = [text_out];
-			} else
+			} else {
 				// text_out is an array
 				text_out_arr = text_out;
 			}
-
 			var output = [];
-			text_out_arr.map((ind, val) => { 
-				for (i=0; i<not_text.length; i++) {
-					if (val != not_text.at(i)) {
-						output.append(not_text.at(i));
+			for (i=0; i<text_out_arr.length; i++) {
+				for (j=0; j<not_text.length; j++) {
+					if (text_out_arr.at(i) != not_text.at(j)) {
+						output.append(not_text.at(j));
 					}
 				}
-			});
+			}
 			console.log('output: ', output);
-			
 			if (output.length > 0) {
 				// File was found
 				console.log("text_out: ", text_out);
