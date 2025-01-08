@@ -53,12 +53,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
           git push;
           # ---------------------------------------
-          cat > out.py <<EOF "${CODE@Q}" EOF
-          # ---------------------------------------
-          # output=$(python < $file)
-          # echo "output = $output";
-          # ---------------------------------------
-          # echo $CODE  > out.py;
+          echo -e "$CODE" > out.py
           # ---------------------------------------
           output=$(python out.py)
           echo "output = $output";
