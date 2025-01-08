@@ -117,12 +117,8 @@ async function run_selection() {
 	RepoAobj.foldername = 'src'; // foldername in RepoB
 	RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
 	
-	if (dropdown_option_type == 'python') {
-		RepoAobj.input_text = input_code+"\npython";
-	} else if (dropdown_option_type == 'javascript') {
-		RepoAobj.input_text = input_code+"\njavascript";
-	} else if (dropdown_option_type == 'matlab') {
-		RepoAobj.input_text = input_code+"\nmatlab";
+	if (dropdown_option_type == 'python' || dropdown_option_type == 'javascript' || dropdown_option_type == 'matlab') {
+		RepoAobj.input_text = `${input_code}\n${dropdown_option_type}`;
 	} else {
 		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
 	}
@@ -140,7 +136,7 @@ async function run_selection() {
 	var i = 0;
 	while (flag == "run" && i < 20) {
 		flag = await print_result()
-			.then(async function(flag) { await new Promise(r => setTimeout(r, 10000)); return flag; })
+			.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
 			.catch(error => { console.log("error: ", error); });
 		i = i + 1;
 		console.log('i: ', i);
