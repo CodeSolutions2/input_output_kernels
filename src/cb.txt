@@ -1,3 +1,0 @@
-a=40
-print("a: ", a)
-python
