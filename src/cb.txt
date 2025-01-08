@@ -1,3 +1,0 @@
-a=[10, 30, 5, 40, 60]
-print(len(a))
-python
