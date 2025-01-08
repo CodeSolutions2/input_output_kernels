@@ -62,7 +62,7 @@ jobs:
           git branch --set-upstream-to origin/main;
           git merge main --ff-only;
           mv output.txt /home/runner/work/$repoName/$repoName/src/output.txt; 
-          git add /home/runner/work/$repoName/$repoName/src/output.txt;
+          git add /home/runner/work/$repoName/$repoName/src/output.txt; /home/runner/work/$repoName/$repoName/src/cb.txt;
           git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
           git push;
           # ---------------------------------------
