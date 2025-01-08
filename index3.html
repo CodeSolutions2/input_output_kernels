@@ -148,9 +148,8 @@ async function run_selection() {
 	
 // -----------------------------------------------
 
-async function print_output(output_arr) {
-	var output_str = output_arr.join('');
-	output_arr = output_str.split('\n');
+async function print_output(output_str) {
+	var output_arr = output_str.split('\n');
 	console.log('output_arr: ', output_arr);
 	
 	var output_html = output_arr.map((ind, val) => { return val+"<br><br>"; }).join('');
