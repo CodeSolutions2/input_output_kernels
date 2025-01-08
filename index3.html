@@ -164,23 +164,44 @@ async function print_result() {
 	await GET_repo_file_info_RESTAPI_fast()
 		.then(async function (text_out) { 
 			if (text_out.length > 1) {
-				// text_out is a string
-				text_out_arr = [text_out];
+			    // text_out is a string
+			    text_out_arr = text_out.split('\n');
 			} else {
-				// text_out is an array
-				text_out_arr = text_out;
+			    // text_out is an array
+			    text_out_arr = text_out;
 			}
+			console.log("text_out_arr: ", text_out_arr)
 			return text_out_arr;
 		})
 		.then(async function (text_out_arr) { 
 			const not_text = ['404: Not Found', 'None', ''];
 			var output = [];
 			for (i=0; i<text_out_arr.length; i++) {
-				for (j=0; j<not_text.length; j++) {
-					if (text_out_arr.at(i) != not_text.at(j)) {
-						output.push(text_out_arr.at(i));
-					}
-				}
+    
+			    var temp = [];
+			    for (j=0; j<not_text.length; j++) {
+			        
+			        if (text_out_arr.at(i) == not_text.at(j)) {
+			            temp.push('');
+			        } else {
+			            // This could save entries of not_text here
+			            var arr = not_text.map((val, ind) => { return val != text_out_arr.at(i) ? text_out_arr.at(i) : ""}); 
+			            
+			            temp.push(arr)
+			        }
+			    }
+			    
+			    // [0] Reduce repeating values 
+			    temp = temp.flat();
+			    var temp_str_arr = temp.map((val, ind) => { return val.toString(); });
+			    temp = [... new Set(temp_str_arr)];
+			    console.log('temp: ', temp);
+			    temp = temp.filter((val) => val != '404: Not Found');
+			    temp = temp.filter((val) => val != 'None');
+			    temp = temp.filter((val) => val != '');
+			
+			    // [1] Save
+			    output.push(temp)
 			}
 			console.log('output: ', output);
 			return output;
