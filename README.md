@@ -1,8 +1,8 @@
 # input_output_kernels 
 
-Python usage in a notebook with cell-like interface.
+A computation input output "notebook" with cell-like interface.
 
-[Current version] https://codesolutions2.github.io/input_output_kernels/index4.html
+[Current version] https://codesolutions2.github.io/input_output_kernels/index4.html (Python kernel only)
 
 ## In progress:
 
