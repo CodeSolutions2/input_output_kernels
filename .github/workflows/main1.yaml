@@ -47,8 +47,7 @@ jobs:
             python out.py > output.txt;
           elif [[ $KERNEL = "javascript" ]]; then
             echo "javascript";
-            echo -e "$CODE" > out.js
-            node out.js > output.txt;
+            echo "kernel in progress" > output.txt;
           elif [[ $KERNEL = "matlab" ]]; then
             echo "matlab";
             echo "kernel in progress" > output.txt;
