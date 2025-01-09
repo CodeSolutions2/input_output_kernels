@@ -117,35 +117,38 @@ async function run_selection() {
 	RepoAobj.foldername = 'src'; // foldername in RepoB
 	RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
 	
-  if (dropdown_option_type == 'python') {
+	if (dropdown_option_type == 'python') {
 		RepoAobj.input_text = input_code+"\npython";
+
+		// Save the file in the repository
+		await module.run_backend_process(RepoAobj);
+
+		// -------------------
+	
+		// Wait for file creation
+		var flag = "run";
+		var i = 0;
+		while (flag == "run" && i < 20) {
+			flag = await print_result()
+				.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
+				.catch(error => { console.log("error: ", error); });
+			i = i + 1;
+			console.log('i: ', i);
+		}
+	
+		// -------------------
+	  
 	} else if (dropdown_option_type == 'javascript') {
 		document.getElementById("output_div").innerHTML = "In progress.";
+		
 	} else if (dropdown_option_type == 'matlab') {
 		document.getElementById("output_div").innerHTML = "In progress.";
+		
 	} else {
 		document.getElementById('notification').innerHTML = "Please select a drop down option type."; 
 	}
 	console.log('RepoAobj: ', RepoAobj);
 
-	// -------------------
-
-	// Save the file in the repository
-	await module.run_backend_process(RepoAobj);
-
-	// -------------------
-	
-	// Wait for file creation
-	var flag = "run";
-	var i = 0;
-	while (flag == "run" && i < 20) {
-		flag = await print_result()
-			.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
-			.catch(error => { console.log("error: ", error); });
-		i = i + 1;
-		console.log('i: ', i);
-	}
-	
 	// -------------------
 	
 }
