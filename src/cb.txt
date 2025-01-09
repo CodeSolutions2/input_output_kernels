@@ -1,3 +1,0 @@
-a = [1, 20, 4]
-console.log("a:", a)
-javascript
