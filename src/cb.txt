@@ -27,8 +27,7 @@ for (var i=0; i<n; i++) {
 console.log("pt_indices_arr: ", pt_indices_arr);
 console.log("pt_distance_arr: ", pt_distance_arr);
 
-var distance_Kth_set = [];
-var indices_Kth_set = [];
+
 var dist_to_Kth_closest_data_pt = [];
 var Kth_closest_data_pt = [];
 
@@ -67,28 +66,19 @@ for (var pt=0; pt<n; pt++) {
   var temp_distance = [];
   var temp_indices = [];
   for (var i=0; i<pt_distance.length; i++) {
-    if (pt_distance.at(i) < pt_distance_sorted_Kth+1) {
+    if (pt_distance.at(i) == pt_distance_sorted_Kth) {
       temp_distance.push(pt_distance.at(i));
       temp_indices.push(pt_indices.at(i));
     }
   }
   console.log("temp_distance: ", temp_distance);
   console.log("temp_indices: ", temp_indices);
-  var temp_distance1 = temp_distance;
-  var temp_indices1 = temp_indices;
-
+  
   // Save the last point
-  distance_to_Kth_closest_data_pt.push(temp_distance1.pop());
-  Kth_closest_data_pt.push(temp_indices1.pop());
-
-  // Save all the points within the radius of distance_to_Kth_closest_data_pt
-  distance_Kth_set.push(temp_distance);
-  indices_Kth_set.push(temp_indices);
+  distance_to_Kth_closest_data_pt.push(temp_distance);
+  Kth_closest_data_pt.push(temp_indices);
 }
 
 console.log("distance_to_Kth_closest_data_pt: ", distance_to_Kth_closest_data_pt);
 console.log("Kth_closest_data_pt: ", Kth_closest_data_pt);
-
-console.log("distance_Kth_set: ", distance_Kth_set);
-console.log("indices_Kth_set: ", indices_Kth_set);
 javascript
