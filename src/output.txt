@@ -1,0 +1,2 @@
+pt_tuple_arr:  [ 1, 2, 2 ]
+pt_value_arr:  [ 1, 2, 1 ]
