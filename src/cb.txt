@@ -74,11 +74,12 @@ for (var pt=0; pt<n; pt++) {
   }
   console.log("temp_distance: ", temp_distance);
   console.log("temp_indices: ", temp_indices);
-  var len = temp_distance.length;
+  var temp_distance1 = temp_distance;
+  var temp_indices1 = temp_indices;
 
   // Save the last point
-  distance_to_Kth_closest_data_pt.push(temp_distance.slice(len-2,len-1));
-  Kth_closest_data_pt.push(temp_indices.slice(len-2,len-1));
+  distance_to_Kth_closest_data_pt.push(temp_distance1.pop());
+  Kth_closest_data_pt.push(temp_indices1.pop());
 
   // Save all the points within the radius of distance_to_Kth_closest_data_pt
   distance_Kth_set.push(temp_distance);
