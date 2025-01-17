@@ -22,22 +22,26 @@ var pt_Set = [];
 
 for (let pt=0; pt<n; pt++) {
 
-  var pt_str = [];
-  for (let i=0; i<pt_str_arr.length; i++) {
-    var out = [];
-    for (let j=0; j<2; j++) {
-      if (Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j)) == pt) {
-        out.push(true);
-      }
-    }
-
-    out = [... new Set(out)];
-    if (out.length > 0) {
-      pt_st.push(`${pt_str_arr.at(i).split('_').at(0)}_${pt_str_arr.at(i).split('_').at(1).split(',').at(0)},${pt_str_arr.at(i).split('_').at(1).split(',').at(1)}`);
-    }
-  }
+  // var pt_str = [];
+  // for (let i=0; i<pt_str_arr.length; i++) {
+  //  var out = [];
+  //  for (let j=0; j<2; j++) {
+  //    if (Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j)) == pt) {
+  //      out.push(true);
+  //    }
+  //  }
+  //  out = [... new Set(out)];
+  //  if (out.length > 0) {
+  //    pt_st.push(`${pt_str_arr.at(i).split('_').at(0)}_${pt_str_arr.at(i).split('_').at(1).split(',').at(0)},${pt_str_arr.at(i).split('_').at(1).split(',').at(1)}`);
+  //  }
+  // }
+  // OR
+  var pt_str = pt_str_arr.map((vi, i) => {
+    var out = pt_str_arr.at(i).split('_').at(',').map((vj, j) => { return Number(vj).toString() === pt.toString() ? true : ''; }).filter((x) => x.length > 0);
+    console.log("out: ", out);
+    return 0;
+  });
   console.log("pt_str: ", pt_str);
-}
 
-
+} 
 javascript
