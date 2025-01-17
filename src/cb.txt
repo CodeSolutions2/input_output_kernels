@@ -51,14 +51,7 @@ for (let pt=0; pt<n; pt++) {
   console.log("threshold: ", threshold);
 
   // Find an indice at point threshold (kth closest point)
-  // var threshold_indice = [];
-  // for (let i=0; i<pt_distance.length; i++) {
-  //   if (pt_distance.at(i) == threshold) {
-  //     threshold_indice.push(pt_indices.at(i));
-  //   }
-  // }
-  // OR
-  var index = pt_distance.findIndex((x) => int(x).toString() === int(threshold).toString());
+  var index = pt_distance.findIndex((x) => Number(x).toString() === Number(threshold).toString());
   var threshold_indice = pt_indices.at(index);
   console.log("threshold_indice: ", threshold_indice);
 
