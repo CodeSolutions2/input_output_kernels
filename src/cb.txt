@@ -1,0 +1,75 @@
+var K = 2;
+var x = [0, 0, 1, 3];
+var y = [0, 1, 1, 0];
+
+// [0] Find the one-norm between all point combinations
+var n = x.length;
+var pt_str_arr = [];
+for (let i=0; i<n; i++) {
+  for (let j=(i+1); j<n; j++) {
+    var one_norm = Math.abs(x.at(i) - x.at(j)) + Math.abs(y.at(i) - y.at(j));
+    pt_str_arr.push(`${one_norm}_${i},${j}`);
+  }
+}
+console.log("pt_str_arr: ", pt_str_arr);
+
+// [1] Find the closest Kth point, to each point.
+// And, find the points within the radius of the Kth point, for each point.
+var radius_pt = [];
+var kth_closest_pt = [];
+var kth_distance_pt = [];
+var pt_Set = [];
+
+for (let pt=0; pt<n; pt++) {
+  var pt_str = [];
+  for (let i=0; i<pt_str_arr.length; i++) {
+    
+    var out = [];
+    for (let j=0; j<2; j++) {
+      if (pt_str_arr.at(i).split('_').at(1).split(',').at(j) == pt) {
+        out.push(true);
+      }
+    }
+    out = [... new Set(out)];
+    if (out.length > 0) {
+      pt_st.push(`${pt_str_arr.at(i).split('_').at(0)}_${pt_str_arr.at(i).split('_').at(1).split(',').at(0)},${pt_str_arr.at(i).split('_').at(1).split(',').at(1)}`);
+    }
+  }
+  console.log("pt_str: ", pt_str);
+
+  // Find the kth closest
+
+  // threshold is the kth closest point
+  var threshold = pt_str.map((val, ind) => { return Number(val.split('_').at(0)); }).sort((a, b) => a - b).at(K-1);
+  console.log("threshold: ", threshold);
+
+  // Find an indice at point threshold (kth closest point)
+  var threshold_indice = pt_str.map((val, ind) => { var arr = Array.from({length:2}, (v, i) => { return val.split('_').at(1).split(',').at(i); }); return Number(val.split('_').at(0)).toString() === Number(threshold).toString() ? arr : ""; }).filter((x) => x.length > 0);
+  console.log("threshold_indice: ", threshold_indice);
+
+  // Find all indices at or less than the threshold distance
+  var radius_indices = [];
+  for (let i=0; i<pt_str.length; i++) {
+    if (Number(pt_str.split('_').at(0).at(i)) <= Number(threshold)) {
+      var arr1 = Array.from({length:2}, (val, ind) => { return pt_str.split('_').at(1).split(',').at(ind); });
+      radius_indices.push(arr1);
+    }
+  }
+  console.log("radius_indices: ", radius_indices);
+
+  // Store four variables
+  kth_closest_pt.push(threshold_indice);
+  kth_distance_pt.push(threshold);
+  radius_pt.push(radius_indices);
+  
+  var out1 = radius_indices.flat(Infinity).filter((x) => x != pt);
+  out1 = [... new Set(out1)];
+  pt_Set.push(out1);
+
+} // end of pt
+console.log("kth_closest_pt: ", kth_closest_pt);
+console.log("kth_distance_pt: ", kth_distance_pt);
+console.log("radius_pt: ", radius_pt);
+console.log("pt_Set: ", pt_Set);
+
+javascript
