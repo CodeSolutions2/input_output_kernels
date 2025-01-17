@@ -21,21 +21,23 @@ var kth_distance_pt = [];
 var pt_Set = [];
 
 for (let pt=0; pt<n; pt++) {
+
   var pt_str = [];
   for (let i=0; i<pt_str_arr.length; i++) {
-    
     var out = [];
     for (let j=0; j<2; j++) {
-      var distance = Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j));
-      console.log("distance: ", distance);
-      if (distance == pt) {
+      if (Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j)) == pt) {
         out.push(true);
       }
     }
+
     out = [... new Set(out)];
     if (out.length > 0) {
       pt_st.push(`${pt_str_arr.at(i).split('_').at(0)}_${pt_str_arr.at(i).split('_').at(1).split(',').at(0)},${pt_str_arr.at(i).split('_').at(1).split(',').at(1)}`);
     }
   }
   console.log("pt_str: ", pt_str);
+}
+
+
 javascript
