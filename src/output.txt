@@ -1,0 +1,177 @@
+pt_str_arr:  [ '1_0,1', '2_0,2', '3_0,3', '1_1,2', '4_1,3', '3_2,3' ]
+pt:  0
+vj:  0
+pt:  0
+vj:  1
+pt:  0
+out:  [ true, '' ]
+out:  []
+out:  []
+vj:  0
+pt:  0
+vj:  2
+pt:  0
+out:  [ true, '' ]
+out:  []
+out:  []
+vj:  0
+pt:  0
+vj:  3
+pt:  0
+out:  [ true, '' ]
+out:  []
+out:  []
+vj:  1
+pt:  0
+vj:  2
+pt:  0
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  1
+pt:  0
+vj:  3
+pt:  0
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  2
+pt:  0
+vj:  3
+pt:  0
+out:  [ '', '' ]
+out:  []
+out:  []
+pt_str:  [ 'check', 'check', 'check', 'check', 'check', 'check' ]
+pt:  1
+vj:  0
+pt:  1
+vj:  1
+pt:  1
+out:  [ '', true ]
+out:  []
+out:  []
+vj:  0
+pt:  1
+vj:  2
+pt:  1
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  0
+pt:  1
+vj:  3
+pt:  1
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  1
+pt:  1
+vj:  2
+pt:  1
+out:  [ true, '' ]
+out:  []
+out:  []
+vj:  1
+pt:  1
+vj:  3
+pt:  1
+out:  [ true, '' ]
+out:  []
+out:  []
+vj:  2
+pt:  1
+vj:  3
+pt:  1
+out:  [ '', '' ]
+out:  []
+out:  []
+pt_str:  [ 'check', 'check', 'check', 'check', 'check', 'check' ]
+pt:  2
+vj:  0
+pt:  2
+vj:  1
+pt:  2
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  0
+pt:  2
+vj:  2
+pt:  2
+out:  [ '', true ]
+out:  []
+out:  []
+vj:  0
+pt:  2
+vj:  3
+pt:  2
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  1
+pt:  2
+vj:  2
+pt:  2
+out:  [ '', true ]
+out:  []
+out:  []
+vj:  1
+pt:  2
+vj:  3
+pt:  2
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  2
+pt:  2
+vj:  3
+pt:  2
+out:  [ true, '' ]
+out:  []
+out:  []
+pt_str:  [ 'check', 'check', 'check', 'check', 'check', 'check' ]
+pt:  3
+vj:  0
+pt:  3
+vj:  1
+pt:  3
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  0
+pt:  3
+vj:  2
+pt:  3
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  0
+pt:  3
+vj:  3
+pt:  3
+out:  [ '', true ]
+out:  []
+out:  []
+vj:  1
+pt:  3
+vj:  2
+pt:  3
+out:  [ '', '' ]
+out:  []
+out:  []
+vj:  1
+pt:  3
+vj:  3
+pt:  3
+out:  [ '', true ]
+out:  []
+out:  []
+vj:  2
+pt:  3
+vj:  3
+pt:  3
+out:  [ '', true ]
+out:  []
+out:  []
+pt_str:  [ 'check', 'check', 'check', 'check', 'check', 'check' ]
