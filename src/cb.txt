@@ -26,7 +26,9 @@ for (let pt=0; pt<n; pt++) {
     
     var out = [];
     for (let j=0; j<2; j++) {
-      if (Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j)) == pt) {
+      var distance = Number(pt_str_arr.at(i).split('_').at(1).split(',').at(j));
+      console.log("distance: ", distance);
+      if (distance == pt) {
         out.push(true);
       }
     }
