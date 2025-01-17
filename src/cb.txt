@@ -37,7 +37,7 @@ for (let pt=0; pt<n; pt++) {
   // }
   // OR
   var pt_str = pt_str_arr.map((vi, i) => {
-    var out = pt_str_arr.at(i).split('_').at(',').map((vj, j) => { return Number(vj).toString() === pt.toString() ? true : ''; }).filter((x) => x.length > 0);
+    var out = pt_str_arr.at(i).split('_').at(1).split(',').map((vj, j) => { return Number(vj).toString() === pt.toString() ? true : ''; }).filter((x) => x.length > 0);
     console.log("out: ", out);
     return 0;
   });
