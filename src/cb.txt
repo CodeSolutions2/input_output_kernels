@@ -42,34 +42,4 @@ for (let pt=0; pt<n; pt++) {
   // threshold is the kth closest point
   var threshold = pt_str.map((val, ind) => { return Number(val.split('_').at(0)); }).sort((a, b) => a - b).at(K-1);
   console.log("threshold: ", threshold);
-
-  // Find an indice at point threshold (kth closest point)
-  var threshold_indice = pt_str.map((val, ind) => { var arr = Array.from({length:2}, (v, i) => { return val.split('_').at(1).split(',').at(i); }); return Number(val.split('_').at(0)).toString() === Number(threshold).toString() ? arr : ""; }).filter((x) => x.length > 0);
-  console.log("threshold_indice: ", threshold_indice);
-
-  // Find all indices at or less than the threshold distance
-  var radius_indices = [];
-  for (let i=0; i<pt_str.length; i++) {
-    if (Number(pt_str.split('_').at(0).at(i)) <= Number(threshold)) {
-      var arr1 = Array.from({length:2}, (val, ind) => { return pt_str.split('_').at(1).split(',').at(ind); });
-      radius_indices.push(arr1);
-    }
-  }
-  console.log("radius_indices: ", radius_indices);
-
-  // Store four variables
-  kth_closest_pt.push(threshold_indice);
-  kth_distance_pt.push(threshold);
-  radius_pt.push(radius_indices);
-  
-  var out1 = radius_indices.flat(Infinity).filter((x) => x != pt);
-  out1 = [... new Set(out1)];
-  pt_Set.push(out1);
-
-} // end of pt
-console.log("kth_closest_pt: ", kth_closest_pt);
-console.log("kth_distance_pt: ", kth_distance_pt);
-console.log("radius_pt: ", radius_pt);
-console.log("pt_Set: ", pt_Set);
-
 javascript
