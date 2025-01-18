@@ -1,0 +1,23 @@
+var a =[[7,0,6,0], [0,10,0,2], [0,0,5,1], [14,0,0,0]];
+// var total_ways = [];
+for (var i=0; i<a.length; i++) {
+
+  // loop over current and previous ways
+  var way = [];
+  // for (var j=i; j>0; j--) {
+    var temp= [];
+    for (var k=0; k<a.length; k++){
+      if (i > k & k != 0 & temp.length == 0) {
+        temp.push(a[i][k]); // st
+      } 
+      if (i == k) { //end
+        temp.push(a[i][k]);
+      }
+    }
+    console.log("temp: ", temp);
+    way.push(temp);
+  // }
+  // total_ways.push(way);
+}
+console.log("way: ", way);
+javascript
