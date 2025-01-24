@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs')
 console.log('tf: ', tf);
 
-var a = [0, 1, 3];
+var a = [0, 1, 2, 3];
 console.log("a.sort(): ", a.sort())
 javascript|npm install @tensorflow/tfjs
