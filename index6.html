@@ -9,7 +9,7 @@ The purpose of this webapp is the use different computational kernels to run cod
 	<li>Select the kernel.</li>
 	<li>Input code.</li>
 	<li>Push run button.</li>
-	<li>View output from the kernel in src/output.txt file.</li>
+	<li>View output from the kernel in src/output_python.txt, or src/output_javascript.txt or src/output_bas.txt file.</li>
 </ol>
   
 <br><br>
@@ -28,6 +28,7 @@ The purpose of this webapp is the use different computational kernels to run cod
 	
 <!-- ---------------------------------------- -->
 
+When entering programs to install, type a . in between each program install.
 <div id="input_output_cell">
 <span><textarea id="requirements_textarea"  wrap="soft" placeholder="input programs to install" style="display:block; text-align: left; width: 600px; height: 75px;"></textarea></span>
 <span><textarea id="input_textarea"  wrap="soft" placeholder="input code" style="display:block; text-align: left; width: 600px; height: 200px;"></textarea></span>
@@ -153,7 +154,7 @@ async function run_selection() {
 		var flag = "run";
 		var i = 0;
 		while (flag == "run" && i < 20) {
-			flag = await print_result()
+			flag = await print_result_python()
 				.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
 				.catch(error => { console.log("error: ", error); });
 			i = i + 1;
@@ -175,7 +176,7 @@ async function run_selection() {
 		var flag = "run";
 		var i = 0;
 		while (flag == "run" && i < 20) {
-			flag = await print_result()
+			flag = await print_result_javascript()
 				.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
 				.catch(error => { console.log("error: ", error); });
 			i = i + 1;
@@ -197,7 +198,7 @@ async function run_selection() {
 		var flag = "run";
 		var i = 0;
 		while (flag == "run" && i < 20) {
-			flag = await print_result()
+			flag = await print_result_bash()
 				.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
 				.catch(error => { console.log("error: ", error); });
 			i = i + 1;
@@ -237,8 +238,8 @@ async function print_output(output_arr) {
 
 // -----------------------------------------------
 	
-async function print_result() {
-	await GET_repo_file_info_RESTAPI_fast()
+async function print_result_python() {
+	await GET_repo_file_info_RESTAPI_fast_python()
 		.then(async function (text_out) { 
 			console.log("text_out: ", text_out);
 			
@@ -298,13 +299,154 @@ async function print_result() {
 }
 
 
-async function GET_repo_file_info_RESTAPI_fast() {
-	return await fetch('https://raw.githubusercontent.com/CodeSolutions2/input_output_kernels/main/src/output.txt')
+async function GET_repo_file_info_RESTAPI_fast_python() {
+	return await fetch('https://raw.githubusercontent.com/CodeSolutions2/input_output_kernels/main/src/output_python.txt')
 		.then(res => res.text())
 		.then(async function (text_out) { return  text_out; })
 		.catch(error => { console.log("error: ", error); });
 }
 
+// -----------------------------------------------
+	
+async function print_result_javascript() {
+	await GET_repo_file_info_RESTAPI_fast_javascript()
+		.then(async function (text_out) { 
+			console.log("text_out: ", text_out);
+			
+			if (text_out.length > 1) {
+			    // text_out is a string
+			    text_out_arr = text_out.split('\n');
+			} else {
+			    // text_out is an array
+			    text_out_arr = text_out;
+			}
+			console.log("text_out_arr: ", text_out_arr);
+			return text_out_arr;
+		})
+		.then(async function (text_out_arr) { 
+			const not_text = ['404: Not Found', 'None', ''];
+			var output = [];
+			for (i=0; i<text_out_arr.length; i++) {
+    
+			    var temp = [];
+			    for (j=0; j<not_text.length; j++) {
+			        
+			        if (text_out_arr.at(i) == not_text.at(j)) {
+			            temp.push('');
+			        } else {
+			            // This could save entries of not_text here
+			            var arr = not_text.map((val, ind) => { return val != text_out_arr.at(i) ? text_out_arr.at(i) : ""}); 
+			            
+			            temp.push(arr)
+			        }
+			    }
+			    
+			    // [0] Reduce repeating values 
+			    temp = temp.flat();
+			    var temp_str_arr = temp.map((val, ind) => { return val.toString(); });
+			    temp = [... new Set(temp_str_arr)];
+			    console.log('temp: ', temp);
+			    temp = temp.filter((val) => val != '404: Not Found');
+			    temp = temp.filter((val) => val != 'None');
+			    temp = temp.filter((val) => val != '');
+			
+			    // [1] Save
+			    output.push(temp)
+			}
+			console.log('output: ', output);
+			return output;
+		})
+		.then(async function (output) { 
+			if (output.length > 0) {
+				// File was found
+				await print_output(output); 
+				return "stop";
+			} else {
+				return "run";
+			}
+		})
+		.catch(error => { console.log("error: ", error); });
+}
+
+
+async function GET_repo_file_info_RESTAPI_fast_javascript() {
+	return await fetch('https://raw.githubusercontent.com/CodeSolutions2/input_output_kernels/main/src/output_javascript.txt')
+		.then(res => res.text())
+		.then(async function (text_out) { return  text_out; })
+		.catch(error => { console.log("error: ", error); });
+}
+
+
+// -----------------------------------------------
+	
+async function print_result_bash() {
+	await GET_repo_file_info_RESTAPI_fast_bash()
+		.then(async function (text_out) { 
+			console.log("text_out: ", text_out);
+			
+			if (text_out.length > 1) {
+			    // text_out is a string
+			    text_out_arr = text_out.split('\n');
+			} else {
+			    // text_out is an array
+			    text_out_arr = text_out;
+			}
+			console.log("text_out_arr: ", text_out_arr);
+			return text_out_arr;
+		})
+		.then(async function (text_out_arr) { 
+			const not_text = ['404: Not Found', 'None', ''];
+			var output = [];
+			for (i=0; i<text_out_arr.length; i++) {
+    
+			    var temp = [];
+			    for (j=0; j<not_text.length; j++) {
+			        
+			        if (text_out_arr.at(i) == not_text.at(j)) {
+			            temp.push('');
+			        } else {
+			            // This could save entries of not_text here
+			            var arr = not_text.map((val, ind) => { return val != text_out_arr.at(i) ? text_out_arr.at(i) : ""}); 
+			            
+			            temp.push(arr)
+			        }
+			    }
+			    
+			    // [0] Reduce repeating values 
+			    temp = temp.flat();
+			    var temp_str_arr = temp.map((val, ind) => { return val.toString(); });
+			    temp = [... new Set(temp_str_arr)];
+			    console.log('temp: ', temp);
+			    temp = temp.filter((val) => val != '404: Not Found');
+			    temp = temp.filter((val) => val != 'None');
+			    temp = temp.filter((val) => val != '');
+			
+			    // [1] Save
+			    output.push(temp)
+			}
+			console.log('output: ', output);
+			return output;
+		})
+		.then(async function (output) { 
+			if (output.length > 0) {
+				// File was found
+				await print_output(output); 
+				return "stop";
+			} else {
+				return "run";
+			}
+		})
+		.catch(error => { console.log("error: ", error); });
+}
+
+
+async function GET_repo_file_info_RESTAPI_fast_bash() {
+	return await fetch('https://raw.githubusercontent.com/CodeSolutions2/input_output_kernels/main/src/output_bash.txt')
+		.then(res => res.text())
+		.then(async function (text_out) { return  text_out; })
+		.catch(error => { console.log("error: ", error); });
+}
+	
 // -----------------------------------------------
 
 
