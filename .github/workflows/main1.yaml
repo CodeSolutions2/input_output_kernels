@@ -55,24 +55,26 @@ jobs:
           CODE=$(cat src/cb1.txt | head -n $n);
           echo "CODE = $CODE";
           # ---------------------------------------
+          # Select programs to install
+          KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
+          echo "KERNELS = $KERNELS";
+          # ---------------------------------------
           # Select the last row/line
           KERNEL_INSTALLS=$(cat src/cb1.txt | tail -n 1);
           echo "KERNEL_INSTALLS = $KERNEL_INSTALLS";
 
-          # Select programs to install
-          KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
-          echo "KERNELS = $KERNELS";
-          
-          echo $KERNEL_INSTALLS | cut -d '|' -f 2 | sed 's/|/\n/g' > arr.txt;
-
-          echo "View contents of arr.txt"
-          cat arr.txt;
-          
-          # Install programs
-          for i in $(cat arr.txt)
-          do
-             echo "${i}"
-          done 
+          if [[ $KERNEL_INSTALLS != "" ]]; then
+            echo $KERNEL_INSTALLS | cut -d '|' -f 1 | sed 's/|/\n/g' > arr.txt;
+  
+            echo "View contents of arr.txt"
+            cat arr.txt;
+            
+            # Install programs
+            for i in $(cat arr.txt)
+            do
+               echo "${i}"
+            done 
+          fi;
           # ---------------------------------------
           # Remove the input file from the repository
           rm -rf src/cb1.txt;
