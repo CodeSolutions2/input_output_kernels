@@ -16,7 +16,11 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
-        
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      
       - name: run code
         run: |
           # ---------------------------------------
@@ -79,9 +83,9 @@ jobs:
           # Remove the input file from the repository
           rm -rf src/cb_javascript.txt;
           # ---------------------------------------
-          echo "python";
-          echo -e "$CODE" > out.py
-          python out.py > output_javascript.txt;
+          echo "javascript";
+          echo -e "$CODE" > out.js
+          node out.js > output_javascript.txt;
           cat output_javascript.txt;
           # ---------------------------------------
           # Push changes to the repository
