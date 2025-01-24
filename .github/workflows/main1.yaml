@@ -71,7 +71,7 @@ jobs:
           # Install programs
           for i in $(cat arr.txt)
           do
-             $i
+             echo "${i}"
           done 
           # ---------------------------------------
           # Remove the input file from the repository
