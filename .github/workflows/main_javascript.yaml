@@ -1,0 +1,105 @@
+name: CI input output kernels javascript
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/cb_javascript.txt'
+
+permissions:
+    contents: write
+
+jobs:
+  job_name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+        
+      - name: run code
+        run: |
+          # ---------------------------------------
+          if [ -f src/output_javascript.txt ]; then
+            rm -rf src/output_javascript.txt;
+            # ---------------------------------------
+            # Push changes to the repository
+            repoOwner=$(echo "${{ github.repository }}" | cut -d '/' -f 1);
+            repoName=$(echo "${{ github.repository }}" | cut -d '/' -f 2);
+            repoOwnerEmail="j622amilah@gmail.com";
+            # ---------------------------------------
+            git config --global user.email ${repoOwnerEmail};
+            git config --global user.name ${repoOwner};
+            git pull origin main;
+            git checkout main;
+            git branch --set-upstream-to origin/main;
+            git merge main --ff-only; 
+            git add /home/runner/work/$repoName/$repoName/src/output_javascript.txt;
+            git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
+            git push;
+          fi;
+          # ---------------------------------------
+          # Print file contents
+          # echo "FILE_CONTENTS = ";
+          # cat src/cb_javascript.txt;
+          # echo ""
+          # ---------------------------------------
+          # Select the all the rows/lines except the last row/line
+          # head = maximum rows/lines to select + 1 = (n-1) + 1 = n
+          # tail = (head) - (desired row/line to start at) = n - 0 = n
+          n=$(cat src/cb_javascript.txt | wc -l);
+          CODE=$(cat src/cb_javascript.txt | head -n $n);
+          echo "CODE = $CODE";
+          # ---------------------------------------
+          # Select the last row/line
+          KERNEL_INSTALLS=$(cat src/cb_javascript.txt | tail -n 1);
+          echo "KERNEL_INSTALLS = $KERNEL_INSTALLS";
+          # ---------------------------------------
+          # Kernel to run (first part)
+          KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
+          echo "KERNELS = $KERNELS";
+          # ---------------------------------------
+          # Select programs to install (second part)
+          INSTALLS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 2)";
+          echo "INSTALLS = $INSTALLS";
+          
+          if [ "$INSTALLS" != "" ]; then
+            n=$(echo $INSTALLS | tr -cd '.' | wc -c)
+            n=$((1 + $n))
+            # echo $n
+            for i in $( seq 1 $n ); do
+                line="$(echo $INSTALLS | cut -d '.' -f $i)"
+                echo $line
+                ${line}
+            done
+          else
+            echo "No installations."
+          fi;
+          # ---------------------------------------
+          # Remove the input file from the repository
+          rm -rf src/cb_javascript.txt;
+          # ---------------------------------------
+          echo "python";
+          echo -e "$CODE" > out.py
+          python out.py > output_javascript.txt;
+          cat output_javascript.txt;
+          # ---------------------------------------
+          # Push changes to the repository
+          repoOwner=$(echo "${{ github.repository }}" | cut -d '/' -f 1);
+          repoName=$(echo "${{ github.repository }}" | cut -d '/' -f 2);
+          repoOwnerEmail="j622amilah@gmail.com";
+          # ---------------------------------------
+          git config --global user.email ${repoOwnerEmail};
+          git config --global user.name ${repoOwner};
+          git pull origin main;
+          git checkout main;
+          git branch --set-upstream-to origin/main;
+          git merge main --ff-only;
+          mv output_javascript.txt /home/runner/work/$repoName/$repoName/src/output_javascript.txt; 
+          git add /home/runner/work/$repoName/$repoName/src/output_javascript.txt /home/runner/work/$repoName/$repoName/src/cb_javascript.txt;
+          git diff-index --quiet HEAD || git commit -m "add files" --allow-empty;
+          git push;
+          # ---------------------------------------
+
+    
+          
