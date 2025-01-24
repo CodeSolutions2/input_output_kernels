@@ -1,2 +1,0 @@
-centroids:  [ [], [] ]
-prev_centroids:  [ [ 0, 0 ], [ 0, 0 ] ]
