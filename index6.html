@@ -123,7 +123,7 @@ async function run_selection() {
 	RepoAobj.filename = 'cb.txt'; // filename to create in RepoB, in foldername
 	
 	if (dropdown_option_type == 'python') {
-		RepoAobj.input_text = programs_to_install+"|"+input_code+"\npython";
+		RepoAobj.input_text = input_code+"\npython"+"|"+programs_to_install;
 
 		// Save the file in the repository
 		await module.run_backend_process(RepoAobj);
@@ -145,7 +145,7 @@ async function run_selection() {
 	  
 	} else if (dropdown_option_type == 'javascript') {
     
-		RepoAobj.input_text = programs_to_install+"|"+input_code+"\njavascript";
+		RepoAobj.input_text = input_code+"\njavascript"+"|"+programs_to_install;
 
 		// Save the file in the repository
 		await module.run_backend_process(RepoAobj);
