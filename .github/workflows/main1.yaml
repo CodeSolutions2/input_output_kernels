@@ -55,25 +55,27 @@ jobs:
           CODE=$(cat src/cb1.txt | head -n $n);
           echo "CODE = $CODE";
           # ---------------------------------------
-          # Select programs to install
-          KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
-          echo "KERNELS = $KERNELS";
-          # ---------------------------------------
           # Select the last row/line
           KERNEL_INSTALLS=$(cat src/cb1.txt | tail -n 1);
           echo "KERNEL_INSTALLS = $KERNEL_INSTALLS";
-
-          if [[ $KERNEL_INSTALLS != "" ]]; then
-            echo $KERNEL_INSTALLS | cut -d '|' -f 1 | sed 's/|/\n/g' > arr.txt;
-  
-            echo "View contents of arr.txt"
-            cat arr.txt;
-            
-            # Install programs
-            for i in $(cat arr.txt)
-            do
-               echo "${i}"
-            done 
+          # ---------------------------------------
+          # Kernel to run (first part)
+          KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
+          echo "KERNELS = $KERNELS";
+          # ---------------------------------------
+          # Select programs to install (second part)
+          INSTALLS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 2)";
+          echo "INSTALLS = $INSTALLS";
+          
+          if [[ $INSTALLS != "" ]]; then
+            n=$(echo $INSTALLS | tr -cd '.' | wc -c)
+            n=$((1 + $n))
+            # echo $n
+            for i in $( seq 1 $n ); do
+                line="$(echo $INSTALLS | cut -d '.' -f $i)"
+                echo $line
+                ${line}
+            done
           fi;
           # ---------------------------------------
           # Remove the input file from the repository
