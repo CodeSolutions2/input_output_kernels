@@ -83,15 +83,20 @@ jobs:
           # Remove the input file from the repository
           rm -rf src/cb1.txt;
           # ---------------------------------------
-          if [[ $KERNEL = "python" ]]; then
+          if [ "$KERNEL" = "python" ]; then
             echo "python";
             echo -e "$CODE" > out.py
             python out.py > output.txt;
-          elif [[ $KERNEL = "javascript" ]]; then
+          elif [ "$KERNEL" = "javascript" ]; then
             echo "javascript";
             echo -e "$CODE" > out.js
             node out.js > output.txt;
-          elif [[ $KERNEL = "matlab" ]]; then
+          elif [ "$KERNEL" = "bash" ]; then
+            echo "bash";
+            echo -e "$CODE" > out.sh
+            chmod +x out.sh
+            ./out.sh > output.txt;
+          elif [ "$KERNEL" = "matlab" ]; then
             echo "matlab";
             echo "kernel in progress" > output.txt;
           fi;
