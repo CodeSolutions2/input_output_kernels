@@ -57,7 +57,9 @@ jobs:
 
           # Select programs to install
           KERNELS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 1)";
-          echo $KERNEL_INSTALLS | cut -d '|' -f 2 | sed 's/ /\n/g' > arr.txt;
+          echo "KERNELS = $KERNELS";
+          
+          echo $KERNEL_INSTALLS | cut -d '|' -f 2 | sed 's/|/\n/g' > arr.txt;
 
           echo "View contents of arr.txt"
           cat arr.txt;
