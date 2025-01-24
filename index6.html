@@ -22,6 +22,7 @@ The purpose of this webapp is the use different computational kernels to run cod
 	<option value="---">Select an option</option>
 	<option value="python">python</option>
 	<option value="javascript">javascript</option>
+	<option value="bash">bash</option>
 	<option value="matlab">matlab</option>
 </select>
 	
@@ -137,9 +138,10 @@ async function run_selection() {
 	RepoAobj.repoB_name = 'input_output_kernels';  
 	RepoAobj.n = 1;
 	RepoAobj.foldername = 'src'; // foldername in RepoB
-	RepoAobj.filename = 'cb1.txt'; // filename to create in RepoB, in foldername
+	
 	
 	if (dropdown_option_type == 'python') {
+		RepoAobj.filename = 'cb_python.txt';
 		RepoAobj.input_text = input_code+"\npython"+"|"+programs_to_install;
 
 		// Save the file in the repository
@@ -161,7 +163,7 @@ async function run_selection() {
 		// -------------------
 	  
 	} else if (dropdown_option_type == 'javascript') {
-    
+    		RepoAobj.filename = 'cb_javascript.txt';
 		RepoAobj.input_text = input_code+"\njavascript"+"|"+programs_to_install;
 
 		// Save the file in the repository
@@ -181,8 +183,33 @@ async function run_selection() {
 		}
 	
 		// -------------------
+		
+	} else if (dropdown_option_type == 'bash') {
+    		RepoAobj.filename = 'cb_bash.txt';
+		RepoAobj.input_text = input_code+"\nbash"+"|"+programs_to_install;
+
+		// Save the file in the repository
+		await module.run_backend_process(RepoAobj);
+
+		// -------------------
+	
+		// Wait for file creation
+		var flag = "run";
+		var i = 0;
+		while (flag == "run" && i < 20) {
+			flag = await print_result()
+				.then(async function(flag) { await new Promise(r => setTimeout(r, 5000)); return flag; })
+				.catch(error => { console.log("error: ", error); });
+			i = i + 1;
+			console.log('i: ', i);
+		}
+	
+		// -------------------
+
 	  
 	} else if (dropdown_option_type == 'matlab') {
+		RepoAobj.filename = 'cb_matlab.txt';
+		RepoAobj.input_text = input_code+"\nmatlab"+"|"+programs_to_install;
 		document.getElementById("output_div").innerHTML = "In progress.";
 		
 	} else {
