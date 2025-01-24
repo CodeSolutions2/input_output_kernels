@@ -67,7 +67,7 @@ jobs:
           INSTALLS="$(echo $KERNEL_INSTALLS | cut -d '|' -f 2)";
           echo "INSTALLS = $INSTALLS";
           
-          if [[ $INSTALLS != "" ]]; then
+          if [[ "$INSTALLS" != "" ]]; then
             n=$(echo $INSTALLS | tr -cd '.' | wc -c)
             n=$((1 + $n))
             # echo $n
@@ -76,6 +76,8 @@ jobs:
                 echo $line
                 ${line}
             done
+          else
+            echo "No installations."
           fi;
           # ---------------------------------------
           # Remove the input file from the repository
