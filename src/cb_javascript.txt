@@ -9,4 +9,4 @@ const lstm0 = tf.layers.lstm({ units: 32, returnSequences: true, activation: 're
 const input_lstm0 = lstm0.apply(input);
 console.log("input_lstm0: ", input_lstm0)
 
-javascript|npm install tensorflow/tfjs
+javascript|npm install @tensorflow/tfjs
