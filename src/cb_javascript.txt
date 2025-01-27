@@ -1,12 +1,8 @@
-const tf = require('@tensorflow/tfjs');
+import * as tf from '@tensorflow/tfjs';
+// OR
+// const tf = require('@tensorflow/tfjs');
 
 var batch_size = 1;
 var timesteps = 10; // window_size
 var num_of_features = 1;
-
-var input = tf.input({ batchShape: [batch_size, timesteps, num_of_features] });
-const lstm0 = tf.layers.lstm({ units: 32, returnSequences: true, activation: 'relu'});
-const input_lstm0 = lstm0.apply(input);
-console.log("input_lstm0: ", input_lstm0)
-
 javascript|npm install @tensorflow/tfjs
