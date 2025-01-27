@@ -1,8 +1,7 @@
-import * as tf from '@tensorflow/tfjs';
-// OR
-// const tf = require('@tensorflow/tfjs');
+const tf = require('@tensorflow/tfjs');
 
 var batch_size = 1;
 var timesteps = 10; // window_size
 var num_of_features = 1;
+
 javascript|npm install @tensorflow/tfjs
