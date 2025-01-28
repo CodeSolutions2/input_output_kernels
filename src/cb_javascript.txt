@@ -1,5 +1,5 @@
 const tf = require('@tensorflow/tfjs');
-const batch_size =1;
+const batch_size = 1;
 const n_a = 16; 
 const timesteps = 2*n_a;
 const feature_num = 1;
@@ -8,17 +8,14 @@ const lstm0 = tf.layers.lstm({units: 2*n_a, activation: 'relu', inputShape: [tim
 const input_lstm0 = lstm0.apply(input);
 const lstm1 = tf.layers.lstm({units: n_a, activation: 'relu', returnSequences: false });
 const input_l0_l1 = lstm1.apply(input_lstm0);
-// console.log("input_l0_l1: ", input_l0_l1.shape());
 const rv = tf.layers.repeatVector({n: n_a});
 const input_l0_l1_rv = rv.apply(input_l0_l1);
 const lstm2 = tf.layers.lstm({units : n_a, activation: 'relu', returnSequences: true});
 const input_l0_l1_l2 = lstm2.apply(input_l0_l1_rv);
-const lstm3 = tf.layers.lstm({units: 2*n_a, activation: 'relu', returnSequences: true});
+const lstm3 = tf.layers.lstm({units: 2*n_a, activation: 'relu', returnSequences: false});
 const input_l0_l1_l2_l3 = lstm3.apply(input_l0_l1_l2);
 const model = tf.model({inputs: input, outputs: input_l0_l1_l2_l3});
-console.log("model: ", model);
 model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
-console.log("compile finished");
 
 const Y = Array.from({length: 1000}, (val, ind) => { return 1; });
 const n_index = [60, 95, 589, 955];
@@ -34,6 +31,7 @@ for (var i=0; i<Y.length; i++) {
 }
 const X_tf = tf.tensor1d(X);
 const Y_tf = tf.tensor1d(Y);
+
 
 const history = model.fit(X_tf,Y_tf, {batchSize: batch_size, epochs: 50});
 console.log("history: ", history);
