@@ -45,6 +45,6 @@ const X_tf = tf.tensor1d(X);
 // const X_tf = tf.tensor(Xcol);
 // const Y_tf = tf.tensor(Ycol);
 
-const history = model.fit(X_tf, X_tf, {batchSize: batch_size, epochs: 5});
+const history = model.fit(X_tf, X_tf, {epochs: 5});
 console.log("history: ", history);
 javascript|npm install @tensorflow/tfjs
