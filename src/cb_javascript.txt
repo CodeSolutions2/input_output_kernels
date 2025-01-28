@@ -1,5 +1,4 @@
 const tf = require('@tensorflow/tfjs');
-// const batch_size = 1;
 const timesteps = 1000;
 const feature_num = 1;
 const input = tf.input({shape: [timesteps, feature_num]});
@@ -23,28 +22,5 @@ console.log("input_l0_l1_rv_l2_l3 shape: ", JSON.stringify(input_l0_l1_rv_l2_l3.
 const dense0 = tf.layers.timeDistributed({ layer: tf.layers.dense({units: 1}) });
 const output = dense0.apply(input_l0_l1_rv_l2_l3);
 const model = tf.model({inputs: input, outputs: output});
-model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
-
-const Y = Array.from({length: 1000}, (val, ind) => { return 1; });
-const n_index = [60, 95, 589, 955];
-var X = [];
-var c=0;
-for (var i=0; i<Y.length; i++) {
-  if (n_index.at(c) == i) {
-    X.push(c*10);
-    c = c + 1;
-  } else {
-    X.push(Y.at(i));
-  }
-}
-const X_tf = tf.tensor1d(X);
-// const Y_tf = tf.tensor1d(Y);
-// OR
-// const Xcol = X.map((v,i) => { return [v]; });
-// const Ycol = Y.map((v,i) => { return [v]; });
-// const X_tf = tf.tensor(Xcol);
-// const Y_tf = tf.tensor(Ycol);
-
-const history = model.fit(X_tf, X_tf, {epochs: 5});
-console.log("history: ", history);
+model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse']});
 javascript|npm install @tensorflow/tfjs
