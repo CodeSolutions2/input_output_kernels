@@ -11,9 +11,16 @@ const rv = tf.layers.repeatVector({n: timesteps});
 const input_l0_l1_rv = rv.apply(input_l0_l1);
 const lstm2 = tf.layers.lstm({units : 16, activation: 'relu', returnSequences: true});
 const input_l0_l1_rv_l2 = lstm2.apply(input_l0_l1_rv);
-const lstm3 = tf.layers.lstm({units: 32, activation: 'relu', returnSequences: false});
+const lstm3 = tf.layers.lstm({units: 32, activation: 'relu', returnSequences: true});
 const input_l0_l1_rv_l2_l3 = lstm3.apply(input_l0_l1_rv_l2);
-const dense0 = tf.layers.dense({units: 1000});
+console.log("input_l0_l1_rv_l2_l3 shape: ", JSON.stringify(input_l0_l1_rv_l2_l3.shape));
+
+// returnSequences=false must be set, to reduce timesteps to 1 (i think)
+// const dense0 = tf.layers.dense({units: 1000});
+// OR
+// Apply a dense layer to each of the 1000 timesteps independently.
+// If returnSequences=true of the last layer, 1000 timesteps values are returned
+const dense0 = tf.layers.timeDistributed({ layer: tf.layers.dense({units: 1}) });
 const output = dense0.apply(input_l0_l1_rv_l2_l3);
 const model = tf.model({inputs: input, outputs: output});
 model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
