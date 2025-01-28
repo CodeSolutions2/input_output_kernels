@@ -18,23 +18,6 @@ const input_l0_l1_l2_l3 = lstm3.apply(input_l0_l1_l2);
 const model = tf.model({inputs: input, outputs: input_l0_l1_l2_l3});
 console.log("model: ", model);
 model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
+console.log("compile finished");
 
-const Y = Array.from({length: 1000}, (val, ind) => { return 1; });
-const n_index = [60, 95, 589, 955];
-var X = [];
-var c=0;
-for (var i=0; i<Y.length; i++) {
-  if (n_index.at(c) == i) {
-    X.push(c*10);
-    c = c + 1;
-  } else {
-    X.push(Y.at(i));
-  }
-}
-const X_tf = tf.tensor(X);
-const Y_tf = tf.tensor(Y);
-const history = model.fit(X_tf,Y_tf, {batchSize: batch_size, epochs: 50});
-const result = model.predict(X_tf);
-const out = result.data();
-console.log("out: ", out);
 javascript|npm install @tensorflow/tfjs
