@@ -1,15 +1,15 @@
 const tf = require('@tensorflow/tfjs');
-const batch_size = 1;
+// const batch_size = 1;
 const timesteps = 1000;
 const feature_num = 1;
-const input = tf.input({batchShape: [batch_size, timesteps, feature_num]});
+const input = tf.input({shape: [timesteps, feature_num]});
 const lstm0 = tf.layers.lstm({units: 32, activation: 'relu', inputShape: [timesteps, feature_num], returnSequences: true });
 const input_lstm0 = lstm0.apply(input);
 const lstm1 = tf.layers.lstm({units: 16, activation: 'relu', returnSequences: false });
 const input_l0_l1 = lstm1.apply(input_lstm0);
 const rv = tf.layers.repeatVector({n: timesteps});
 const input_l0_l1_rv = rv.apply(input_l0_l1);
-const lstm2 = tf.layers.lstm({units : 16, activation: 'relu', returnSequences: true});
+const lstm2 = tf.layers.lstm({units: 16, activation: 'relu', returnSequences: true});
 const input_l0_l1_rv_l2 = lstm2.apply(input_l0_l1_rv);
 const lstm3 = tf.layers.lstm({units: 32, activation: 'relu', returnSequences: true});
 const input_l0_l1_rv_l2_l3 = lstm3.apply(input_l0_l1_rv_l2);
@@ -47,5 +47,4 @@ const X_tf = tf.tensor1d(X);
 
 const history = model.fit(X_tf, X_tf, {batchSize: batch_size, epochs: 5});
 console.log("history: ", history);
-
 javascript|npm install @tensorflow/tfjs
