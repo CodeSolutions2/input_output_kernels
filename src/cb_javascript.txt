@@ -29,11 +29,14 @@ for (var i=0; i<Y.length; i++) {
     X.push(Y.at(i));
   }
 }
-const X_tf = tf.tensor1d(X);
-const Y_tf = tf.tensor1d(Y);
+// const X_tf = tf.tensor1d(X);
+// const Y_tf = tf.tensor1d(Y);
+// OR
+const Xcol = X.map((v,i) => { return [v]; });
+const Ycol = Y.map((v,i) => { return [v]; });
+const X_tf = tf.tensor(Xcol);
+const Y_tf = tf.tensor(Ycol);
 
-
-const history = model.fit(X_tf,Y_tf, {batchSize: batch_size, epochs: 50});
+const history = model.fit(X_tf, Y_tf, {batchSize: batch_size, epochs: 5});
 console.log("history: ", history);
-
 javascript|npm install @tensorflow/tfjs
