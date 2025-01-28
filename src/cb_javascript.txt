@@ -1,3 +1,0 @@
-const tf = require('@tensorflow/tfjs');
-console.log("tf: ", tf);
-javascript|npm install @tensorflow/tfjs
