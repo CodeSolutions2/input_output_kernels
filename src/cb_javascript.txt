@@ -1,0 +1,37 @@
+const tf = require('@tensorflow/tfjs');
+const Y = Array.from({length: 1000}, (val, ind) => { return 1; });
+const n_index = [60, 95, 589, 955];
+const batch_size =1;
+const n_a = 16; 
+const timesteps = 2*n_a;
+const feature_num = 1;
+const input = tf.input({batchShape: [batch_size, timesteps, feature_num]});
+const lstm0 = tf.layers.lstm({units: 2*n_a, activation: 'relu', inputShape: [timesteps, feature_num], returnSequences: true });
+const input_lstm0 = lstm0.apply(input);
+const lstm1 = tf.layers.lstm({units: n_a, activation: 'relu', returnSequences: false });
+const input_lstm0_lstm1 = lstm1.apply(input_lstm0);
+const lstm2 = tf.layers.lstm({units : n_a, activation: 'relu', returnSequences: true});
+const input_l0_l1_l2 = lstm2.apply(input_lstm0_lstm1);
+const lstm3 = tf.layers.lstm({units: 2*n_a, activation: 'relu', returnSequences: true});
+const input_l0_l1_l2_l3 = lstm3.apply(input_l0_l1_l2);
+const model = tf.model({inputs: input, outputs: input_l0_l1_l2_l3});
+model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
+var X = [];
+var c=0;
+for (var i=0; i<Y.length; i++) {
+  if (n_index.at(c) == i) {
+    X.push(c*10);
+    c = c + 1;
+  } else {
+    X.push(Y.at(i));
+  }
+}
+const X_tf = tf.tensor(X);
+const Y_tf = tf.tensor(Y);
+const history = model.fit(X_tf,Y_tf, {batchSize: batch_size, epochs: 50});
+const result = model.predict(X_tf);
+const out = result.data();
+console.log("out: ", out);
+
+
+javascript|npm install @tensorflow/tfjs
