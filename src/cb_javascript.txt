@@ -1,14 +1,13 @@
 const tf = require('@tensorflow/tfjs');
 const batch_size = 1;
-// const n_a = 16; 
-const timesteps = 1000; // 2*n_a;
+const timesteps = 1000;
 const feature_num = 1;
 const input = tf.input({batchShape: [batch_size, timesteps, feature_num]});
 const lstm0 = tf.layers.lstm({units: 32, activation: 'relu', inputShape: [timesteps, feature_num], returnSequences: true });
 const input_lstm0 = lstm0.apply(input);
 const lstm1 = tf.layers.lstm({units: 16, activation: 'relu', returnSequences: false });
 const input_l0_l1 = lstm1.apply(input_lstm0);
-const rv = tf.layers.repeatVector({n: 16});
+const rv = tf.layers.repeatVector({n: timesteps});
 const input_l0_l1_rv = rv.apply(input_l0_l1);
 const lstm2 = tf.layers.lstm({units : 16, activation: 'relu', returnSequences: true});
 const input_l0_l1_rv_l2 = lstm2.apply(input_l0_l1_rv);
