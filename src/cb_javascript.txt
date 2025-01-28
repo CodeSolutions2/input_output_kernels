@@ -11,10 +11,12 @@ const input_l0_l1 = lstm1.apply(input_lstm0);
 const rv = tf.layers.repeatVector({n: 16});
 const input_l0_l1_rv = rv.apply(input_l0_l1);
 const lstm2 = tf.layers.lstm({units : 16, activation: 'relu', returnSequences: true});
-const input_l0_l1_l2 = lstm2.apply(input_l0_l1_rv);
+const input_l0_l1_rv_l2 = lstm2.apply(input_l0_l1_rv);
 const lstm3 = tf.layers.lstm({units: 32, activation: 'relu', returnSequences: false});
-const input_l0_l1_l2_l3 = lstm3.apply(input_l0_l1_l2);
-const model = tf.model({inputs: input, outputs: input_l0_l1_l2_l3});
+const input_l0_l1_rv_l2_l3 = lstm3.apply(input_l0_l1_rv_l2);
+const dense0 = tf.layers.dense({units: 1000});
+const output = dense0.apply(input_l0_l1_rv_l2_l3);
+const model = tf.model({inputs: input, outputs: output});
 model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ['mse'],});
 
 const Y = Array.from({length: 1000}, (val, ind) => { return 1; });
@@ -29,14 +31,15 @@ for (var i=0; i<Y.length; i++) {
     X.push(Y.at(i));
   }
 }
-// const X_tf = tf.tensor1d(X);
+const X_tf = tf.tensor1d(X);
 // const Y_tf = tf.tensor1d(Y);
 // OR
-const Xcol = X.map((v,i) => { return [v]; });
-const Ycol = Y.map((v,i) => { return [v]; });
-const X_tf = tf.tensor(Xcol);
-const Y_tf = tf.tensor(Ycol);
+// const Xcol = X.map((v,i) => { return [v]; });
+// const Ycol = Y.map((v,i) => { return [v]; });
+// const X_tf = tf.tensor(Xcol);
+// const Y_tf = tf.tensor(Ycol);
 
-const history = model.fit(X_tf, Y_tf, {batchSize: batch_size, epochs: 5});
+const history = model.fit(X_tf, X_tf, {batchSize: batch_size, epochs: 5});
 console.log("history: ", history);
+
 javascript|npm install @tensorflow/tfjs
