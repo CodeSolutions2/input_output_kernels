@@ -10,6 +10,6 @@ X = [[1.6, 9, 19],
         [0.9, 9.1, 20.9],
         [2.3, 9.9, 21.3]];
 out = np.linalg.norm(X, ord=1, axis=3)
-peint("out: ", out)
+print("out: ", out)
 
 python|pip install numpy
