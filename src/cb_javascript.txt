@@ -5,7 +5,6 @@ const X = [[0,0],
            [4,2],
            [1,0]];
 const tf = require('@tensorflow/tfjs');
-const knnClassifier = require('@tensorflow-models/knn-classifier');
-console.log("knnClassifier: ", knnClassifier); 
+// const knnClassifier = require('@tensorflow-models/knn-classifier');
+console.log("tf: ", tf); 
 javascript|npm install @tensorflow/tfjs
-npm install tensorflow-models
