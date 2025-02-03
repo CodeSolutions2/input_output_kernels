@@ -8,6 +8,10 @@ A webapp to use any computational kernel. Current available computational kernel
 
 [Current version] https://codesolutions2.github.io/input_output_kernels/index6.html (Python, JavaScript, and Bash kernels)
 
+[HTML and CSS rendering] https://codesolutions2.github.io/input_output_kernels/index7.html
+
+
+
 ## In progress:
 
 1. Matlab kernel
