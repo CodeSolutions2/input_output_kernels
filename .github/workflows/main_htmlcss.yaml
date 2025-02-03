@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # location of the artifacts
-          path: "./"
+          path: "./src"
     
 
   deploy:
