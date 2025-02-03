@@ -59,7 +59,6 @@ module.run_backend_process = run_backend_process;
 	
 window.addEventListener('beforeunload', function() {
 	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
-	document.getElementById("dropdown_options").selectedIndex = 0;
 });
 
 // -----------------------------------------------
