@@ -108,11 +108,6 @@ async function run_selection() {
 	var input_code = document.getElementById('input_textarea').value;
 	console.log("input_code: ", input_code);
 
-  // -------------------
-  
-	const dropdown_option_type = document.getElementById("dropdown_options").value;
-	console.log('dropdown_option_type: ', dropdown_option_type);
-
 	// -------------------
 	
 	var RepoAobj = {};
@@ -122,15 +117,11 @@ async function run_selection() {
 	RepoAobj.n = 1;
 	RepoAobj.foldername = 'src'; // foldername in RepoB
 	
-	
-		RepoAobj.filename = 'cb_htmlcss.txt';
-		RepoAobj.input_text = input_code;
+	RepoAobjRepoAobj.filename = 'cb_htmlcss.txt';
+	RepoAobj.input_text = input_code;
 
-		// Save the file in the repository
-		await module.run_backend_process(RepoAobj);
-
-		
-  
+	// Save the file in the repository
+	await module.run_backend_process(RepoAobj);
 	console.log('RepoAobj: ', RepoAobj);
 
 	// -------------------
