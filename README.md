@@ -4,8 +4,9 @@ A webapp to use any computational kernel. Current available computational kernel
 1. Python
 2. JavaScript
 3. Matlab (in progress)
+4. Bash
 
-[Current version] https://codesolutions2.github.io/input_output_kernels/index5.html (Python and JavaScript kernels)
+[Current version] https://codesolutions2.github.io/input_output_kernels/index6.html (Python, JavaScript, and Bash kernels)
 
 ## In progress:
 
