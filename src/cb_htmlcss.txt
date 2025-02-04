@@ -57,12 +57,12 @@ document.getElementById("output").innerHTML += "<br>";
 // document.getElementById("output").innerHTML += "result0: "+result_js0;
 // document.getElementById("output").innerHTML += "<br>";
 
-// const result_js1 = await JSON.stringify(result);
-// document.getElementById("output").innerHTML += "result1: "+result_js1;
+const result_js1 = await JSON.stringify(result);
+document.getElementById("output").innerHTML += "result1: "+result_js1;
 
 
 const out = await classifier.getClassExampleCount();
-document.getElementById("output").innerHTML += "out: "+JSON.stringify(out);
+document.getElementById("output").innerHTML += "Count of classes for model: "+JSON.stringify(out);
 document.getElementById("output").innerHTML += "<br>";
 
 } // end of run_selection
