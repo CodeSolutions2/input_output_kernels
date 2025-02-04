@@ -46,7 +46,10 @@ document.getElementById("output").innerHTML += index;
 document.getElementById("output").innerHTML += "<br>";
 
 const test_input = xs.at(index);
-const result = await classifier.predictClass(test_input);
+document.getElementById("output").innerHTML += "test_input: "+test_input;
+document.getElementById("output").innerHTML += "<br>";
+
+const result = await classifier.predictClass(tf.tensor(test_input));
 document.getElementById("output").innerHTML += result;
 
 } // end of run_selection
