@@ -62,7 +62,7 @@ document.getElementById("output").innerHTML += "<br>";
 
 
 const out = await classifier.getClassExampleCount();
-document.getElementById("output").innerHTML += "out: "+out;
+document.getElementById("output").innerHTML += "out: "+JSON.stringify(out);
 document.getElementById("output").innerHTML += "<br>";
 
 } // end of run_selection
