@@ -31,15 +31,23 @@ const row = xs.length;
 
 const classifier = knnClassifier.create();
 
+document.getElementById("output").innerHTML += classifier;
+document.getElementById("output").innerHTML += "<br>";
 
 for (var i=0; i<row; i++) {
   classifier.addExample(tf.tensor(xs.at(i)), ys.at(i));
 }
 
+document.getElementById("output").innerHTML += "finished adding samples";
+document.getElementById("output").innerHTML += "<br>";
+
 const index = Number(Math.floor(Math.random()*row));
+document.getElementById("output").innerHTML += index;
+document.getElementById("output").innerHTML += "<br>";
+
 const test_input = xs.at(index);
 const result = await classifier.predictClass(test_input);
-document.getElementById("output").innerHTML = result;
+document.getElementById("output").innerHTML += result;
 
 } // end of run_selection
 
