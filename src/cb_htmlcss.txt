@@ -52,10 +52,11 @@ document.getElementById("output").innerHTML += "<br>";
 const result = await classifier.predictClass(tf.tensor(test_input));
 document.getElementById("output").innerHTML += "result: "+result;
 document.getElementById("output").innerHTML += "<br>";
-const result_js0 = await result.data();
-document.getElementById("output").innerHTML += "result0: "+result_js0;
 
+const result_js0 = await result.dataSync();
+document.getElementById("output").innerHTML += "result0: "+result_js0;
 document.getElementById("output").innerHTML += "<br>";
+
 const result_js1 = await JSON.stringify(result);
 document.getElementById("output").innerHTML += "result1: "+result_js1;
 
