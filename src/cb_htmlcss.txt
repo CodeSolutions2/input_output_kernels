@@ -17,13 +17,67 @@
 
 async function run_selection() {
 
-const x = [1, 2.3, 1.8, 1.4, 0.5, 1.4, 2.7, 3.2, 1.5, 2.4];
-const y = [9.0, 9.7, 9.9, 8.6, 9.6, 9.9, 8.2, 9.4, 8.3, 9.1];
-var title_text = "Plotting data-points";
-var trace1 = {x: x, y: y, mode: 'markers', type: 'scatter'};
-var data = [trace1];
 
-Plotly.newPlot('data_display', data);
+const cluster0 = [[0.2, 0.3, 1],
+                 [1, 1.2, 0.4],
+                 [1.3, 0.2, 1.2],
+                 [0.7, 1.2, 0.4],
+                 [0.6, 0.9, 1.4],];
+const x0 = cluster0.map((v,i) => { return v.at(0); });
+const y0 = cluster0.map((v,i) => { return v.at(1); });
+const z0 = cluster0.map((v,i) => { return v.at(2); });
+
+const cluster1 = [[9.2, 7.3, 9],
+                 [9, 9.2, 8.4],
+                 [10.3, 9.7, 8.2],
+                 [9.7, 8.9, 9.4],
+                 [10.4, 10.9, 10.4],];
+const x1 = cluster1.map((v,i) => { return v.at(0); });
+const y1 = cluster1.map((v,i) => { return v.at(1); });
+const z1 = cluster1.map((v,i) => { return v.at(2); });
+
+var trace1 = {
+	x: x0, y: y0, z: z0,
+	mode: 'markers',
+	marker: {
+		size: 12,
+		line: {
+		color: 'rgba(217, 217, 217, 0.14)',
+		width: 0.5},
+		opacity: 0.8},
+	type: 'scatter3d'
+};
+
+
+
+var trace2 = {
+	x: x1, y: y1, z: z1,
+	mode: 'markers',
+	marker: {
+		color: 'rgb(127, 127, 127)',
+		size: 12,
+		symbol: 'circle',
+		line: {
+		color: 'rgb(204, 204, 204)',
+		width: 1},
+		opacity: 0.8},
+	type: 'scatter3d'};
+
+
+
+var data = [trace1, trace2];
+
+var layout = {margin: {
+	l: 0,
+	r: 0,
+	b: 0,
+	t: 0
+  }};
+
+Plotly.newPlot('data_display', data, layout);
+
+
+
 
 }
 
