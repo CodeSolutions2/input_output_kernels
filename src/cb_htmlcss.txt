@@ -1,256 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head></head>
-<body>  
+<body>
 
-
-<input id="url" type="text" value="" placeholder="url" rows="10" cols="100" style="display:block; text-align: left; width: 600px;">
- 
-<input id="ys_selected_ColNum" type="text" value="" placeholder="ys_selected_ColNum" rows="10" cols="100" style="display:block; text-align: left; width: 600px;">
-
-<button id="run_selection" onclick="run_selection()">run_selection</button>
+<canvas id='canvasElement' width='256' height='256'></canvas>
 
 <div id="output">
 
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
-
 <script>
+const canvasElement = document.getElementById('canvasElement');
 
-// -----------------------------------------------
+const ctx = canvasElement.getContext('2d');
+
+const y_bottom = 0;
+
+const angle = 0;
+const amplitude = 20;
+
+const frequency = 0.1;
+
+// Call function for animation
+animation();
 
 
-async function run_selection() {
 
-  const url = document.getElementById("url").value;
-  document.getElementById("output").innerHTML = "url: "+url;
-  document.getElementById("output").innerHTML = "<br>";
+function animation() {
 
+  ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
+  const y = y_bottom + Math.sin(angle)*amplitude;
+
+  const x = canvasElement.width/2;
+
+  ctx.beginPath();
+
+  ctx.arc(x, y, 20, 0, Math.PI*2);
+
+  ctx.fillStyle = 'green';
+
+  ctx.fill();
+
+  // update angle for next frame
+  angle = angle + frequency;
+
+  // Animation that repeats the drawing
+  requestAnimationFrame(animation);
+  
 } // end of function
 
-// -----------------------------------------------
-
-async function call_fetch_method(url) {
- 
- const CORS_method_list = ["jQuery_csv_GET", "fetch_csv_GET"];
- 
- var response = undefined;
-  
- for (var i=0; i<CORS_method_list.length; i++) {
-  try {
-   if (i == 0) {
-    response = await fetch_csv_GET(url);
-   } else {
-    response = await jQuery_csv_GET(url);
-   }
-   
-  } catch (error) {
-   console.log("error: ", error);
-  }
-  if (response != undefined) {
-   break;
-  }
- }
- return response;
-}
-
-// -----------------------------------------------
-
-async function fetch_csv_GET(url) {
- 
- var headers = {
-  "Content-Type": "application/json",
-  "Referer": url,
-  "Origin": "https://codesolutions2.github.io",
-  "Connection": "keep-alive",
-  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
-  "Access-Control-Allow-Origin": "*",
- };
- 
- var options = { 
-  method : "GET",
-  mode: 'cors',
-  headers: new Headers(headers),
-  cache: "no-cache",
-  crossorigin: 'anonymous',
-  redirect: "follow"
- };
- 
- return await fetch(url, options)
-  .then(res => res.text())
-  .then(str_data => { return str_data; })
-  .catch(error => { console.error("error: ", error); });
-
-}
-
-// -----------------------------------------------
-
-async function jQuery_csv_GET(url) {
- 
- var headers = {
-  "Content-Type": "application/json",
-  "Referer": url,
-  "Origin": "https://codesolutions2.github.io",
-  "Connection": "keep-alive",
-  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
-  "Access-Control-Allow-Origin": "*",
- };
- 
- var settings = {
-  // url: url,
-  type : "GET",
-  async: true,
-  crossDomain: true,
-  beforeSend: function(xhr) {xhr.withCredentials = true;},
-  // headers: new Headers(headers),
-  xhrFields: {responseType: 'text'},
-  dataType: 'text',
-  success: function(response) { console.log('Success'); },
-  error: function(xhr, status, error) { console.error("error: ", error); }
- };
- 
- return $.ajax(url, [,settings]).done(function(response) { return response; });
-
-}
-
-// -----------------------------------------------
-
-async function parse_text_to_array(text_str, ys_selected_ColNum, headerORnot) {
- 
- var row_arr = text_str.split('\n');
-
- if (headerORnot == "no_header") {
-  row_arr = row_arr.slice(1,row_arr.length-1);
- }
- // console.log('row_arr: ', row_arr);
- 
- var xs = [];
- var ys = [];
- for (let i=0; i<row_arr.length; i++) {
-  var col_arr = row_arr[i].split(',');
-  // console.log('col_arr: ', col_arr);
-  
-  var c = 0
-  var xs_cols = [];
-  var ys_cols = [];
-  for (let j=0; j<col_arr.length; j++) {
-   
-   // Convert strings to number if needed
-   var datatype = Number(col_arr[j]) == Number(col_arr[j]) ? Number(col_arr[j]) : String(col_arr[j]);
-   // console.log('datatype: ', datatype);
-   // console.log('data type [number, string]: ', typeof datatype);
-   
-   if (j == ys_selected_ColNum[c]) {
-    ys_cols.push(datatype);
-    c = c + 1;
-   } else {
-    xs_cols.push(datatype);
-   }
-  }
-  // pack xs and ys
-  xs.push(xs_cols);
-  ys.push(ys_cols);
- }
- return [xs, ys];
-}
-
-// -----------------------------------------------
-
-async function CountVectorizer(text) {
-
-  var sentences = text.split('.').filter((x) => x.length > 0);
-  // console.log("sentences: ", sentences);
-
-  // Obtain unique words 
-  var words = sentences.map((val, ind) => { return val.split(" "); });
-  words = words.flat(Infinity).filter((x) => x.length > 0);
-  words = [... new Set(words)];
-  // console.log("words: ", words);
-
-  // Remove stopwords from words
-  var stopwords = ["and", "is", "the", "of"];
-  words = words.map((val, ind) => {
-    var temp = val;
-    for (var i=0; i<stopwords.length; i++){
-      if (val == stopwords.at(i)) {
-        temp = '';
-      }
-    }
-    return temp;
-  }).filter((x) => x.length > 0);
-  // console.log("remove stopwords - words: ", words);
-
-  // Remove stopwords from sentences 
-  sentences = sentences.map((sval, sind) => {
-    sval = sval.split(' ').map((val, ind) => {
-    var temp = val;
-    for (var i=0; i<stopwords.length; i++){
-      if (val == stopwords.at(i)) {
-        temp = '';
-      }
-    }
-    return temp;
-  }).filter((x) => x.length > 0);
-    return sval.join(" ")
-  })
-  // console.log("remove stopwords - sentences: ", sentences);
-  
-  // Create count matrix
-  var keys = words;
-  var X = [];
-  for (var i=0; i<sentences.length; i++){
-    var word_arr = sentences.at(i).split(" ");
-    var row = [];
-    var c = 0;
-
-    var values = words.map((val, ind) => { return 0; });
-
-    // Counter: count the repeating words per sentence
-    var word_arr_uq = [... new Set(word_arr)];
-
-    for (var j=0; j<word_arr_uq.length; j++) {
-      
-      var out = word_arr.map((val, ind) => {
-        
-        if (word_arr_uq.at(j) == val) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      
-      var sum_out = out.reduce((acc, cur) => acc+cur, 0);
-      // console.log("sum_out: ", sum_out);
-
-      var ii = keys.findIndex((x) => x == word_arr_uq.at(j));
-       
-      values[ii] = values.at(ii) + sum_out;
-      
-    } // end of Counter function 
-    
-    for (var j=0; j<words.length; j++){
-      if (words.at(j) == keys.at(c)){
-        var index = keys.findIndex((x) => x == keys.at(c));
-        row.push(values.at(index));
-        c = c + 1;
-      } else {
-        row.push(0);
-      }
-    } // end of Counter function
-    
-    X.push(row);
-  } // end of sentences loop
-
-  // console.log("X: ", X);
-  return X;
-
-} // end of function
 
 
 </script>
