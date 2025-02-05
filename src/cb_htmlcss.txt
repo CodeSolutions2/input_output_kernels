@@ -1,61 +1,46 @@
+
 <!DOCTYPE html>
 <html>
 <head></head>
 <body>
 
-<canvas id='canvasElement' width='100' height='100'></canvas>
+<button id="run_selection" onclick="run_selection()">Run selection</script>
 
-<button id="run_selection0" onclick="run_selection0()">Run selection0</button>
-<button id="run_selection1" onclick="run_selection1()">Run selection1</button>
 
-<div id="output">
 
-<style>
-canvas { background-color: goldenrod; }
-</style>
+<div id="data_display">
 
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+
+
+<!-- ---------------------------------------- -->
+	
 <script>
+	
+// -----------------------------------------------
+	
+window.addEventListener('beforeunload', function() {
+	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
+});
+
+// -----------------------------------------------
+
+async function run_selection() {
 
 
-const canvasElement = document.getElementById('canvasElement');
-const ctx = canvasElement.getContext('2d');
+const x = [1, 2.3, 1.8, 1.4, 0.5, 1.4, 2.7, 3.2, 1.5, 2.4];
+const y = [9. 9.7, 9.9, 8.6, 9.6, 9.9, 8.2, 9.4, 8.3, 9.1];
 
-const angle = 0;
-const amplitude = 10;
-const frequency = 0.1;
-var y = canvasElement.height/2 + Math.sin(angle)*amplitude;
+// https://plotly.com/javascript/line-charts/
+	var title_text = "Plotting data-points";
+	var x_text_trace1and2 = "x-axis";
+	var y_text_trace1and2 = "y-axis";
+	var trace1 = {x: x, y: y, mode: 'lines+markers', type: 'line', name: '2d datapoints'}
+	var data = [trace1];
+	var layout = {grid: {rows: 1, columns: 1, pattern: 'independent'}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}};
+	Plotly.newPlot('data_display', data, layout);
 
-var x = 0; // canvasElement.width/2;
-const xSpeed = 0.5;
-
-const radius = 10;
-const startAngle = 0;
-const endAngle = Math.PI*2;
-
-async function run_selection0() {
-
-  ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-  ctx.beginPath();
-
-  ctx.arc(x, y, radius, startAngle, endAngle);
-  ctx.fillStyle = 'green';
-  ctx.fill();
-
-  // update x position 
-  x = x + xSpeed;
-
-  // update angle for next frame
-  angle = angle + frequency;
-  
-  // reset x-position 
-  if (x > canvasElement.width) {
-    x = 0;
-  }
-
-  // Animation that repeats the drawing
-  requestAnimationFrame(run_selection0);
-  
-} // end of function
+}
 
 
 </script>
