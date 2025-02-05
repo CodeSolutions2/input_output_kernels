@@ -3,35 +3,42 @@
 <head></head>
 <body>
 
-<button id="run_selection" onclick="run_selection()">Run selection</script>
+
+
 
 <div id="data_display">
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+
 
 <!-- ---------------------------------------- -->
 	
 <script>
-	
-// -----------------------------------------------
-	
-window.addEventListener('beforeunload', function() {
-	window.location.href = window.location.href + '?nocache=' + new Date().getTime();
-});
 
-// -----------------------------------------------
+var trace1 = {
+  x: [1, 2, 3, 4],
+  y: [10, 15, 13, 17],
+  mode: 'markers',
+  type: 'scatter'
+};
 
-async function run_selection() {
+var trace2 = {
+  x: [2, 3, 4, 5],
+  y: [16, 5, 11, 9],
+  mode: 'lines',
+  type: 'scatter'
+};
 
-const x = [1, 2.3, 1.8, 1.4, 0.5, 1.4, 2.7, 3.2, 1.5, 2.4];
-const y = [9, 9.7, 9.9, 8.6, 9.6, 9.9, 8.2, 9.4, 8.3, 9.1];
-var title_text = "Plotting data-points";
-var trace1 = {x: x, y: y, mode: 'markers', type: 'scatter'};
-var data = [trace1];
+var trace3 = {
+  x: [1, 2, 3, 4],
+  y: [12, 9, 15, 12],
+  mode: 'lines+markers',
+  type: 'scatter'
+};
+
+var data = [trace1, trace2, trace3];
+
 Plotly.newPlot('data_display', data);
-
-} // end of function
-
 
 </script>
 </body>
