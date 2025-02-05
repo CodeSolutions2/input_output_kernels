@@ -3,7 +3,7 @@
 <head></head>
 <body>
 
-
+<button id="run_selection" onclick="run_selection()">Run selection</button>
 
 
 <div id="data_display">
@@ -14,6 +14,8 @@
 <!-- ---------------------------------------- -->
 	
 <script>
+
+async function run_selection() {
 
 var trace1 = {
   x: [1, 2, 3, 4],
@@ -39,6 +41,8 @@ var trace3 = {
 var data = [trace1, trace2, trace3];
 
 Plotly.newPlot('data_display', data);
+
+}
 
 </script>
 </body>
