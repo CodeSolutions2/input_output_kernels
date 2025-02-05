@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<canvas id='canvasElement' width='256' height='256'></canvas>
+
+<div id="output">
+
+<script>
+const canvasElement = document.getElementById('canvasElement');
+
+const ctx = canvasElement.getContext('2d');
+
+const y_bottom = 0;
+
+const angle = 0;
+const amplitude = 20;
+
+const frequency = 0.1;
+
+// Call function for animation
+animation();
+
+
+
+function animation() {
+
+  ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+  const y = y_bottom + Math.sin(angle)*amplitude;
+
+  const x = canvasElement.width/2;
+
+  ctx.beginPath();
+
+  ctx.arc(x, y, 20, 0, Math.PI*2);
+
+  ctx.fillStyle = 'green';
+
+  ctx.fill();
+
+  // update angle for next frame
+  angle = angle + frequency;
+
+  // Animation that repeats the drawing
+  requestAnimationFrame(animation);
+  
+} // end of function
+
+
+
+</script>
+</body>
+</html>
