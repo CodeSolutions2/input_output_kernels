@@ -32,7 +32,7 @@ var title_text = "Plotting data-points";
 var trace1 = {x: x, y: y, mode: 'markers', type: 'scatter'};
 var data = [trace1];
 const layout = {xaxis: {range:[0,10]}, yaxis:{range:[0,10]}};
-Plotly.newPlot('data_display', data, layout);
+Plotly.newPlot('data_display', data);
 
 } // end of function
 
