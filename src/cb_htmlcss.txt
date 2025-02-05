@@ -27,11 +27,8 @@
 
 async function run_selection() {
 
-  
-const url = document.getElementById("url").value;
-
-  const data_str = await call_fetch_method(url);
-  document.getElementById("output").innerHTML = "data_str: "+data_str;
+  const url = document.getElementById("url").value;
+  document.getElementById("output").innerHTML = "url: "+url;
   document.getElementById("output").innerHTML = "<br>";
 
 
