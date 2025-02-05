@@ -3,10 +3,10 @@
 <head></head>
 <body>
 
-<canvas id='canvasElement' width='50' height='50'></canvas>
+<canvas id='canvasElement' width='100' height='100'></canvas>
 
-<button id="run_selection0" onclick="run_selection0()"></button>
-<button id="run_selection1" onclick="run_selection1()"></button>
+<button id="run_selection0" onclick="run_selection0()">Run selection0</button>
+<button id="run_selection1" onclick="run_selection1()">Run selection1</button>
 
 <div id="output">
 
@@ -17,20 +17,17 @@ canvas { background-color: goldenrod; }
 <script>
 
 
+const canvasElement = document.getElementById('canvasElement');
+const ctx = canvasElement.getContext('2d');
+
+const angle = 0;
+const amplitude = 10;
+const frequency = 0.1;
 
 
 
 
 async function run_selection0() {
-
-
-  const canvasElement = document.getElementById('canvasElement');
-  const ctx = canvasElement.getContext('2d');
-
-  const angle = 0;
-const amplitude = 20;
-const frequency = 0.1;
-
 var x = 0; // canvasElement.width/2;
 const xSpeed = 0.5;
 
@@ -71,17 +68,13 @@ var shift = 10;
 async function run_selection1() {
 
   const element = document.getElementById("output");
-
-
-
   requestAnimationFrame(step);
-
 }
 
 
 function step() {
   element.style.transform = `translateX(${shift}px)`;
-  if (shift < 200) {
+  if (shift < canvasElement.width) {
     requestAnimationFrame(step);
   }
 }
