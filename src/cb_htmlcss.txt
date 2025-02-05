@@ -12,7 +12,7 @@ const canvasElement = document.getElementById('canvasElement');
 
 const ctx = canvasElement.getContext('2d');
 
-const y_bottom = canvasElement.height;
+const y_bottom = canvasElement.height/2;
 
 const angle = 0;
 const amplitude = 20;
