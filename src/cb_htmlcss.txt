@@ -23,27 +23,22 @@ const ctx = canvasElement.getContext('2d');
 const angle = 0;
 const amplitude = 10;
 const frequency = 0.1;
+var y = canvasElement.height/2 + Math.sin(angle)*amplitude;
 
-
-
-
-async function run_selection0() {
 var x = 0; // canvasElement.width/2;
 const xSpeed = 0.5;
 
+const radius = 10;
+const startAngle = 0;
+const endAngle = Math.PI*2;
+
+async function run_selection0() {
+
   ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-  var y = canvasElement.height/2 + Math.sin(angle)*amplitude;
-
   ctx.beginPath();
 
-  const radius = 10;
-  const startAngle = 0;
-  const endAngle = Math.PI*2;
   ctx.arc(x, y, radius, startAngle, endAngle);
-
   ctx.fillStyle = 'green';
-
   ctx.fill();
 
   // update x position 
@@ -61,23 +56,6 @@ const xSpeed = 0.5;
   requestAnimationFrame(run_selection0);
   
 } // end of function
-
-
-var shift = 10;
-
-async function run_selection1() {
-
-  const element = document.getElementById("output");
-  requestAnimationFrame(step);
-}
-
-
-function step() {
-  element.style.transform = `translateX(${shift}px)`;
-  if (shift < canvasElement.width) {
-    requestAnimationFrame(step);
-  }
-}
 
 
 </script>
