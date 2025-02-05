@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<canvas id='canvasElement' width='100' height='100'></canvas>
+
+<button id="run_selection0" onclick="run_selection0()">Run selection0</button>
+<button id="run_selection1" onclick="run_selection1()">Run selection1</button>
+
+<div id="output">
+
+<style>
+canvas { background-color: goldenrod; }
+</style>
+
+<script>
+
+
+const canvasElement = document.getElementById('canvasElement');
+const ctx = canvasElement.getContext('2d');
+
+const angle = 0;
+const amplitude = 10;
+const frequency = 0.1;
+var y = canvasElement.height/2 + Math.sin(angle)*amplitude;
+
+var x = 0; // canvasElement.width/2;
+const xSpeed = 0.5;
+
+const radius = 10;
+const startAngle = 0;
+const endAngle = Math.PI*2;
+
+async function run_selection0() {
+
+  ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+  ctx.beginPath();
+
+  ctx.arc(x, y, radius, startAngle, endAngle);
+  ctx.fillStyle = 'green';
+  ctx.fill();
+
+  // update x position 
+  x = x + xSpeed;
+
+  // update angle for next frame
+  angle = angle + frequency;
+  
+  // reset x-position 
+  if (x > canvasElement.width) {
+    x = 0;
+  }
+
+  // Animation that repeats the drawing
+  requestAnimationFrame(run_selection0);
+  
+} // end of function
+
+
+</script>
+</body>
+</html>
