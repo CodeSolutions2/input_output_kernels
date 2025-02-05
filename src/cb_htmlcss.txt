@@ -24,6 +24,7 @@
 
 // -----------------------------------------------
 
+
 async function run_selection() {
 
   const url = document.getElementById("url").value;
@@ -31,18 +32,24 @@ async function run_selection() {
   const data_str = await call_fetch_method(url);
 
   const ys_selected_ColNum = [Number(document.getElementById("ys_selected_ColNum").value)];
+  document.getElementById("output").innerHTML = "ys_selected_ColNum: "+ys_selected_ColNum;
+  document.getElementById("output").innerHTML = "<br>";
+
   const headerORnot = "no_header";
   
   const [xs, ys] = await parse_text_to_array(data_str, ys_selected_ColNum, headerORnot);
- 
-  // Create X count matrix for xs.
-  const text = xs.join(".");
+  document.getElementById("output").innerHTML = "xs: "+xs.at(0)+", ys: "+ys.at(0);
+  document.getElementById("output").innerHTML = "<br>";
+  
 
-  const X = await CountVectorizer(text);
+  // Create X count matrix for xs.
+  // const text = xs.join(".");
+
+  // const X = await CountVectorizer(text);
   
   // Determine if ys.length will match X.length
-  document.getElementById("output").innerHTML = "ys.length: "+ys.length;
-  document.getElementById("output").innerHTML = "X.length: "+X.length;
+  // document.getElementById("output").innerHTML = "ys.length: "+ys.length;
+  // document.getElementById("output").innerHTML = "X.length: "+X.length;
 
 
   // ML training and prediction
