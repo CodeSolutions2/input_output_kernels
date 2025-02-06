@@ -7,7 +7,7 @@
 
 <style>
 div#divobj { animation-duration: 5s;
-  animation-name: bounce; 
+  animation-name: one_bounce; 
       background: green; 
       width: 20px; 
       height: 20px; 
@@ -15,17 +15,18 @@ div#divobj { animation-duration: 5s;
       border-radius: 50%;
 }
 
-@keyframes bounce {
+@keyframes one_bounce {
   from {
     translate: 0px 0px;
-    scale: 100% 1;
+    scale: 100% 100%;
   }
 
   to {
     translate: 0px 500px;
-    scale: 200% 1;
+    scale: 200% 200%;
   }
 }
+
 </style>
 
 </script></script>
