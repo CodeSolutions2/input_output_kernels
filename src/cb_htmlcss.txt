@@ -14,7 +14,7 @@ p {
 
 @keyframes slide-in {
   from {
-    translate: 500px 1000px;
+    translate: 0px 0px;
     scale: 100% 1;
   }
 
