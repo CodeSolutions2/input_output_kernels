@@ -66,6 +66,7 @@ async function run_selection() {
     document.getElementById("output").innerHTML = "values: "+values;
     document.getElementById("output").innerHTML += "<br>";
     X.push(values);
+  } // end of for loop sentences.length
 
   document.getElementById("output").innerHTML = "X: "+X;
   document.getElementById("output").innerHTML += "<br>";
