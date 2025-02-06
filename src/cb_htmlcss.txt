@@ -16,17 +16,6 @@ async function run_selection() {
   var text= "the text processing of text is useful. text processing is fun.";
 
   
-  const X = await CountVectorization(text);
-  document.getElementById("output").innerHTML = "X: "+X;
-  document.getElementById("output").innerHTML += "<br>";
-
-
-
-}
-
-
-async function CountVectorization(text) {
-
   var sentences = await text.split('.').filter((x) => x != "");
   document.getElementById("output").innerHTML = "sentences: "+sentences.toString();
   document.getElementById("output").innerHTML += "<br>";
@@ -77,24 +66,12 @@ async function CountVectorization(text) {
     document.getElementById("output").innerHTML += "<br>";
     X.push(values);
 
-    // Put values into row.
-    // for (var j=0; j<words.length; j++){
-    //  if (words.at(j) == words.at(c)){
-    //    var index = words.findIndex((x) => x == words.at(c));
-    //    row.push(values.at(index));
-    //    c = c + 1;
-    //  } else {
-    //    row.push(0);
-    //  }
-    //} // end of for loop words.length
-    // X.push(row);
-
-  } // end of sentences loop
-  
-  return X;
-} // end of function
+  document.getElementById("output").innerHTML = "X: "+X;
+  document.getElementById("output").innerHTML += "<br>";
 
 
+
+} // end of run_selection
 
 
 </script>
