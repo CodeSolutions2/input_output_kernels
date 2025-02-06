@@ -33,23 +33,28 @@ async function run_selection() {
 
   const headerORnot = "no_header";
   var [xs, ys] = await parse_text_to_array(data_str, ys_selected_ColNum, headerORnot);
-	
-  document.getElementById("output").innerHTML = "xs and ys row sample: "+xs.at(0).toString()+ys.at(0).toString();
-  document.getElementById("output").innerHTML += "<br>";
 
+document.getElementById("output").innerHTML = "xs and ys row sample: "+xs.at(0).toString()+ys.at(0).toString();
+  document.getElementById("output").innerHTML += "<br>";
 
   // Remove a '.' in xs, except for separating sentences.
   const text = await xs.map((sentence, i) => { return sentence.split('.').join(' '); }).join('.');
-  
+  document.getElementById("output").innerHTML = "text slice: "+text.slice(0, 20).toString();
+  document.getElementById("output").innerHTML += "<br>";
+
   // [1] Transform xs to a numbered count array.
   const X = await CountVectorization(text);
+  document.getElementById("output").innerHTML = "X row sample: "+X.at(0).toString();
+  document.getElementById("output").innerHTML += "<br>";
 
   // [2] Train an ML model.
-  const result_js1 = await ML_KNN(X, ys);
-  document.getElementById("output").innerHTML += "+result_js1: "+result_js1;
-  document.getElementById("output").innerHTML += "<br>";
+  // const result_js1 = await ML_KNN(X, ys);
+  // document.getElementById("output").innerHTML += "+result_js1: "+result_js1;
+  // document.getElementById("output").innerHTML += "<br>";
   
   // [3] Train a DL model.
+  
+
 
 
 }
