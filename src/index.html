@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<div id="div_counter">
+<div id="div_obj">
+
+<style>
+:root { --t: 0; }
+
+div#div_counter { 
+  animation-duration: 5s;
+  animation-name: counter;
+}
+
+
+div#div_obj { 
+  background: green;
+  width: 20px; 
+  height: 20px; 
+  margin-top: 1px; 
+  border-radius: 50%;
+  translate: 0px calc(sin(var(--t))*200px+200px);
+}
+
+@keyframes counter {
+  from { --t: 0 } to { --t: 1000 }
+}
+
+</style>
+
+</script></script>
+</body>
+</html>
