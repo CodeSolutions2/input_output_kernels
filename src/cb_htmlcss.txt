@@ -16,7 +16,7 @@ async function run_selection() {
   var text= "the text processing of text is useful. text processing is fun.";
 
   
-  const X = CountVectorization(text);
+  const X = await CountVectorization(text);
   document.getElementById("output").innerHTML = "X: "+X.toString();
   document.getElementById("output").innerHTML += "<br>";
 
