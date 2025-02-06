@@ -72,6 +72,11 @@ async function run_selection() {
   document.getElementById("output").innerHTML += "<br>";
 
 
+document.getElementById("output").innerHTML = "X rows: "+X.length;
+  document.getElementById("output").innerHTML += "<br>";
+
+document.getElementById("output").innerHTML = "X cols: "+X.at(0).length;
+  document.getElementById("output").innerHTML += "<br>";
 
 } // end of run_selection
 
