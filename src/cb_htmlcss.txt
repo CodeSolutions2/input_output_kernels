@@ -3,26 +3,26 @@
 <head></head>
 <body>
 
-<div id="divobj">
+<p id="pId">Text to animate</p>
 
 <style>
-:root { --t: 0; }
 
-div#divobj { animation-name: tick; 
-      animation-duration: 100000s; 
-      animation-iteration-count: 0.5; 
-      background: green; 
-      width: 20px; 
-      height: 20px; 
-      margin-top: 1px; 
-      border-radius: 50%;
+p {
+  animation-duration: 5s;
+  animation-name: slide-in;
 }
 
-@keyframes bounce {
-  from {--t: 0} 
-  to {--t: 100000}
-}
+@keyframes slide-in {
+  from {
+    translate: 0 0;
+    scale: 200% 1;
+  }
 
+  to {
+    translate: 0 500px;
+    scale: 100% 1;
+  }
+}
 </style>
 
 </script></script>
