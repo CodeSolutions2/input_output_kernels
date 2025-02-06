@@ -18,12 +18,10 @@ div#divobj { animation-duration: 5s;
 @keyframes one_bounce {
   from {
     translate: 0px 0px;
-    scale: 100% 100%;
   }
 
   to {
     translate: 0px 500px;
-    scale: 200% 200%;
   }
 }
 
