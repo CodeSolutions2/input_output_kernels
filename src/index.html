@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<button id="run_selection" onclick="run_selection()">run_selection</button>
+
+<div id="output">
+
+
+<script>
+
+
+async function run_selection() {
+
+  var text= "the text processing of text is useful. text processing is fun.";
+
+  
+  var sentences = await text.split('.').filter((x) => x != "");
+  document.getElementById("output").innerHTML = "sentences: "+sentences;
+  document.getElementById("output").innerHTML += "<br>";
+
+
+  // Remove stopwords from sentences.
+  var stopwords = ["and", "is", "the", "of", "to"];
+  sentences = await sentences.map((sval, sind) => {
+    sval = sval.toLowerCase().split(' ').map((val, ind) => {
+      var temp = val;
+      for (var i=0; i<stopwords.length; i++){
+        if (val == stopwords.at(i)) { temp = ''; }
+      }
+      return temp;
+    }).filter((x) => x != "");
+    return sval.join(" ");
+  });
+  document.getElementById("output").innerHTML = "remove stopwords - sentences: "+sentences;
+  document.getElementById("output").innerHTML += "<br>";
+
+  // Obtain unique words 
+  var words = await sentences.map((val, ind) => { return val.split(" "); }).flat(Infinity).filter((x) => x != "");
+  words = await [... new Set(words)];
+  document.getElementById("output").innerHTML = "words: "+words;
+  document.getElementById("output").innerHTML += "<br>";
+
+  // Create count matrix
+  var X = []; // size [sentences.length, words.length]
+  for (var i=0; i<sentences.length; i++){
+    document.getElementById("output").innerHTML = "i: "+i;
+    document.getElementById("output").innerHTML += "<br>";
+    var words_per_sentence_arr = sentences.at(i).split(" ");
+    // var row = [];
+    // var c = 0;
+
+    // Make a vector of zeros [colnum,] for filling-in each row (ie: sentence) of X.
+    var values = words.map((val, ind) => { return 0; });
+
+    // Count the repeating words per sentence.
+    const words_per_sentence_arr_uq = [... new Set(words_per_sentence_arr)];
+    for (var j=0; j<words_per_sentence_arr_uq.length; j++) {
+      const word_frequency_sum = words_per_sentence_arr.map((val, ind) => { return (words_per_sentence_arr_uq.at(j) == val) ? 1 : 0; }).reduce((acc, cur) => acc+cur, 0);
+      // Look-up the [unique word per sentence] in the [unique words] list.
+      // Insert the word_frequency_sum in the [unique words] list column.
+      const ii = words.findIndex((x) => x == words_per_sentence_arr_uq.at(j));
+      values[ii] = values.at(ii) + word_frequency_sum;
+    } // end of for loop words_per_sentence_arr_uq.length
+    document.getElementById("output").innerHTML = "values: "+values;
+    document.getElementById("output").innerHTML += "<br>";
+    X.push(values);
+
+  document.getElementById("output").innerHTML = "X: "+X;
+  document.getElementById("output").innerHTML += "<br>";
+
+
+
+} // end of run_selection
+
+
+</script>
+</body>
+</html>
