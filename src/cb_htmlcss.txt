@@ -17,7 +17,7 @@ async function run_selection() {
 
   
   var sentences = await text.split('.').filter((x) => x != "");
-  document.getElementById("output").innerHTML = "sentences: "+sentences;
+  document.getElementById("output").innerHTML += "sentences: "+sentences;
   document.getElementById("output").innerHTML += "<br>";
 
 
@@ -33,19 +33,19 @@ async function run_selection() {
     }).filter((x) => x != "");
     return sval.join(" ");
   });
-  document.getElementById("output").innerHTML = "remove stopwords - sentences: "+sentences;
+  document.getElementById("output").innerHTML += "remove stopwords - sentences: "+sentences;
   document.getElementById("output").innerHTML += "<br>";
 
   // Obtain unique words 
   var words = await sentences.map((val, ind) => { return val.split(" "); }).flat(Infinity).filter((x) => x != "");
   words = await [... new Set(words)];
-  document.getElementById("output").innerHTML = "words: "+words;
+  document.getElementById("output").innerHTML += "words: "+words;
   document.getElementById("output").innerHTML += "<br>";
 
   // Create count matrix
   var X = []; // size [sentences.length, words.length]
   for (var i=0; i<sentences.length; i++){
-    document.getElementById("output").innerHTML = "i: "+i;
+    document.getElementById("output").innerHTML += "i: "+i;
     document.getElementById("output").innerHTML += "<br>";
     var words_per_sentence_arr = sentences.at(i).split(" ");
     // var row = [];
@@ -63,19 +63,18 @@ async function run_selection() {
       const ii = words.findIndex((x) => x == words_per_sentence_arr_uq.at(j));
       values[ii] = values.at(ii) + word_frequency_sum;
     } // end of for loop words_per_sentence_arr_uq.length
-    document.getElementById("output").innerHTML = "values: "+values;
+    document.getElementById("output").innerHTML += "values: "+values;
     document.getElementById("output").innerHTML += "<br>";
     X.push(values);
   } // end of for loop sentences.length
 
-  document.getElementById("output").innerHTML = "X: "+X;
+  document.getElementById("output").innerHTML += "X: "+X;
   document.getElementById("output").innerHTML += "<br>";
 
-
-document.getElementById("output").innerHTML = "X rows: "+X.length;
+document.getElementById("output").innerHTML += "X rows: "+X.length;
   document.getElementById("output").innerHTML += "<br>";
 
-document.getElementById("output").innerHTML = "X cols: "+X.at(0).length;
+document.getElementById("output").innerHTML += "X cols: "+X.at(0).length;
   document.getElementById("output").innerHTML += "<br>";
 
 } // end of run_selection
