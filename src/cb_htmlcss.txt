@@ -14,13 +14,13 @@ p {
 
 @keyframes slide-in {
   from {
-    translate: 0 500px;
-    scale: 200% 1;
+    translate: 500px 1000px;
+    scale: 100% 1;
   }
 
   to {
-    translate: 0 1000px;
-    scale: 100% 1;
+    translate: 1000px 1000px;
+    scale: 200% 1;
   }
 }
 </style>
