@@ -19,7 +19,7 @@ p {
   }
 
   to {
-    translate: 1000px 1000px;
+    translate: -1000px -1000px;
     scale: 200% 1;
   }
 }
