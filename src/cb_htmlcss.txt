@@ -13,13 +13,38 @@
 
 async function run_selection() {
 
-  var text= "the text processing of text is useful. text processing is fun.";
+
+var text= "the text processing of text is useful. text processing is fun.";
 
   
   var sentences = await text.split('.').filter((x) => x != "");
-  document.getElementById("output").innerHTML = "sentences: "+sentences.toString();
+  document.getElementById("output").innerHTML = "sentences: "+sentences;
   document.getElementById("output").innerHTML += "<br>";
 
+
+  // Remove stopwords from sentences.
+  var stopwords = ["and", "is", "the", "of", "to"];
+  sentences = await sentences.map((sval, sind) => {
+    sval = sval.toLowerCase().split(' ').map((val, ind) => {
+      var temp = val;
+      for (var i=0; i<stopwords.length; i++){
+        if (val == stopwords.at(i)) { temp = ''; }
+      }
+      return temp;
+    }).filter((x) => x != "");
+    return sval.join(" ");
+  });
+  document.getElementById("output").innerHTML = "remove stopwords - sentences: "+sentences;
+  document.getElementById("output").innerHTML += "<br>";
+
+  // Obtain unique words 
+  var words = await sentences.map((val, ind) => { return val.split(" "); }).flat(Infinity).filter((x) => x != "");
+  words = await [... new Set(words)];
+  document.getElementById("output").innerHTML = "words: "+words;
+  document.getElementById("output").innerHTML += "<br>";
+
+  
+  
 } // end of run_selection
 
 
