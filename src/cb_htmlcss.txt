@@ -41,24 +41,19 @@ async function run_selection() {
 
 
   // Remove a '.' in xs, except for separating sentences.
-  const text = await xs.map((sen, i) => { 
-
-document.getElementById("output").innerHTML += "sen: "+sen; 
-document.getElementById("output").innerHTML += "<br>";
-
-     var out = [sen].split('').filter((val, ind, array) => array.indexOf(val) === ind).map((v, i) => { return (v == '.') ? 1 : 0 }).reduce((a,c) => a+c, 0);
+  const text0 = await xs.map((sen, i) => { return sen.split('').filter((x) => x != '.').join(''); }).join('.');
+  document.getElementById("output").innerHTML += "text0 slice: "+text0.slice(0, 20).toString();
+  document.getElementById("output").innerHTML += "<br>";
+  // OR
+  const text1 = await xs.map((sen, i) => { 
+     var out = sen.split('').filter((val, ind, array) => array.indexOf(val) === ind).map((v, i) => { return (v == '.') ? 1 : 0 }).reduce((a,c) => a+c, 0);
 
 document.getElementById("output").innerHTML += "out: "+out;
   document.getElementById("output").innerHTML += "<br>";
 
-  var out1 = [sen].split('').filter((x) => x != '.').join('');
-document.getElementById("output").innerHTML += "out1: "+out1;
-  document.getElementById("output").innerHTML += "<br>";
-
      return (out == 1) ? sen.split('.').join(' ') : sen; 
 }).join('.');
-// console.log("text: ", text);
-  document.getElementById("output").innerHTML += "text slice: "+text.slice(0, 20).toString();
+  document.getElementById("output").innerHTML += "text1 slice: "+text1.slice(0, 20).toString();
   document.getElementById("output").innerHTML += "<br>";
 
   // [1] Transform xs to a numbered count array.
