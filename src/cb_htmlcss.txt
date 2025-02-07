@@ -41,9 +41,16 @@ async function run_selection() {
 
 
   // Remove a '.' in xs, except for separating sentences.
-  const text = xs.map((sen, i) => { 
-     var out = sen.split('').find((ele) => { ele == '.' });
-    // console.log("out: ", out);
+  const text = await xs.map((sen, i) => { 
+
+document.getElementById("output").innerHTML += "sen: "+sen; 
+document.getElementById("output").innerHTML += "<br>";
+
+     var out = sen.split('').find((ele) => { ele == '.' }); 
+
+document.getElementById("output").innerHTML += "out: "+out;
+  document.getElementById("output").innerHTML += "<br>";
+
      return (out != '') ? sen.split('.').join(' ') : sen; 
 }).join('.');
 // console.log("text: ", text);
@@ -51,9 +58,9 @@ async function run_selection() {
   document.getElementById("output").innerHTML += "<br>";
 
   // [1] Transform xs to a numbered count array.
-  const X = await CountVectorization(text);
-  document.getElementById("output").innerHTML += "X row sample: "+X.at(0).toString();
-  document.getElementById("output").innerHTML += "<br>";
+//  const X = await CountVectorization(text);
+  // document.getElementById("output").innerHTML += "X row sample: "+X.at(0).toString();
+  // document.getElementById("output").innerHTML += "<br>";
 
   // [2] Train an ML model.
   // const result_js1 = await ML_KNN(X, ys);
@@ -63,114 +70,8 @@ async function run_selection() {
   // [3] Train a DL model.
 
 
-}
+} // end of run_selection
 
-async function CountVectorization(text) {
-
-  var sentences = await text.split('.').filter((x) => x != "");
-  document.getElementById("output").innerHTML += "sentences: "+sentences;
-  document.getElementById("output").innerHTML += "<br>";
-
-
-  // Remove stopwords from sentences.
-  var stopwords = ["and", "is", "the", "of", "to"];
-  sentences = await sentences.map((sval, sind) => {
-    sval = sval.toLowerCase().split(' ').map((val, ind) => {
-      var temp = val;
-      for (var i=0; i<stopwords.length; i++){
-        if (val == stopwords.at(i)) { temp = ''; }
-      }
-      return temp;
-    }).filter((x) => x != "");
-    return sval.join(" ");
-  });
-  document.getElementById("output").innerHTML += "remove stopwords - sentences: "+sentences;
-  document.getElementById("output").innerHTML += "<br>";
-
-  // Obtain unique words 
-  var words = await sentences.map((val, ind) => { return val.split(" "); }).flat(Infinity).filter((x) => x != "");
-  words = await [... new Set(words)];
-  document.getElementById("output").innerHTML += "words: "+words;
-  document.getElementById("output").innerHTML += "<br>";
-
-  // Create count matrix
-  var X = []; // size [sentences.length, words.length]
-  for (var i=0; i<sentences.length; i++){
-    document.getElementById("output").innerHTML += "i: "+i;
-    document.getElementById("output").innerHTML += "<br>";
-    var words_per_sentence_arr = sentences.at(i).split(" ");
-
-    // Make a vector of zeros [colnum,] for filling-in each row (ie: sentence) of X.
-    var values = words.map((val, ind) => { return 0; });
-
-    // Count the repeating words per sentence.
-    const words_per_sentence_arr_uq = [... new Set(words_per_sentence_arr)];
-    for (var j=0; j<words_per_sentence_arr_uq.length; j++) {
-      const word_frequency_sum = words_per_sentence_arr.map((val, ind) => { return (words_per_sentence_arr_uq.at(j) == val) ? 1 : 0; }).reduce((acc, cur) => acc+cur, 0);
-      // Look-up the [unique word per sentence] in the [unique words] list.
-      // Insert the word_frequency_sum in the [unique words] list column.
-      const ii = words.findIndex((x) => x == words_per_sentence_arr_uq.at(j));
-      values[ii] = values.at(ii) + word_frequency_sum;
-    } // end of for loop words_per_sentence_arr_uq.length
-    document.getElementById("output").innerHTML += "values: "+values;
-    document.getElementById("output").innerHTML += "<br>";
-    X.push(values);
-  } // end of for loop sentences.length
-
-  document.getElementById("output").innerHTML += "X: "+X;
-  document.getElementById("output").innerHTML += "<br>";
-
-document.getElementById("output").innerHTML += "X rows: "+X.length;
-  document.getElementById("output").innerHTML += "<br>";
-
-document.getElementById("output").innerHTML += "X cols: "+X.at(0).length;
-  document.getElementById("output").innerHTML += "<br>";
-
-  return X;
-} // end of CountVectorization 
-
-async function ML_KNN(xs, ys) {
-
-  // Create a KNN model
-  const row = xs.length;
-
-  const classifier = knnClassifier.create();
-
-  document.getElementById("output").innerHTML += "classifier: "+classifier;
-  document.getElementById("output").innerHTML += "<br>";
-
-  for (var i=0; i<row; i++) {
-    classifier.addExample(tf.tensor(xs.at(i)), ys.at(i));
-  }
-
-  document.getElementById("output").innerHTML += "finished adding samples";
-  document.getElementById("output").innerHTML += "<br>";
-
-  const index = Number(Math.floor(Math.random()*row));
-  document.getElementById("output").innerHTML += "index: "+index;
-  document.getElementById("output").innerHTML += "<br>";
-
-  const test_input = xs.at(index);
-  document.getElementById("output").innerHTML += "test_input: "+test_input;
-  document.getElementById("output").innerHTML += "<br>";
-
-  const result = await classifier.predictClass(tf.tensor(test_input));
-  document.getElementById("output").innerHTML += "result: "+result;
-  document.getElementById("output").innerHTML += "<br>";
-
-  const result_js1 = await JSON.stringify(result);
-  // document.getElementById("output").innerHTML += "result1: "+result_js1;
-  // document.getElementById("output").innerHTML += "<br>";
-
-  // const out = await classifier.getClassExampleCount();
-  // document.getElementById("output").innerHTML += "Count of classes for model: "+JSON.stringify(out);
-  // document.getElementById("output").innerHTML += "<br>";
-
-  return result_js1;
-
-} // end of ML_KNN
-  
-// -----------------------------------------------
 
 async function call_fetch_method(url) {
 	
@@ -295,8 +196,6 @@ async function parse_text_to_array(text_str, ys_selected_ColNum, headerORnot) {
 	}
 	return [xs, ys];
 }
-
-
 
 
 </script>
