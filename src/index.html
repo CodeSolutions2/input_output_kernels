@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<button id="run_selection" onclick="run_selection()">run_selection</button>
+
+<div id="output">
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands"></script>
+
+
+<script>
+
+
+
+async function run_selection() {
+
+  const recognizer = speechCommands.create('BROWSER_FFT');
+
+  // load model using HTTPS
+  await recognizer.ensureModelLoaded();
+  
+  // The model is pre-trained to recognize 
+
+  await audio_model_usage(recognizer);
+  
+
+
+} // end of run_selection
+
+
+
+
+
+
+async function audio_model_usage(recognizer) {
+
+  const labels = await recognizer.wordLabels();
+  document.getElementById("output").innerHTML += "labels: "+labels+"<br>";
+
+  // Give audio data to the model
+  recognizer.listen(result => {
+    // document.getElementById("output").innerHTML += "result.spectrogram: "+result.spectrogram+"<br>";
+    document.getElementById("output").innerHTML += "result.scores: "+result.scores+"<br>";
+  }, {
+    includeSpectrogram: false,
+    probabilityThreshold: 0.75,
+    invokeCallbackOnNoiseAndUnknown: true
+  });
+
+  setTimeout(() => recognizer.stopListening(), 10e3);
+
+}
+
+
+
+</script>
+</body>
+</html>
