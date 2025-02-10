@@ -2,7 +2,6 @@
 <html>
 <body>
 
-<input id="url" type="text" value="" placeholder="url" rows="10" cols="100" style="display: block; text-align: left; width: 600px;">
 
 <button id="run_selection" onclick="run_selection()">run_selection</button>
 
@@ -29,7 +28,7 @@ async function run_selection() {
   
   // The model is pre-trained to recognize 
 
-  await audio_model_usage();
+  await audio_model_usage(recognizer);
   
 
 
@@ -38,7 +37,9 @@ async function run_selection() {
 
 
 
-async function audio_model_usage() {
+
+
+async function audio_model_usage(recognizer) {
 
   const labels = await recognizer.wordLabels();
   document.getElementById("output").innerHTML += "labels: "+labels+"<br>";
