@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+
+<body>
+
+
+<button id="run_selection" onclick="run_selection()">run_selection</button>
+
+<div id="output">
+
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands"></script>
+
+
+<script>
+
+
+
+async function run_selection() {
+
+  
+  // document.getElementById("output").innerHTML += "button push: <br>";
+
+  const recognizer = await speechCommands.create("BROWSER_FFT");
+
+  // load model using HTTPS
+  await recognizer.ensureModelLoaded();
+  document.getElementById("output").innerHTML += "recognizer: <br>";
+
+
+} // end of run_selection
+
+</script>
+</body>
+</html>
