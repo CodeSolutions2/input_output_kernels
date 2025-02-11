@@ -28,7 +28,7 @@ async function run_selection() {
 
   // load model using HTTPS
   await recognizer.ensureModelLoaded();
-  document.getElementById("output").innerHTML += "recognizer: "+recognizer+"<br>";
+  document.getElementById("output").innerHTML += "recognizer: <br>";
 
 
 } // end of run_selection
