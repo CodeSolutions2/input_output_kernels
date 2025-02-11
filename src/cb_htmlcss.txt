@@ -28,10 +28,50 @@ async function run_selection() {
 
   // load model using HTTPS
   await recognizer.ensureModelLoaded();
-  document.getElementById("output").innerHTML += "recognizer: <br>";
+  document.getElementById("output").innerHTML += "recognizer: "+recognizer+"<br>";
+
+  // Take a sample to output the spectrogram 
+  const data = await obtain_spectrogram_of_audio_sample(recognizer);
+
+  
+ document.getElementById("output").innerHTML += "data.length: "+data.length+"<br>";
+  
 
 
 } // end of run_selection
+
+
+
+
+
+async function obtain_spectrogram_of_audio_sample(recognizer) {
+
+  var data = [];
+
+  // Give audio data to the model
+  await recognizer.listen(result => {
+    document.getElementById("output").innerHTML += "result: "+JSON.stringify(result)+"<br>";
+    
+    // (optional) normalize spectrogram
+
+    
+    // data.push(result.spectrogram);
+
+  }, {
+    includeSpectrogram: true,
+    probabilityThreshold: 0.75,
+    invokeCallbackOnNoiseAndUnknown: true
+  });
+
+  await setTimeout(() => recognizer.stopListening(), 10e3);
+
+  // data.push(result.spectrogram);
+  return data;
+
+}
+
+
+
 
 </script>
 </body>
