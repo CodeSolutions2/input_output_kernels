@@ -27,7 +27,7 @@ async function run_selection() {
   var y = tf.variable(tf.scalar(2)) //initial value 
   const optim = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0 ; i<epochs ; i++) { //start minimiziation 
-    var loss = optim.minimize(() => f(y));
+    var loss = optim.minimize(() => f(y), true, tf.Variable(y));
     document.getElementById("output").innerHTML += "epoch: "+i+", loss: "+loss;
   }
 
