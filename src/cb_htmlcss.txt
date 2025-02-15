@@ -16,11 +16,11 @@
 async function run_selection() {
 var epochs = 200;
 var lr = 0.9;
-var y = tf.variable(tf.scalar(2)); //initial value 
+var x = tf.variable(tf.scalar(0.5)); //initial value 
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
-    var loss = optimizer.minimize(() => f(y), true);
-       if (i%50 == 1){ document.getElementById("output").innerHTML += loss;
+    var y = optimizer.minimize(() => f(x), true, [x]);
+       if (i%50 == 1){ document.getElementById("output").innerHTML += y+"<br>";
       }
  }
 }
