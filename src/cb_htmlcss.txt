@@ -24,7 +24,7 @@ var epochs = 5;
 async function run_selection() {
 
   
-  var y = tf.variable(tf.scalar(2)) //initial value 
+  var y = tf.variable(tf.scalar(0.1)) //initial value 
   const optim = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0 ; i<epochs ; i++) { //start minimiziation 
     var loss = optim.minimize(() => f(y), true);
@@ -36,7 +36,7 @@ async function run_selection() {
 
 function f(x) {
   
-  const f3 = x.pow(tf.scalar(2, 'int32')).mul(tf.scalar(3)) //3x^2
+  const f3 = x.pow(tf.scalar(2, 'int32')) //x^2
   const f4 = tf.scalar(1) //1
   return f3.add(x).add(f4)
 }
