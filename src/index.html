@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<button id="run_selection" onclick="run_selection()">Run Selection</button>
+
+<div id="output">
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script>
+
+
+async function run_selection() {
+  var epochs = 200;
+  var lr = 0.001;
+  
+
+  // Prepare data
+  var x = tf.variable(tf.scalar(0.5)); //initial value 
+  var xs_initial = tf.variable(tf.tensor([0.1, 0.3]));
+  // OR
+  const xs_tf = tf.tensor2d([[0.1, 0.3], [9.6, 9.8], [0.4, 0.7], [9.8, 9.4], [9.6, 9.3], [0.6, 0.2]]);
+  const ys_tf = tf.tensor2d([[0], [1], [0], [1], [1], [0]]);
+  const ds = tf.data.zip({xs_tf, ys_tf});
+  // OR
+  //const xs = [[0.1, 0.3], [9.6, 9.8], [0.4, 0.7], [9.8, 9.4], [9.6, 9.3], [0.6, 0.2]];
+  //const ys = [0, 1, 0, 1, 1, 0];
+
+
+  const optimizer = tf.train.adam(lr);
+  // OR
+  // const optimizer = tf.train.sgd(lr);
+
+
+  for (var i=0; i<epochs; i++) {
+    
+   
+    
+
+var loss = optimizer.minimize(() => model(x), true);
+
+    // These should be arrays
+    if (i%50 == 1) {
+      document.getElementById("output").innerHTML += "loss: "+loss+"<br>";
+    }
+
+  } // end of epochs
+
+
+} // end of run_selection
+
+
+function model(x) {
+  
+  const w1 = tf.variable(tf.randomNormal([784, 32]));
+  const b1 = tf.variable(tf.randomNormal([32])); 
+  const w2 = tf.variable(tf.randomNormal([32, 10])); 
+  const b2 = tf.variable(tf.randomNormal([10])); 
+
+  return x.matMul(w1).add(b1).relu().matMul(w2).add(b2);
+}
+
+
+</script>
+</body>
+</html>
