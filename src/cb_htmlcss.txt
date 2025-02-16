@@ -19,11 +19,9 @@ var lr = 0.9;
 var x = tf.variable(tf.scalar(0.5)); //initial value 
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
-    var y = optimizer.minimize(() => f(x), true, [x]);
-    //var variableGradients = computeGradients(() => f(x),[x]);
-// applyGradients(variableGradients);
+    var y = optimizer.minimize(f(x), true, [x]);
+    
        if (i%20 == 1){ document.getElementById("output").innerHTML += "y: "+y+", x: "+x+"<br>";
-//document.getElementById("output").innerHTML += "variableGradients: "+variableGradients+"<br>";
       }
  }
 }
