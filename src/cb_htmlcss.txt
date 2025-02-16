@@ -23,8 +23,8 @@ async function run_selection() {
   const ys_tf = tf.tensor2d([[0], [1], [0], [1], [1], [0]]);
   const ds = tf.data.zip({xs_tf, ys_tf});
   // OR
-  const xs = [[0.1, 0.3], [9.6, 9.8], [0.4, 0.7], [9.8, 9.4], [9.6, 9.3], [0.6, 0.2]];
-  const ys = [0, 1, 0, 1, 1, 0];
+  //const xs = [[0.1, 0.3], [9.6, 9.8], [0.4, 0.7], [9.8, 9.4], [9.6, 9.3], [0.6, 0.2]];
+  //const ys = [0, 1, 0, 1, 1, 0];
 
 
   const optimizer = tf.train.adam(lr);
@@ -32,35 +32,7 @@ async function run_selection() {
   // const optimizer = tf.train.sgd(lr);
 
 
-  for (var i=0; i<epochs; i++) { 
-    // Way 0
-    var tot_loss0 = await xs.map(xs_row,ind) => {
-
-      return optimizer.minimize(() => {
-
-        // Compute model prediction
-        const predYs = model(tf.variable(tf.tensor(xs_row)));
-
-        // Compute error between model prediction and y_actual (ys), this is called the loss or cost.
-        var loss0 = tf.losses.softmaxCrossEntropy(tf.tensor(ys.at(ind)), predYs);
-        var data_loss = loss0.data().then(data_loss => { return data_loss; });
-
-        if (i%50 == 1) {
-          document.getElementById("output").innerHTML += "predYs: "+predYs+", loss0: "+loss0+", data_loss: "+data_loss+"<br>";
-        }
-
-        return loss0;
-      }, true, [loss0]);
-
-    }); // end of for xs_row
-    
-    // OR
-
-    // var variableGradients = optimizer.computeGradients(() => f(x), [x]);
-    // optimizer.applyGradients(variableGradients);
-    
-    // OR
-
+  for (var i=0; i<epochs; i++) {
     // Way 1
     var tot_loss1 = await ds.forEachAsync(({xs, ys}) => {
       var loss = optimizer.minimize(() => {
@@ -75,7 +47,6 @@ async function run_selection() {
 
     // These should be arrays
     if (i%50 == 1) {
-      document.getElementById("output").innerHTML += "tot_loss0: "+tot_loss0+"<br>";
       document.getElementById("output").innerHTML += "tot_loss1: "+tot_loss1+"<br>";
     }
 
