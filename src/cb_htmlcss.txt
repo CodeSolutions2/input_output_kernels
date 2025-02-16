@@ -37,19 +37,20 @@ async function run_selection() {
   for (var i=0; i<epochs; i++) {
     
     //var tot_loss1 = await ds.forEachAsync(({xs, ys}) => {
-      var loss = optimizer.minimize(() => {
-        const predYs = model(xs_initial);
-        const loss = tf.losses.softmaxCrossEntropy(ys, predYs);
-        loss.data().then(data_loss => if (i%20 == 1) {document.getElementById("output").innerHTML += "loss: "+data_loss+"<br>";} );
-        return loss;
+     // var loss = optimizer.minimize(() => {
+      //  const predYs = model(xs_initial);
+       // const loss = tf.losses.softmaxCrossEntropy(ys, predYs);
+      //  loss.data().then(data_loss => if (i%20 == 1) {document.getElementById("output").innerHTML += "loss: "+data_loss+"<br>";} );
+       // return loss;
       //});
       // return loss;
-      }); // end of minimize
+      //}); // end of minimize
 
+var loss = optimizer.minimize(() => model(xs_initial), true);
 
     // These should be arrays
     if (i%50 == 1) {
-      document.getElementById("output").innerHTML += "tot_loss1: "+tot_loss1+"<br>";
+      document.getElementById("output").innerHTML += "loss: "+loss+"<br>";
     }
 
   } // end of epochs
