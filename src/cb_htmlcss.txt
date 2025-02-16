@@ -39,6 +39,7 @@ function model(x) {
   // return x.matMul(w1).add(b1);
 
   return x.matMul(w1);
+}
 
 
 </script>
