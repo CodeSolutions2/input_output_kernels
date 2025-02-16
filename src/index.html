@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+
+<button id="run_selection" onclick="run_selection()">Run Selection</button> 
+
+<div id="output">
+
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script>
+
+async function run_selection() {
+var epochs = 200;
+var lr = 0.9;
+var x = tf.variable(tf.scalar(0.5)); //initial value 
+  const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
+  for (var i=0; i<epochs; i++) { 
+    var y = optimizer.minimize(f(x), true, [x]);
+    
+       if (i%20 == 1){ document.getElementById("output").innerHTML += "y: "+y+", x: "+x+"<br>";
+      }
+ }
+}
+
+function f(x) {
+  const f1 = x.pow(tf.scalar(6, 'int32')) //x^6
+  const f2 = x.pow(tf.scalar(4, 'int32')).mul(tf.scalar(2)) //2x^4
+  const f3 = x.pow(tf.scalar(2, 'int32')).mul(tf.scalar(3)) //3x^2
+  const f4 = tf.scalar(1) //1
+  return f1.add(f2).add(f3).add(x).add(f4)
+}
+</script>
+</body>
+</html>
