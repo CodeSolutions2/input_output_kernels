@@ -18,8 +18,9 @@ async function run_selection() {
   // OR
   // var x = [0.5, 0.6];
   // OR
-  var x = tf.variable(tf.tensor([0.5, 0.6]));
-
+  // var x = tf.variable(tf.tensor([0.5, 0.6]));
+  // OR
+  var x = tf.tensor([0.5, 0.6]);
 
   document.getElementById("output").innerHTML += "x: "+x+"<br>";
 
@@ -31,8 +32,14 @@ async function run_selection() {
 
 function model(x) {
   
-  const w1 = tf.variable(tf.tensor([[784, 32]]));
-  const b1 = tf.variable(tf.tensor([32])); 
+  // const w1 = tf.variable(tf.tensor([[784, 32]]));
+  // const b1 = tf.variable(tf.tensor([32])); 
+  // var out0 = x.matMul(w1).add(b1);
+
+  // OR
+  
+  const w1 = tf.tensor([[784, 32]]);
+  const b1 = tf.tensor([32]); 
   var out0 = x.matMul(w1).add(b1);
 
   // OR
