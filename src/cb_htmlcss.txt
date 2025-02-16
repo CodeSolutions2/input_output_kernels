@@ -18,7 +18,7 @@ async function run_selection() {
   
 
   // Prepare data
-  // var x = tf.variable(tf.scalar(0.5)); //initial value 
+  var x = tf.variable(tf.scalar(0.5)); //initial value 
   var xs_initial = tf.variable(tf.tensor([0.1, 0.3]));
   // OR
   const xs_tf = tf.tensor2d([[0.1, 0.3], [9.6, 9.8], [0.4, 0.7], [9.8, 9.4], [9.6, 9.3], [0.6, 0.2]]);
@@ -36,17 +36,10 @@ async function run_selection() {
 
   for (var i=0; i<epochs; i++) {
     
-    //var tot_loss1 = await ds.forEachAsync(({xs, ys}) => {
-     // var loss = optimizer.minimize(() => {
-      //  const predYs = model(xs_initial);
-       // const loss = tf.losses.softmaxCrossEntropy(ys, predYs);
-      //  loss.data().then(data_loss => if (i%20 == 1) {document.getElementById("output").innerHTML += "loss: "+data_loss+"<br>";} );
-       // return loss;
-      //});
-      // return loss;
-      //}); // end of minimize
+   
+    
 
-var loss = optimizer.minimize(() => model(xs_initial), true);
+var loss = optimizer.minimize(() => model(x), true);
 
     // These should be arrays
     if (i%50 == 1) {
