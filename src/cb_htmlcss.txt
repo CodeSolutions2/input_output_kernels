@@ -16,8 +16,11 @@ async function run_selection() {
   
   // var x = tf.variable(tf.scalar(0.5)); 
   // OR
-//  var x = tf.variable(tf.tensor([0.5, 0.6])); 
-  var x = tf.variable(tf.tensor([[0.5, 0.6]])); 
+  // var x = [0.5, 0.6];
+  // OR
+  var x = tf.variable(tf.tensor([0.5, 0.6]));
+
+
   document.getElementById("output").innerHTML += "x: "+x+"<br>";
 
   var out = model(x);
@@ -28,19 +31,24 @@ async function run_selection() {
 
 function model(x) {
   
-  // const w1 = tf.variable(tf.tensor([[784, 32]]));
-  // const b1 = tf.variable(tf.tensor([32])); 
+  const w1 = tf.variable(tf.tensor([[784, 32]]));
+  const b1 = tf.variable(tf.tensor([32])); 
+  var out0 = x.matMul(w1).add(b1);
 
-  const w1 = tf.variable(tf.tensor([784, 32]));
+  // OR
 
+  // const w1 = [[784, 32]];
+  // var x_mult_w1 = x.map((v,i) => { return v*w1.at(0).at(i); }).reduce((a,c) => a+c,0);
+  // var out0 = tf.variable(tf.tensor(x_mult_w1));
+  
+  // OR 
 
   // return x.pow(tf.scalar(2, "int32"))
-  // OR
-  // return x.matMul(w1).add(b1);
+  
+  // -------------
 
-  return x.matMul(w1);
+  return out0;
 }
-
 
 </script>
 </body>
