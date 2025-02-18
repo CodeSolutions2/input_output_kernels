@@ -1,6 +1,6 @@
 X = [[1.6, 9], [2.1, 8.9]];
-# distance_function = [None, 'fro', 'nuc', inf, -inf, 0, 1, -1, 2, -2]
-distance_function = inf
+# distance_function = [None, 'fro', 'nuc', np.inf, -np.inf, 0, 1, -1, 2, -2]
+distance_function = np.inf
 
 columns_axis = 0 # 0=sum_across_rows
 
