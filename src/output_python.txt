@@ -1,0 +1,1 @@
+norm:  <built-in function ord> [2. 2.]
