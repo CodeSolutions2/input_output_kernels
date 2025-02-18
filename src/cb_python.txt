@@ -1,0 +1,10 @@
+X = [[1.6, 9], [2.1, 8.9]];
+distance_function = [None, 'fro', 'nuc', inf, -inf, 0, 1, -1, 2, -2]
+
+columns_axis = 0 # 0=sum_across_rows
+
+import numpy as np
+for ord in distance_function:
+  norm = np.linalg.norm(X, ord=ord, axis=columns_axis)
+  print("ord, norm: ", ord, norm)
+python|pip install numpy
