@@ -66,6 +66,7 @@ async function train_model1(lr, epoch) {
   var rows = xs_js.length;
   var cols = xs_js.at(0).length;
   var xs = tf.variable(tf.tensor(xs_js, [rows, cols]));
+  document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
 
   var ys_js = [[0], [1], 
                [0], [1], 
@@ -84,6 +85,7 @@ async function train_model1(lr, epoch) {
   b0 = tf.variable(b0);
   w1 = tf.variable(w1);
   b1 = tf.variable(b1);
+  document.getElementById("output").innerHTML += "variableParameters: "+[w0, b0, w1, b1]+"<br>";
 
   // Call train_step
   for (var i=0; i<epochs; i++) { 
@@ -102,9 +104,11 @@ function train_step1(xs, ys_actual, w0, b0, w1, b1) {
 
   // [0] Calculate ys_pred for inputting all of xs.
   const ys_pred = model1(xs, w0, b0, w1, b1);
+  document.getElementById("output").innerHTML += "ys_pred: "+ys_pred+"<br>";
   
   // [1] Calculate the error/loss between ys_actual and ys_pred.
   var loss = loss_fn(ys_pred, ys_actual);
+  document.getElementById("output").innerHTML += "loss in train_step1: "+loss+"<br>";
 
   return loss;
 }
