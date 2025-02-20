@@ -42,7 +42,8 @@ async function train_model(lr, epochs) {
   }
   var x = tf.variable(tf.tensor(xs, [rows, cols])); //initial value 
   document.getElementById("output").innerHTML += "x.shape: "+x.shape+"<br>";
-
+  
+  document.getElementById("output").innerHTML += "x: "+x+"<br>";
 
   const optimizer = tf.train.adam(lr);
   document.getElementById("output").innerHTML += "optimizer: "+optimizer+"<br>";
@@ -51,7 +52,7 @@ async function train_model(lr, epochs) {
    
     document.getElementById("output").innerHTML += "i: "+i+"<br>";
 
-    
+    // Initial step: to see the output
     var y = model(x);
  
     document.getElementById("output").innerHTML += "y: "+y+"<br>";
