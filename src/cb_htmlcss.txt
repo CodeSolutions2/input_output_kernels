@@ -55,9 +55,9 @@ async function train_model(lr, epochs) {
     // OR
     // var y = model(x);
 
-    if (i%1 == 1){ 
+     
       document.getElementById("output").innerHTML += "y: "+y+"<br>";
-    }
+    
   }
 
 }
