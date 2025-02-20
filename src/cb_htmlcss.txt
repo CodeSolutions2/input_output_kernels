@@ -89,7 +89,7 @@ async function train_model1(lr, epoch) {
 
   // Call train_step
   for (var i=0; i<epochs; i++) { 
-    var y_pred = optimizer.minimize(() => train_step1(xs, ys_actual, w0, b0, w1, b1), true, [w0, b0, w1, b1]);
+    var y_pred = optimizer.minimize(() => model1(xs, w0, b0, w1, b1), true);
     // OR
     // var loss = optimizer.minimize(() => train_step1(xs, ys_actual, w0, b0, w1, b1), true, [w0, b0, w1, b1]);
 
@@ -119,12 +119,12 @@ function train_step1(xs, ys_actual, w0, b0, w1, b1) {
 
 
 
-function loss_fn(ys_pred, ys_actual) {
+// function loss_fn(ys_pred, ys_actual) {
   
-  const loss = tf.losses.sigmoidCrossEntropy(ys_actual, ys_pred);
+//  const loss = tf.losses.sigmoidCrossEntropy(ys_actual, ys_pred);
   // loss.data().then(l => console.log('Loss', l));
-  return loss;
-}
+//  return loss;
+// }
 
 
 async function initialize_weights(rows, cols) {
@@ -152,9 +152,9 @@ function model1(xs, w0, b0, w1, b1) {
   // Calculate relu = max(0, Z0)
   // var A0 = tf.relu(Z0); // [ld1, cols]
   // OR 
-  // var A0 = tf.sigmoid(Z0); 
+  var A0 = tf.sigmoid(Z0); 
   // OR
-  var A0 = tf.softmax(Z0); 
+  // var A0 = tf.softmax(Z0); 
 
   // Layer 1
   var y = tf.matMul(w1, A0); // [ld2, ld1]*[ld1, cols]
