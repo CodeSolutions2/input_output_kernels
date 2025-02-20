@@ -5,14 +5,13 @@
 
 <button id="run_selection_NN" onclick="run_selection_NN()">run_selection_NN</button>
 
-
 <div id="output">
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
 <script>
 
-var epochs = 200;
+var epochs = 4;
 var lr = 0.001;
 
 async function run_selection_NN() {
@@ -44,14 +43,14 @@ async function train_model(lr, epochs) {
     }
   }
   var x = tf.variable(tf.tensor(xs, [rows, 32])); //initial value 
-  document.getElementById("output").innerHTML += "x: "+x+"<br>";
+  document.getElementById("output").innerHTML += "x.shape: "+x.shape+"<br>";
 
 
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
     var y = optimizer.minimize(() => model(x), true, [x]);
     
-    if (i%20 == 1){ 
+    if (i%2 == 1){ 
       document.getElementById("output").innerHTML += "y: "+y+"<br>";
     }
   }
@@ -59,13 +58,11 @@ async function train_model(lr, epochs) {
 }
 
 
-
 const ld0 = cols;
-const ld1 = 784;
+const ld1 = 64;
 const layer_dims = [ld0, ld1];
 const w0 = tf.variable(tf.randomNormal([ld1, ld0]));
 const b0 = tf.variable(tf.randomNormal([ld1]));
-
 
 function model(x) {
   return x.matMul(w0).add(b0);
