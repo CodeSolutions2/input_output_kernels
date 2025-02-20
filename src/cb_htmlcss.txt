@@ -23,6 +23,10 @@ async function run_selection_NN() {
 
 var rows = 10;
 var cols = 32;
+const layer_num1 = 2;
+const w0 = tf.variable(tf.randomNormal([cols, layer_num1]));
+
+
 
 async function train_model(lr, epochs) {
 
@@ -40,7 +44,8 @@ async function train_model(lr, epochs) {
   document.getElementById("output").innerHTML += "x.shape: "+x.shape+"<br>";
 
 
-  const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
+  const optimizer = tf.train.adam(lr);
+ 
   for (var i=0; i<epochs; i++) { 
     var y = optimizer.minimize(() => model(x), true, [x]);
     // OR
@@ -54,16 +59,8 @@ async function train_model(lr, epochs) {
 }
 
 
-const ld0 = cols;
-const ld1 = 64;
-const layer_dims = [ld0, ld1];
-const w0 = tf.variable(tf.randomNormal([ld0, ld1]));
-const b0 = tf.variable(tf.randomNormal([ld1]));
-
 function model(x) {
-  return x.matMul(w0).add(b0);
-  // OR
-  // return tf.matMul(x, w0);
+  return x.matMul(w0);
 }
 
 
