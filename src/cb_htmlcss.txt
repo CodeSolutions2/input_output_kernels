@@ -12,11 +12,8 @@
 
 <script>
 
-
 var epochs = 200;
 var lr = 0.001;
-
-
 
 async function run_selection_NN() {
    
@@ -31,7 +28,7 @@ async function run_selection_NN() {
   await train_model(lr, epochs);
 }
 
-
+var rows = 10;
 var cols = 32;
 
 async function train_model(lr, epochs) {
@@ -47,6 +44,8 @@ async function train_model(lr, epochs) {
     }
   }
   var x = tf.variable(tf.tensor(xs, [rows, 32])); //initial value 
+  document.getElementById("output").innerHTML += "x: "+x+"<br>";
+
 
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
