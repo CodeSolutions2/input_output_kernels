@@ -21,12 +21,6 @@ async function run_selection_NN() {
 }
 
 
-async function run_selection_NN() {
-  
-  // Train a Neural Network.
-  await train_model(lr, epochs);
-}
-
 var rows = 10;
 var cols = 32;
 
@@ -48,9 +42,9 @@ async function train_model(lr, epochs) {
 
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
-    //var y = optimizer.minimize(() => model(x), true, [x]);
+    var y = optimizer.minimize(() => model(x), true, [x]);
     // OR
-    var y = model(x);
+    // var y = model(x);
 
     if (i%1 == 1){ 
       document.getElementById("output").innerHTML += "y: "+y+"<br>";
@@ -67,9 +61,10 @@ const w0 = tf.variable(tf.randomNormal([ld1, ld0]));
 const b0 = tf.variable(tf.randomNormal([ld1]));
 
 function model(x) {
-  return x.matMul(w0).add(b0);
+  // return x.matMul(w0).add(b0);
+  // OR
+  return tf.matMul(x, w0);
 }
-
 
 
 </script>
