@@ -58,7 +58,6 @@ function model0(x) {
 
 
 
-
 var w0;
 var b0;
 var w1;
@@ -99,23 +98,10 @@ async function train_model1(lr, epoch) {
   document.getElementById("output").innerHTML += "b1.shape: "+b1.shape+"<br>";
 
 
-  // [3] Define how one calculates the weights of the graph, or [how one descends the loss functions].
-  const optimizer = tf.train.adam(lr);
-  // OR
-  // const optimizer = tf.train.sgd(lr); 
-  
+  // [3] Call one iteration of train_step
+  ys_pred = await train_step1(ys_pred);
+  document.getElementById("output").innerHTML += "ys_pred: "+ys_pred+"<br>";
 
-  // [4] Call train_step
-  for (var i=0; i<epochs; i++) { 
-    ys_pred = optimizer.minimize(() => train_step1(ys_pred), true, [ys_pred]);
-    // OR
-    // var loss = optimizer.minimize(() => train_step1(xs, ys_actual, w0, b0, w1, b1), true, [w0, b0, w1, b1]);
-
-    if (i%20 == 1){ 
-      // document.getElementById("output").innerHTML += "loss: "+loss+"<br>";
-      document.getElementById("output").innerHTML += "<br>ys_pred: "+ys_pred+"<br>";
-    }
-  }
 
 } // end of train_model1
 
@@ -124,25 +110,13 @@ async function train_model1(lr, epoch) {
 function train_step1(ys_pred) {
 
   // [0] Calculate ys_pred for inputting all of xs.
-  var [ys_pred, w0, b0, w1, b1] = model1(w0, b0, w1, b1);
+  [ys_pred, w0, b0, w1, b1] = model1(w0, b0, w1, b1);
   document.getElementById("output").innerHTML += ".";
   
-  // [1] Calculate the error/loss between ys_actual and ys_pred.
-  // var loss = loss_fn(ys_pred, ys_actual);
-  // document.getElementById("output").innerHTML += "loss in train_step1: "+loss+"<br>";
-
-  // return loss;
   return ys_pred;
 }
 
 
-
-// function loss_fn(ys_pred, ys_actual) {
-  
-//  const loss = tf.losses.sigmoidCrossEntropy(ys_actual, ys_pred);
-  // loss.data().then(l => console.log('Loss', l));
-//  return loss;
-// }
 
 
 function initialize_weights(rows, cols) {
