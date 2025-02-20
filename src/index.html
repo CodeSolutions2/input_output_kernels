@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<button id="run_selection_NN" onclick="run_selection_NN()">run_selection_NN</button>
+
+<div id="output">
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script>
+
+var epochs = 1;
+var lr = 0.001;
+
+async function run_selection_NN() {
+   
+  // Train a Neural Network.
+  await train_model(lr, epochs);
+}
+
+
+var rows = 10;
+var cols = 32;
+
+async function train_model(lr, epochs) {
+
+  var xs = [];
+  for (var i=0; i<rows; i++) {
+    if (i%2 == 0) {
+      var label0_sample = Array.from({length:cols}, (x) => Math.random());
+      xs.push(label0_sample);
+    } else {
+      var label1_sample = Array.from({length:cols}, (x) => 10*Math.random());
+      xs.push(label1_sample);
+    }
+  }
+  var x = tf.variable(tf.tensor(xs, [rows, 32])); //initial value 
+  document.getElementById("output").innerHTML += "x.shape: "+x.shape+"<br>";
+
+
+  const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
+  for (var i=0; i<epochs; i++) { 
+    var y = optimizer.minimize(() => model(x), true, [x]);
+    // OR
+    // var y = model(x);
+
+    if (i%1 == 1){ 
+      document.getElementById("output").innerHTML += "y: "+y+"<br>";
+    }
+  }
+
+}
+
+
+const ld0 = cols;
+const ld1 = 64;
+const layer_dims = [ld0, ld1];
+const w0 = tf.variable(tf.randomNormal([ld1, ld0]));
+const b0 = tf.variable(tf.randomNormal([ld1]));
+
+function model(x) {
+  // return x.matMul(w0).add(b0);
+  // OR
+  return tf.matMul(x, w0);
+}
+
+
+</script>
+</body>
+</html>
