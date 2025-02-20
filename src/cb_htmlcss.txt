@@ -3,7 +3,7 @@
 <head></head>
 <body>
 
-<button id="run_selection_ODE" onclick="run_selection_ODE()">run_selection_ODE</button>
+<button id="run_selection_NN" onclick="run_selection_NN()">run_selection_NN</button>
 
 
 <div id="output">
@@ -18,24 +18,42 @@ var lr = 0.001;
 
 
 
-async function run_selection_ODE() {
+async function run_selection_NN() {
    
-  // Train an ODE.
+  // Train a Neural Network.
   await train_model(lr, epochs);
 }
 
 
+async function run_selection_NN() {
+  
+  // Train a Neural Network.
+  await train_model(lr, epochs);
+}
 
+
+var cols = 32;
 
 async function train_model(lr, epochs) {
 
-  var x = tf.variable(tf.scalar(0.05)); //initial value 
+  var xs = [];
+  for (var i=0; i<rows; i++) {
+    if (i%2 == 0) {
+      var label0_sample = Array.from({length:cols}, (x) => Math.random());
+      xs.push(label0_sample);
+    } else {
+      var label1_sample = Array.from({length:cols}, (x) => 10*Math.random());
+      xs.push(label1_sample);
+    }
+  }
+  var x = tf.variable(tf.tensor(xs, [rows, 32])); //initial value 
+
   const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
   for (var i=0; i<epochs; i++) { 
     var y = optimizer.minimize(() => model(x), true, [x]);
     
     if (i%20 == 1){ 
-      document.getElementById("output").innerHTML += "y: "+y+", x: "+x+"<br>";
+      document.getElementById("output").innerHTML += "y: "+y+"<br>";
     }
   }
 
@@ -43,9 +61,15 @@ async function train_model(lr, epochs) {
 
 
 
+const ld0 = cols;
+const ld1 = 784;
+const layer_dims = [ld0, ld1];
+const w0 = tf.variable(tf.randomNormal([ld1, ld0]));
+const b0 = tf.variable(tf.randomNormal([ld1]));
+
+
 function model(x) {
-  const f1 = x.pow(tf.scalar(2, "int32"))
-  return f1
+  return x.matMul(w0).add(b0);
 }
 
 
