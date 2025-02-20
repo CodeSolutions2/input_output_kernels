@@ -64,7 +64,7 @@ async function train_model(lr, epochs) {
 
 
 function model(x) {
-  return tf.matMul(w0, x);
+  x;
 }
 
 
