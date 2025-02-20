@@ -65,7 +65,7 @@ async function train_model1(lr, epoch) {
   var rows = xs_js.length;
   var cols = xs_js.at(0).length;
   var xs = tf.variable(tf.tensor(xs_js, [rows, cols]));
-  document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
+  document.getElementById("output").innerHTML += "xs.shape: "+xs.shape+"<br>";
 
   var ys_js = [[0], [1], 
                [0], [1], 
@@ -80,7 +80,10 @@ async function train_model1(lr, epoch) {
 
   // Initialize the weights and bias.
   var [w0, b0, w1, b1] = await initialize_weights(rows, cols);
-  document.getElementById("output").innerHTML += "variableParameters: "+[w0, b0, w1, b1]+"<br>";
+  document.getElementById("output").innerHTML += "w0.shape: "+w0.shape+"<br>";
+  document.getElementById("output").innerHTML += "b0.shape: "+b0.shape+"<br>";
+  document.getElementById("output").innerHTML += "w1.shape: "+w1.shape+"<br>";
+  document.getElementById("output").innerHTML += "b1.shape: "+b1.shape+"<br>";
 
   // Call train_step
   for (var i=0; i<epochs; i++) { 
@@ -132,7 +135,12 @@ async function initialize_weights(rows, cols) {
 
 
 function model1(xs, w0, b0, w1, b1) {
-  return xs.matMul(w0).add(b0).relu().matMul(w1).add(b1);
+
+  var layer0 = xs.matMul(w0).add(b0);
+  document.getElementById("output").innerHTML += "layer0: "+layer0+"<br>";
+  
+  // return .relu().matMul(w1).add(b1);
+  return layer0;
 }
 
 </script>
