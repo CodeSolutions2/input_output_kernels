@@ -24,7 +24,7 @@ async function run_selection_NN() {
 var rows = 10;
 var cols = 32;
 const layer_num1 = 2;
-const w0 = tf.variable(tf.randomNormal([cols, layer_num1]));
+const w0 = tf.variable(tf.randomNormal([layer_num1, rows]));
 
 
 
@@ -40,13 +40,17 @@ async function train_model(lr, epochs) {
       xs.push(label1_sample);
     }
   }
-  var x = tf.variable(tf.tensor(xs, [rows, 32])); //initial value 
+  var x = tf.variable(tf.tensor(xs, [rows, cols])); //initial value 
   document.getElementById("output").innerHTML += "x.shape: "+x.shape+"<br>";
 
 
   const optimizer = tf.train.adam(lr);
+  document.getElementById("output").innerHTML += "optimizer: "+optimizer+"<br>";
  
   for (var i=0; i<epochs; i++) { 
+   
+    document.getElementById("output").innerHTML += "i: "+i+"<br>";
+
     var y = optimizer.minimize(() => model(x), true, [x]);
     // OR
     // var y = model(x);
@@ -60,7 +64,7 @@ async function train_model(lr, epochs) {
 
 
 function model(x) {
-  return x.matMul(w0);
+  return tf.matMul(w0, x);
 }
 
 
