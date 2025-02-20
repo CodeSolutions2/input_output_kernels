@@ -14,23 +14,22 @@
 <script>
 
 
+var epochs = 200;
+var lr = 0.001;
+
+
+
 async function run_selection_ODE() {
-  var epochs = 200;
-  var lr = 0.001;
-  
+   
   // Train an ODE.
   await train_model0(lr, epochs);
-
 }
 
 
 async function run_selection_NN() {
-  var epochs = 200;
-  var lr = 0.001;
   
   // Train a Neural Network.
   await train_model1(lr, epochs);
-
 }
 
 
@@ -81,10 +80,6 @@ async function train_model1(lr, epoch) {
 
   // Initialize the weights and bias.
   var [w0, b0, w1, b1] = await initialize_weights();
-  w0 = tf.variable(w0);
-  b0 = tf.variable(b0);
-  w1 = tf.variable(w1);
-  b1 = tf.variable(b1);
   document.getElementById("output").innerHTML += "variableParameters: "+[w0, b0, w1, b1]+"<br>";
 
   // Call train_step
@@ -123,12 +118,14 @@ function loss_fn(ys_pred, ys_actual) {
 }
 
 
-async function initialize_weights() {
+async function initialize_weights(rows, cols) {
   // The weights and biases for the two dense layers.
-  var w0 = tf.variable(tf.randomNormal([784, 32]));
-  var b0 = tf.variable(tf.randomNormal([32]));
-  var w1 = tf.variable(tf.randomNormal([32, 10]));
-  var b1 = tf.variable(tf.randomNormal([10]));
+  var layer_dims = [16, 8];
+
+  var w0 = tf.variable(tf.randomNormal([layer_dims.at(0), rows]));
+  var b0 = tf.variable(tf.randomNormal([layer_dims.at(0), cols]));
+  var w1 = tf.variable(tf.randomNormal([layer_dims.at(1), rows]));
+  var b1 = tf.variable(tf.randomNormal([layer_dims.at(1), cols]));
 
   return [w0, b0, w1, b1];
 }
