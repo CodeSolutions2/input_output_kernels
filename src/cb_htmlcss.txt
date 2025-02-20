@@ -57,13 +57,13 @@ async function train_model(lr, epochs) {
 const ld0 = cols;
 const ld1 = 64;
 const layer_dims = [ld0, ld1];
-const w0 = tf.variable(tf.randomNormal([ld1, ld0]));
+const w0 = tf.variable(tf.randomNormal([ld0, ld1]));
 const b0 = tf.variable(tf.randomNormal([ld1]));
 
 function model(x) {
-  // return x.matMul(w0).add(b0);
+  return x.matMul(w0).add(b0);
   // OR
-  return tf.matMul(x, w0);
+  // return tf.matMul(x, w0);
 }
 
 
