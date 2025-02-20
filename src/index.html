@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<button id="run_selection_ODE" onclick="run_selection_ODE()">run_selection_ODE</button>
+<br>
+<button id="run_selection_NN" onclick="run_selection_NN()">run_selection_NN</button>
+
+<div id="output">
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script>
+
+
+async function run_selection_ODE() {
+  var epochs = 200;
+  var lr = 0.001;
+  
+  // Train an ODE.
+  await train_model0(lr, epochs);
+
+}
+
+
+async function run_selection_NN() {
+  var epochs = 200;
+  var lr = 0.001;
+  
+  // Train a Neural Network.
+  await train_model1(lr, epochs);
+
+}
+
+
+async function train_model0(lr, epochs) {
+
+  var x = tf.variable(tf.scalar(0.05)); //initial value 
+  const optimizer = tf.train.adam(lr);  //gradient descent algorithm 
+  for (var i=0; i<epochs; i++) { 
+    var y = optimizer.minimize(() => model0(x), true, [x]);
+    
+    if (i%20 == 1){ 
+      document.getElementById("output").innerHTML += "y: "+y+", x: "+x+"<br>";
+    }
+  }
+
+}
+
+
+
+function model0(x) {
+  const f1 = x.pow(tf.scalar(2, 'int32'))
+  return f1
+}
+
+
+
+async function train_model1(lr, epoch) {
+
+  var xs_js = [[1.2, 9], [1.4, 1.2], 
+               [0.9, 10], [1.5, 9.5], 
+               [0.6, 10.6], [0.5, 10.3],
+               [1.5, 0.5], [1.2, 1.9]];
+  var rows = xs_js.length;
+  var cols = xs_js.at(0).length;
+  var xs = tf.variable(tf.tensor(xs_js, [rows, cols]));
+
+  var ys_js = [[0], [1], 
+               [0], [1], 
+               [0], [0],
+               [1], [1]];
+  var ys_actual = tf.tensor(ys_js);
+
+  // Define how one calculates the weights of the graph, or [how one descends the loss functions].
+  const optimizer = tf.train.adam(lr);
+  // OR
+  // const optimizer = tf.train.sgd(lr); 
+
+  // Initialize the weights and bias.
+  var [w0, b0, w1, b1] = await initialize_weights();
+  w0 = tf.variable(w0);
+  b0 = tf.variable(b0);
+  w1 = tf.variable(w1);
+  b1 = tf.variable(b1);
+
+  // Call train_step
+  for (var i=0; i<epochs; i++) { 
+    var loss = optimizer.minimize(() => train_step1(xs, ys_actual, w0, b0, w1, b1), true, [w0, b0, w1, b1]);
+    
+    if (i%20 == 1){ 
+      document.getElementById("output").innerHTML += "loss: "+loss+"<br>";
+    }
+  }
+
+} // end of train_model1
+
+
+
+function train_step1(xs, ys_actual, w0, b0, w1, b1) {
+
+  // [0] Calculate ys_pred for inputting all of xs.
+  const ys_pred = model1(xs, w0, b0, w1, b1);
+  
+  // [1] Calculate the error/loss between ys_actual and ys_pred.
+  var loss = loss_fn(ys_pred, ys_actual);
+
+  return loss;
+}
+
+
+
+function loss_fn(ys_pred, ys_actual) {
+  
+  const loss = tf.losses.sigmoidCrossEntropy(ys_actual, ys_pred);
+  // loss.data().then(l => console.log('Loss', l));
+  return loss;
+}
+
+
+async function initialize_weights() {
+  // The weights and biases for the two dense layers.
+  var w0 = tf.variable(tf.randomNormal([784, 32]));
+  var b0 = tf.variable(tf.randomNormal([32]));
+  var w1 = tf.variable(tf.randomNormal([32, 10]));
+  var b1 = tf.variable(tf.randomNormal([10]));
+
+  return [w0, b0, w1, b1];
+}
+
+
+function model1(xs, w0, b0, w1, b1) {
+  return xs.matMul(w0).add(b0).relu().matMul(w1).add(b1);
+}
+
+</script>
+</body>
+</html>
