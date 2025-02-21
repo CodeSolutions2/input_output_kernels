@@ -57,10 +57,11 @@ async function run_selection() {
 const history = await model.fitDataset(ds, {
    epochs: epochs,
    // batchSize: batchSize,
-   callbacks: {onBatchEnd}
- }).then(info => {
-   document.getElementById("output").innerHTML += "<br>info.history.acc: "+info.history.acc+"<br>";
- });
+   // callbacks: {onBatchEnd}
+})
+    //.then(info => {
+   // document.getElementById("output").innerHTML += "<br>info.history.acc: "+info.history.acc+"<br>";
+ // });
  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
 
@@ -96,6 +97,9 @@ async function create_xs_ys(rows, cols) {
   xs = await tf.tensor(xs, [rows, cols]);
   ys = await tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
 
+  // A wrapper function that allows for parallel processing/optimal data fetching.
+  // xs = tf.data.generator(xs);
+  // ys = tf.data.generator(ys);
 
   return [xs, ys];
 }
