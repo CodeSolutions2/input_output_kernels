@@ -13,8 +13,10 @@
 
 
 async function run_selection() {
-  var epochs = 10;
-  var lr = 0.001;
+
+  const epochs = 200;
+  const batchSize = 32;
+  const lr = 0.001;
 
 
   var xs = [];
@@ -53,7 +55,7 @@ async function run_selection() {
 
 model.fit(xs, ys, {
    epochs: epochs,
-   batchSize: 32,
+   batchSize: batchSize,
    callbacks: {onBatchEnd}
  }).then(info => {
    document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
@@ -63,7 +65,9 @@ model.fit(xs, ys, {
 
 
 function onBatchEnd(batch, logs) {
-  document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
+  if (batch % Number(Math.floor(batchSize/2)) == 0) {
+    document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
+  }
 }
 
 
