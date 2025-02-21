@@ -101,8 +101,8 @@ async function create_xs_ys(rows, cols) {
   ys = await tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
 
   // A wrapper function that allows for parallel processing/optimal data fetching.
-  xs = tf.data.generator(xs);
-  ys = tf.data.generator(ys);
+  // xs = tf.data.generator(xs);
+  // ys = tf.data.generator(ys);
 
   return [xs, ys];
 }
