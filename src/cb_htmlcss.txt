@@ -56,8 +56,7 @@ async function run_selection() {
 model.fit(xs, ys, {
    epochs: epochs,
    batchSize: batchSize,
-   callbacks: [{onBatchEnd},
-       tf.callbacks.earlyStopping({monitor: "loss"})]
+   callbacks: {onBatchEnd}
  }).then(info => {
    document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
  });
