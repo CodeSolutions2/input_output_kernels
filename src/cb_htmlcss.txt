@@ -65,8 +65,8 @@ model.fit(xs, ys, {
 
 
 function onBatchEnd(batch, logs) {
-  const value = Number(Math.floor(rows/batchSize));
-  document.getElementById("output").innerHTML += "."+value;
+  // const value = Number(Math.floor(rows/batchSize));
+  document.getElementById("output").innerHTML += "."+batch;
   // if (batch%value == 0) {
   //  document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
   //  document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
