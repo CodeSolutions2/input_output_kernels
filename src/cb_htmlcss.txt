@@ -14,19 +14,22 @@
 
 async function run_selection() {
 
-  const epochs = 20;
+  const epochs = 50;
   const batchSize = 32;
-  const lr = 0.1;
+  const lr = 0.01;
+
 
   // Create xs and ys arrays.
   const rows = 100;
   const cols = 10;
   var [xs, ys] = await create_xs_ys(rows, cols);
   
+
   // Create a dataset, shuffle and batch 32 samples at a time.
   const bufferSize = 100;
   const ds = tf.data.zip({xs, ys}).shuffle(bufferSize).batch(batchSize);
   
+
   // Create the model
   const input = tf.input({shape: [cols]});
   const dense0 = tf.layers.dense({units: 32, activation: 'relu'});
@@ -35,10 +38,14 @@ async function run_selection() {
   const model = tf.model({inputs: input, outputs: output});
   document.getElementById("output").innerHTML += "model: "+model+"<br>";
 
+
+  // Define a method to compute the updated [weights and biases].
   const optimizer = tf.train.sgd(lr);
   // OR
   // const optimizer = 'sgd';
+  
 
+  // Create a "numerical template" of the neural network model, called a graph.
   model.compile({
     optimizer: optimizer,
     loss: 'categoricalCrossentropy',
@@ -51,8 +58,10 @@ const history = model.fitDataset(ds, {
    epochs: epochs,
    // batchSize: batchSize,
    // callbacks: {onBatchEnd}
- }).then(info => {
-   document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
+ }).then(result => result)
+   .then(data => {
+   // document.getElementById("output").innerHTML += "data: "+data+"<br>";
+   return data;
  });
  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
