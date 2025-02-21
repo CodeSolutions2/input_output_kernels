@@ -18,7 +18,7 @@ async function run_selection() {
   const batchSize = 32;
   const lr = 0.001;
 
-
+  // Create xs and ys arrays.
   var xs = [];
   var ys = [];
   const rows = 100;
@@ -35,10 +35,16 @@ async function run_selection() {
     }
   }
 
-  xs = tf.tensor(xs, [rows, cols]);
-  ys = tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
-  
+  xs = await tf.tensor(xs, [rows, cols]);
+  xs = await tf.data.generator(xs);
 
+  ys = await tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
+  ys = await tf.data.generator(ys);
+  
+  // Create a dataset, shuffle and batch 32 samples at a time.
+  const bufferSize = 100;
+  const ds = tf.data.zip({xs, ys}).shuffle(bufferSize).batch(batchSize);
+  
   // Create the model
   const input = tf.input({shape: [cols]});
   const dense0 = tf.layers.dense({units: 32, activation: 'relu'});
@@ -53,24 +59,23 @@ async function run_selection() {
     metrics: ['accuracy']
   });
 
-model.fit(xs, ys, {
+
+// Train the model.
+model.fitDataset(ds, {
    epochs: epochs,
-   batchSize: batchSize,
-   callbacks: {onBatchEnd}
+   // batchSize: batchSize,
+   // callbacks: {onBatchEnd}
  }).then(info => {
    document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
  });
+
 
 }
 
 
 function onBatchEnd(batch, logs) {
-  // const value = Number(Math.floor(rows/batchSize));
   document.getElementById("output").innerHTML += "."+batch;
-  // if (batch%value == 0) {
-  //  document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
-  //  document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
-  // }
+  // document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
 }
 
 
