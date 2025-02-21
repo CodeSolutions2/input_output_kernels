@@ -8,5 +8,5 @@ text_per_document = ["the text processing of text is useful. Text processing is 
 
 vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(text_per_document)
-print("X: ", X)
-python|pip install sklearn
+print("X: ", X.toarray())
+python|pip install scikit-learn
