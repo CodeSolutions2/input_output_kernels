@@ -1,0 +1,12 @@
+from sklearn.feature_extraction.text import CountVectorizer
+
+text_per_document = ["the text processing of text is useful. Text processing is fun.",
+                 "Is text processing useful. A document about text processing methods.", 
+                 "a document about text processing."];
+
+
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(text_per_document)
+print("X: ", X)
+python|pip install sklearn
