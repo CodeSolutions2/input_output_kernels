@@ -14,7 +14,7 @@
 
 async function run_selection() {
 
-  const epochs = 200;
+  const epochs = 50;
   const batchSize = 32;
   const lr = 0.001;
 
@@ -56,7 +56,8 @@ async function run_selection() {
 model.fit(xs, ys, {
    epochs: epochs,
    batchSize: batchSize,
-   callbacks: {onBatchEnd}
+   callbacks: [{onBatchEnd},
+       tf.callbacks.earlyStopping({monitor: "loss"})]
  }).then(info => {
    document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
  });
@@ -65,8 +66,11 @@ model.fit(xs, ys, {
 
 
 function onBatchEnd(batch, logs) {
-  document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
-  document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
+  const value = Number(Math.floor(rows/batchSize));
+  if (batch%value == 0) {
+    document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
+    document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
+  }
 }
 
 
