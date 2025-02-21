@@ -15,7 +15,7 @@ print("X: ", X.toarray())
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 vectorizer = TfidfVectorizer(stop_words=["and", "is", "the", "and", "to"]);
-X = vectorizer.fit_transform(corpus)
+X = vectorizer.fit_transform(text_per_document)
 
 print(vectorizer.get_feature_names_out())
 print("X: ", X.toarray())
