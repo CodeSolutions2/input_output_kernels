@@ -16,7 +16,7 @@ async function run_selection() {
 
   const epochs = 20;
   const batchSize = 32;
-  const lr = 0.001;
+  const lr = 0.1;
 
   // Create xs and ys arrays.
   const rows = 100;
@@ -35,21 +35,26 @@ async function run_selection() {
   const model = tf.model({inputs: input, outputs: output});
   document.getElementById("output").innerHTML += "model: "+model+"<br>";
 
+  const optimizer = tf.train.sgd(lr);
+  // OR
+  // const optimizer = 'sgd';
+
   model.compile({
-    optimizer: 'sgd',
+    optimizer: optimizer,
     loss: 'categoricalCrossentropy',
     metrics: ['accuracy']
   });
 
 
 // Train the model.
-model.fitDataset(ds, {
+const history = model.fitDataset(ds, {
    epochs: epochs,
    // batchSize: batchSize,
    // callbacks: {onBatchEnd}
  }).then(info => {
    document.getElementById("output").innerHTML += "info.history.acc: "+info.history.acc+"<br>";
  });
+ document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
 
  // Predict some new samples.
@@ -82,10 +87,7 @@ async function create_xs_ys(rows, cols) {
   }
 
   xs = await tf.tensor(xs, [rows, cols]);
-  // xs = await tf.data.generator(xs);
-
   ys = await tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
-  // ys = await tf.data.generator(ys);
 
   return [xs, ys];
 }
