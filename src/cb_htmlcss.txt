@@ -14,7 +14,7 @@
 
 async function run_selection() {
 
-  const epochs = 50;
+  const epochs = 200;
   const batchSize = 32;
   const lr = 0.01;
 
@@ -54,15 +54,17 @@ async function run_selection() {
 
 
 // Train the model.
-const history = model.fitDataset(ds, {
+const history = await model.fitDataset(ds, {
    epochs: epochs,
    // batchSize: batchSize,
-   // callbacks: {onBatchEnd}
- }).then(result => result)
-   .then(data => {
-   // document.getElementById("output").innerHTML += "data: "+data+"<br>";
-   return data;
- });
+   callbacks: {
+     onEpochEnd: async (epoch, logs) => {
+       if (epoch%20 == 0) {
+         document.getElementById("output").innerHTML += "(epoch/epochs)*100: "+(epoch/epochs)*100+"<br>";
+       }
+     }
+   }
+ }); //end of fitDataset
  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
 
@@ -97,6 +99,10 @@ async function create_xs_ys(rows, cols) {
 
   xs = await tf.tensor(xs, [rows, cols]);
   ys = await tf.oneHot(tf.tensor1d(ys, 'int32'), 2);
+
+  // A wrapper function that allows for parallel processing/optimal data fetching.
+  xs = tf.data.generator(xs);
+  ys = tf.data.generator(ys);
 
   return [xs, ys];
 }
