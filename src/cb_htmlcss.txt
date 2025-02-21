@@ -14,7 +14,7 @@
 
 async function run_selection() {
 
-  const epochs = 50;
+  const epochs = 20;
   const batchSize = 32;
   const lr = 0.001;
 
@@ -66,10 +66,11 @@ model.fit(xs, ys, {
 
 function onBatchEnd(batch, logs) {
   const value = Number(Math.floor(rows/batchSize));
-  if (batch%value == 0) {
-    document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
-    document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
-  }
+  document.getElementById("output").innerHTML += "."+value;
+  // if (batch%value == 0) {
+  //  document.getElementById("output").innerHTML += "batch: "+batch+"<br>";
+  //  document.getElementById("output").innerHTML += "logs.acc: "+logs.acc+"<br>";
+  // }
 }
 
 
