@@ -1,0 +1,20 @@
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.pipeline import Pipeline
+
+text_per_document = ["the text processing of text is useful. Text processing is fun.",
+                 "Is text processing useful. A document about text processing methods.", 
+                 "a document about text processing."];
+
+stop_words=["and", "is", "the", "of", "to"]
+
+pipe = Pipeline([('count', CountVectorizer(stop_words=stop_words)),
+                 ('tfid', TfidfTransformer())]).fit(text_per_document)
+
+cv_array = pipe['count'].transform(text_per_document).toarray()
+tfidf_array = pipe['tfid'].idf_
+
+print("cv_array: ", cv_array)
+print("tfidf_array: ", tfidf_array)
+print(pipe.transform(corpus).shape)
+python|pip install scikit-learn
