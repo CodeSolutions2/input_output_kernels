@@ -8,7 +8,9 @@ text_per_document = ["the text processing of text is useful. Text processing is 
 
 stop_words=["and", "is", "the", "of", "to"]
 
-pipe = Pipeline([('count', CountVectorizer(stop_words=stop_words)),
+vocabulary = ["about", "document", "fun", "methods", "processing", "text", "useful"]
+
+pipe = Pipeline([('count', CountVectorizer(vocabulary=vocabulary)),
                  ('tfid', TfidfTransformer())]).fit(text_per_document)
 
 cv_array = pipe['count'].transform(text_per_document).toarray()
