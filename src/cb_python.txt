@@ -1,8 +1,4 @@
-arr = [1, 3, 5, 7]
+arr = []
 print("arr: ", arr) 
 
-A = np.array(arr)
-print("A: ", A) 
-print("np.shape(A): ", np.shape(A))
-
-python|import numpy as np
+python|
