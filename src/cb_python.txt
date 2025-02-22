@@ -3,12 +3,12 @@ print("A: ", A)
 print("np.shape(A): ", np.shape(A))
 
 # Increases the array by a row
-A = A[np.newaxis, :]
+A = A[np.newaxis, ...]
 print("A: ", A)
 print("np.shape(A): ", np.shape(A))
 
 # Increases the array by a column
-A = A[:, np.newaxis]
+A = A[..., np.newaxis]
 print("A: ", A)
 print("np.shape(A): ", np.shape(A))
 python|import numpy as np
