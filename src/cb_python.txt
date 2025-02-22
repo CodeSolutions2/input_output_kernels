@@ -8,15 +8,12 @@ text_per_document = ["the text processing of text is useful. Text processing is 
 
 stop_words=["and", "is", "the", "of", "to"]
 
-vocabulary = ["about", "document", "fun", "methods", "processing", "text", "useful"]
-
-pipe = Pipeline([('count', CountVectorizer(vocabulary=vocabulary)),
-                 ('tfid', TfidfTransformer())]).fit(text_per_document)
+pipe = Pipeline([('count', CountVectorizer(stop_words=stop_words)), ('tfid', TfidfTransformer())]).fit(text_per_document)
 
 cv_array = pipe['count'].transform(text_per_document).toarray()
 tfidf_array = pipe['tfid'].idf_
 
 print("cv_array: ", cv_array)
 print("tfidf_array: ", tfidf_array)
-print(pipe.transform(corpus).shape)
+print(pipe.transform(text_per_document).shape)
 python|pip install scikit-learn
