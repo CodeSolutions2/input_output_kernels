@@ -23,14 +23,14 @@ async function run_selection() {
   var x = Array.from({length: n}, (v,i) => { return (x_max/n)* i; });
   document.getElementById("output").innerHTML += "x: "+x.slice(0,10)+"<br>";
 
-  var xs = x.map((v,i) => { return [1*Math.sin(v), 2*Math.cos(v), 5*Math.sin(v)]; });
-  const rows = xs.length;
-  const cols = xs.at(0).length;
-  xs = tf.tensor(xs, [n,3]);
+  var xs_js = x.map((v,i) => { return [1*Math.sin(v), 2*Math.cos(v), 5*Math.sin(v)]; });
+  const rows = xs_js.length;
+  const cols = xs_js.at(0).length;
+  xs = tf.tensor(xs_js, [n,3]);
   document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
 
-  var ys = Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
-  ys = tf.tensor(ys);
+  var ys_js = Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
+  ys = tf.tensor(ys_js);
   document.getElementById("output").innerHTML += "ys: "+ys+"<br>";
 
   const batch_size = 1;
@@ -45,15 +45,18 @@ async function run_selection() {
     batchSize: batch_size,
     epochs: epochs,
     callbacks: {onBatchEnd}
-   //: (epoch, logs) => {
-   //   if (epoch % 100 == 0) {
-     //   document.getElementById("output").innerHTML += "epoch: "+epoch+"<br>";
-    //  }}
-   // }
+  }).then(result => { 
+    document.getElementById("output").innerHTML += "result: "+result+"<br>";
+    return result.history;
   });
   document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
-  // const result = model.predict( 
+  const xs_js_test = [xs_js.at(20), xs_js.at(150)];
+  const result = model.predict(tf.tensor(xs_js_test));
+  document.getElementById("output").innerHTML += "result: "+result+"<br>";
+
+  const ys_js_test = [ys_js.at(20), ys_js.at(150)];
+  document.getElementById("output").innerHTML += "ys_js_test: "+ys_js_test+"<br>";
 
 }
 
@@ -61,6 +64,13 @@ async function run_selection() {
 
 function onBatchEnd(batch, logs) {
   document.getElementById("output").innerHTML += "logs: "+logs+"<br>";
+}
+
+
+function onEpochEnd(epoch, logs) {
+  if (epoch % 100 == 0) {
+    document.getElementById("output").innerHTML += "logs: "+logs+"<br>";
+  }
 }
 
 
