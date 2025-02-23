@@ -44,12 +44,14 @@ async function run_selection() {
   const history = model.fit(xs, ys, {
     batchSize: batch_size,
     epochs: epochs,
-    callbacks: {onEpochEnd: (epoch, logs) => {
-      if (epoch % 100 == 0) {
-        document.getElementById("output").innerHTML += "epoch: "+epoch+"<br>";
-      }
-    }}
+    callbacks: {onEpochEnd}
+   //: (epoch, logs) => {
+   //   if (epoch % 100 == 0) {
+     //   document.getElementById("output").innerHTML += "epoch: "+epoch+"<br>";
+    //  }}
+   // }
   });
+  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 
   // const result = model.predict( 
 
