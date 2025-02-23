@@ -24,7 +24,7 @@ async function run_selection() {
   var xs_js = await x.map((v,i) => { return [1*Math.sin(v), 2*Math.cos(v), 5*Math.sin(v)]; });
   const rows = await xs_js.length;
   const cols = await xs_js.at(0).length;
-  var xs = await tf.tensor([xs_js], [batch_size, rows, cols]);
+  var xs = await tf.tensor([xs_js], [rows, cols]);
   document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
 
   var ys_js = await Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
@@ -33,10 +33,10 @@ async function run_selection() {
   var ys0 = await tf.tensor1d(ys_js, "int32");
   document.getElementById("output").innerHTML += "ys0: "+ys0+"<br>";
   
-  var ys1 = await tf.oneHot(ys0, 2);
-  document.getElementById("output").innerHTML += "ys1: "+ys1+"<br>";
+  var ys = await tf.oneHot(ys0, 2);
+  // document.getElementById("output").innerHTML += "ys1: "+ys1+"<br>";
 
-  ys = await tf.expandDims(ys1);
+ // ys = await tf.expandDims(ys1);
   document.getElementById("output").innerHTML += "ys: "+ys+"<br>";
 
   const model = await lstm_model(batch_size, rows, cols);
