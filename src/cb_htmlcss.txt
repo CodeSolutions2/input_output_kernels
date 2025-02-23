@@ -23,7 +23,7 @@ async function run_selection() {
   var xs_js = await x.map((v,i) => { return [1*Math.sin(v), 2*Math.cos(v), 5*Math.sin(v)]; });
   const rows = await xs_js.length;
   const cols = await xs_js.at(0).length;
-  var xs = await tf.tensor([xs_js], [rows, cols]);
+  var xs = await tf.tensor(xs_js, [rows, cols]);
   document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
 
   var ys_js = await Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
