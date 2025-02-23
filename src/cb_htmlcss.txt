@@ -44,7 +44,7 @@ async function run_selection() {
   const history = await model.fit(xs, ys, {
     batchSize: batch_size,
     epochs: epochs,
-    callbacks: {onEpochEnd}
+    callbacks: {onBatchEnd}
   }).then(result => { 
     document.getElementById("output").innerHTML += "result: "+result+"<br>";
     return result.history;
