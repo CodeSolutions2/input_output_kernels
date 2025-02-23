@@ -28,7 +28,8 @@ async function run_selection() {
   document.getElementById("output").innerHTML += "xs: "+xs+"<br>";
 
   var ys_js = await Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
-  
+  document.getElementById("output").innerHTML += "ys_js: "+ys_js+"<br>";
+
   var ys0 = await tf.tensor1d(ys_js, "int32").catch(error => { document.getElementById("output").innerHTML += "error: "+error+"<br>"; });
   document.getElementById("output").innerHTML += "ys0: "+ys0+"<br>";
   
