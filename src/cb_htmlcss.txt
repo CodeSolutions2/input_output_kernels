@@ -44,7 +44,7 @@ async function run_selection() {
   const history = model.fit(xs, ys, {
     batchSize: batch_size,
     epochs: epochs,
-    callbacks: {onEpochEnd}
+    callbacks: {onBatchEnd}
    //: (epoch, logs) => {
    //   if (epoch % 100 == 0) {
      //   document.getElementById("output").innerHTML += "epoch: "+epoch+"<br>";
@@ -56,6 +56,13 @@ async function run_selection() {
   // const result = model.predict( 
 
 }
+
+
+
+function onBatchEnd(batch, logs) {
+  document.getElementById("output").innerHTML += "logs: "+logs+"<br>";
+}
+
 
 
 
