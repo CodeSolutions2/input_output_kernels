@@ -30,13 +30,13 @@ async function run_selection() {
   var ys_js = await Array.from({length: n}, (v,i) => { return (i < n/2) ? 0 : 1; });
   document.getElementById("output").innerHTML += "ys_js: "+ys_js+"<br>";
 
-  var ys0 = await tf.tensor1d(ys_js, "int32").catch(error => { document.getElementById("output").innerHTML += "error: "+error+"<br>"; });
+  var ys0 = await tf.tensor1d(ys_js, "int32");
   document.getElementById("output").innerHTML += "ys0: "+ys0+"<br>";
   
-  var ys1 = await tf.oneHot(ys0, 2).catch(error => { document.getElementById("output").innerHTML += "error: "+error+"<br>"; });
+  var ys1 = await tf.oneHot(ys0, 2);
   document.getElementById("output").innerHTML += "ys1: "+ys1+"<br>";
 
-  ys = await tf.expandDims(ys1).catch(error => { document.getElementById("output").innerHTML += "error: "+error+"<br>"; });
+  ys = await tf.expandDims(ys1);
   document.getElementById("output").innerHTML += "ys: "+ys+"<br>";
 
   const model = await lstm_model(batch_size, rows, cols);
