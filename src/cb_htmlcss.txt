@@ -19,11 +19,9 @@ canvas {border: 0px solid black; position: absolute; display: inline-block; z-in
 
 <script>
 
-const canvasElement = document.getElementById("canvasElement_id");
-const ctx = canvasElement.getContext("2d");
-
 var width = canvasElement.width;
 var height = canvasElement.height;
+
 
 
 async function run_selection() {
@@ -35,9 +33,15 @@ async function run_selection() {
   document.getElementById("output").innerHTML += "arr2d: "+arr2d+"<br>";
  
 
+  var ctx = document.getElementById("canvasElement_id").getContext("2d");
+  ctx.fillStyle = "rgb(153 153 153 / 100%)";
+  ctx.fillRect(0, 0, width, height);
+  
+
   // Obtain a TypedArray from the canvas.
   const TypedArray = await ctx.getImageData(0, 0, width, height);
   document.getElementById("output").innerHTML += "TypedArray: "+TypedArray+"<br>";
+
 
   // Add border to output display.
   document.getElementById("canvasElement_id").style.border = "1px solid black";
@@ -45,8 +49,7 @@ async function run_selection() {
 
   // Put the array on the canvas.
   const imageData = await new ImageData(TypedArray, width, height);
-  ctx.putImageData(imageData, 0, 0);
-  document.getElementById("output").innerHTML += "Put the array on the canvas<br>";
+  document.getElementById("output").innerHTML += "imageData: "+imageData+"<br>";
 
 }
 
