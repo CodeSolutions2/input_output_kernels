@@ -13,7 +13,7 @@
 <canvas id="canvasElement_id" width="10" height="10" style="display:block;"></canvas>
 
 <style>
-canvas {border: 1px solid black; position: absolute; display: inline-block; z-index: 0; top: 100px}
+canvas {border: 0px solid black; position: absolute; display: inline-block; z-index: 0; top: 100px}
 </style>
 
 
@@ -28,33 +28,41 @@ var height = canvasElement.height;
 
 async function run_selection() {
 
-  // Obtain a TypedArray from the canvas.
-  const TypedArray = await ctx.getImageData(0, 0, width, height);
-
-
-  // Put the array on the canvas.
-  const imageData = await new ImageData(TypedArray, width, height);
-  ctx.putImageData(imageData, 0, 0);
-
-
-  // ImageArray is a 1d array with interleaved [r, g, b, alpha] values.
-  // var ImageArray = TypedArray.data;
-  // OR
-  var ImageArray = await Array.from(TypedArray.data);
-  document.getElementById("output").innerHTML = "ImageArray.length: "+ImageArray.length+"<br>";
-
 
   // Create a 2darray.
   var n = width;
   var arr2d = await Array.from({length: n}, (row,irow) => { return Array.from({length: n}, (v,i) => { return (irow == i) ? 1 : 0; }); });
   document.getElementById("output").innerHTML = "arr2d: "+arr2d+"<br>";
-  
+ 
+
+  // Obtain a TypedArray from the canvas.
+  const TypedArray = await ctx.getImageData(0, 0, width, height);
+  document.getElementById("output").innerHTML = "TypedArray: "+TypedArray+"<br>";
+
+  // Add border to output display.
+  canvasElement.style.border = "1px solid black";
+
+
+  // Put the array on the canvas.
+  const imageData = await new ImageData(TypedArray, width, height);
+  ctx.putImageData(imageData, 0, 0);
+  document.getElementById("output").innerHTML = "Put the array on the canvas<br>";
+
+
+  // ImageArray is a 1d array with interleaved [r, g, b, alpha] values.
+  // var ImageArray = TypedArray.data;
+  // OR
+  // var ImageArray = await Array.from(TypedArray.data);
+  // document.getElementById("output").innerHTML = "ImageArray.length: "+ImageArray.length+"<br>";
+
+
+    
 
   // Transform 2darray to an ImageArray.
-  var arr2d_flat = await arr2d.flat(Infinity);
-  document.getElementById("output").innerHTML = "arr2d_flat: "+arr2d_flat+"<br>";
-  const color_name =["r", "g", "b", "alpha"];
-  var c = 0;
+  // var arr2d_flat = await arr2d.flat(Infinity);
+  // document.getElementById("output").innerHTML = "arr2d_flat: "+arr2d_flat+"<br>";
+  // const color_name =["r", "g", "b", "alpha"];
+  // var c = 0;
   //for (var i=0; i<ImageArray.length; i+=color_name.length) {
   //  ImageArray[i] = 0; // red
   //  ImageArray[i+1] = 0; // green
