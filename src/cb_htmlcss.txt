@@ -30,7 +30,7 @@ async function run_selection() {
   // Create a 2darray.
   var n = width;
   var arr2d = await Array.from({length: n}, (row,irow) => { return Array.from({length: n}, (v,i) => { return (irow == i) ? 1 : 0; }); });
-  document.getElementById("output").innerHTML += "arr2d: "+arr2d+"<br>";
+  await document.getElementById("output").innerHTML += "arr2d: "+arr2d+"<br>";
  
 
   var ctx = document.getElementById("canvasElement_id").getContext("2d");
