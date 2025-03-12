@@ -17,13 +17,13 @@ div#data_display {position: absolute; vertical-align: top; top: 200; z-index: 20
 <script>
 
 
-const n = 10;
+const n = 100;
 
 // Assume that samp0 is normally distributed.
 var x = Array.from({length: n}, (v,i) => {return i-(n/2);});
 const A = 1;
 const b = 0; // peak with respect to x
-const c = 1; // spread of downward bell curve
+const c = 5; // spread of downward bell curve
 var samp0 = x.map((v,i) => { return A*Math.exp(-Math.pow(v-b,2)/(2*Math.pow(c,2))) });
 console.log("samp0: ", samp0);
 
