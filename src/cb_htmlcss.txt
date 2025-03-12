@@ -17,40 +17,32 @@ div#data_display {position: absolute; vertical-align: top; top: 200; z-index: 20
 
 <script>
 
-const n = 10;
+const A = 30;
+const bias = 0.1;
+const n = 20;
+const m = 0.01;
 
 // Assume that samp0 is normally distributed.
-var x = Array.from({length: n}, (v,i) => {return i-(n/2);});
+var samp0 = Array.from({length: n}, (v,i) => {return A*(m*i + bias);});
 
-const A = 1;
-const b = 0; // peak with respect to x
-const c = 1; // spread of downward bell curve
-var samp0 = x.map((v,i) => { return A*Math.exp(-Math.pow(v-b,2)/(2*Math.pow(c,2))) });
+// un-bias x
+const minval = samp0.sort().at(0);
+samp0 = samp0.map((v,i) => { return v-minval; });
 console.log("samp0: ", samp0);
-
-
 
 
 var samp0_avg = samp0.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / samp0.length;
 const samp0_variance = samp0.reduce((accumulator, currentValue) => accumulator + Math.pow(currentValue - samp0_avg, 2), 0) / samp0.length;
 const samp0_standardD = Math.sqrt( samp0_variance );
 
-var pdf = samp0.map((v,i) => { 
-  var part0 = 1/(Math.sqrt(2*Math.PI)*samp0_standardD);
-  var part1 = Math.exp(-Math.pow(v-samp0_avg,2)/(2*samp0_variance));
-  return part0*part1;
-});
-console.log("pdf: ", pdf);
-
-
-// One-sample Cumulative Distribution Function
+// One-sample Cumulative Distribution Function,
+// this is equivalent to the pdf.
 const coef = 1/(samp0_standardD*Math.sqrt(2*Math.PI));
 var cdf0 = samp0.map((val, ind) => { 
   var part0 = Math.pow(val-samp0_avg, 2)/(2*samp0_variance);
   return Math.exp(-part0);
 });
 console.log("cdf0: ", cdf0);
-
 
 // Accumulate cdf0
 var cdf = [];
@@ -59,6 +51,11 @@ for (var i=0; i<cdf0.length; i++) {
   tot = tot + cdf0.at(i);
   cdf.push(coef*tot);
 }
+     
+
+// check sum
+console.log("tot: ", coef*tot);
+console.log("cdf: ", cdf);
 
 
 // https://plotly.com/javascript/line-charts/
@@ -66,17 +63,11 @@ var title_text = "samp0";
 var x_text_trace1and2 = "x";
 var y_text_trace1and2 = "y";
 var trace1 = {x: x, y: samp0, mode: 'lines+markers', type: 'line', name: "samp0"};
-var trace2 = {x: x, y: pdf, mode: 'lines+markers', type: 'line', name: "pdf"};
-var trace3 = {x: x, y: cdf0, mode: 'lines+markers', type: 'line', name: "cdf0"};
-var trace4 = {x: x, y: cdf, mode: 'lines+markers', type: 'line', name: "cdf"};
-var data = [trace1, trace2, trace3, trace4];
+var trace2 = {x: x, y: cdf0, mode: 'lines+markers', type: 'line', name: "cdf0"};
+var trace3 = {x: x, y: cdf, mode: 'lines+markers', type: 'line', name: "cdf"};
+var data = [trace1, trace2, trace3];
 var layout = {grid: {rows: 1, columns: 1, pattern: 'independent'}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}};
 Plotly.newPlot('data_display', data, layout);
-
-// check sum
-console.log("tot: ", coef*tot);
-console.log("cdf: ", cdf);
-
 
 </script>
 </body>
