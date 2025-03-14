@@ -1,0 +1,76 @@
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<div id="counter_display" contenteditable="true" style="display:block; text-align: left; width: 600px;"></div>
+ 
+<button id="run_counter1" onclick="run_counter1()" style="display:block">run_counter1</button>
+
+<video controls width="100" height="100" id="videoElement_id">
+     <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" id="sourceElement_id">
+</video>
+
+<canvas id="canvasElement_id" width="100" height="100"></canvas>
+
+
+<script>
+
+
+var videoElement = document.getElementById("videoElement_id");
+
+const ctx = document.getElementById("canvasElement_id").getContext("2d");
+
+var width = document.getElementById("canvasElement_id").width;
+var height = document.getElementById("canvasElement_id").height;
+
+
+function print_a_frame() {
+  // pause video
+  document.getElementById("sourceElement_id").play = false;
+  
+  function printFrame() { 
+    // print
+    ctx.drawImage(videoElement, 0, 0, width, height); 
+  }
+  function callBack(functionName) { printFrame(); }
+  videoElement.requestVideoFrameCallback(callBack);
+}
+
+
+function count_up() {
+ // Update the HTML DOM value
+
+ document.getElementById("counter_display").textContent = await Number(document.getElementById("counter_display").textContent) + 1;
+ 
+ await print_a_frame();
+
+ // play video
+document.getElementById("sourceElement_id").play = true;
+
+ await new Promise(r => setTimeout(r, 500));
+}
+
+// -----------------------------------------------
+
+async function run_counter1() {
+
+ await count_up();
+
+ if (Number(document.getElementById("counter_display").textContent) < 10) {
+   // keep running
+   // move ctx to right
+   
+   await run_counter1();
+ } else {
+   // stop running - do nothing
+   console.log('stop running - do nothing')
+ }
+  
+}
+
+// -----------------------------------------------
+
+</script>
+</body>
+</html>
