@@ -1,1 +1,37 @@
- 
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<video controls width="100" height="100" id="videoElement_id">
+     <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" id="sourceElement_id">
+</video>
+
+<canvas id="canvasElement_id" width="100" height="100"></canvas>
+
+<script>
+
+var videoElement = document.getElementById("videoElement_id");
+
+const ctx = document.getElementById("canvasElement_id").getContext("2d");
+
+var width = document.getElementById("canvasElement_id").width;
+var height = document.getElementById("canvasElement_id").height;
+
+function printFrame() {
+  document.getElementById("sourceElement_id").start(0.2);
+  ctx.drawImage(videoElement, 0, 0, width, height);
+}
+
+function callBack(functionName) {
+  printFrame();
+}
+
+videoElement.requestVideoFrameCallback(callBack);
+
+
+
+
+</script>
+</body>
+</html>
