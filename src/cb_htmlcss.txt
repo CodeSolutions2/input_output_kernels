@@ -1,1 +1,50 @@
- 
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+
+<div id="data_display"></div>
+
+<style>
+div#data_display {position: absolute; vertical-align: top; top: 200; z-index: 200; }
+</style>
+
+
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+
+
+<script>
+
+const n = 50;
+var f = 1/10; // sampling rate.
+var t = Array.from({length:n}, (v,i) => { return i*f; });
+var x = t.map((v,i) => { return Math.sin(v); });
+
+var dx = numerical_derivative(x);
+console.log("dx: ", dx);
+
+var title_text = "Numerical derivative";
+var x_text_trace1and2 = "x";
+var y_text_trace1and2 = "y";
+var trace1 = {x: x, y: t, mode: "lines+markers", type: "line", name: "x"};
+var trace2 = {x: dx, y: t, mode: "lines+markers", type: "line", name: "dx"};
+var data = [trace1, trace2];
+var layout = {grid: {rows: 1, columns: 1, pattern: "independent"}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}};
+Plotly.newPlot("data_display", data, layout);
+
+
+function numerical_derivative(x, t) {
+  x = x.filter((x) => x != undefined);
+  if (x.length > 4) {
+    var dx = x.map((v,i) => { return (i < x.length-2) ? (x.at(i+1)-v)/(t.at(i+1)-t.at(i)) : (x.at(-1)-x.at(-2))/(t.at(-1)-t.at(-2)); });
+  } else {
+    var dx = (x.at(0)-x.at(-1))/(t.at(0)-t.at(-1));
+  }
+  return dx;
+} 
+
+
+</script>
+</body>
+</html>
