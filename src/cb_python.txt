@@ -1,0 +1,22 @@
+import numpy as np
+
+n = 50;
+f = 1/10; // sampling rate.
+t = range(0, n*f, f)
+x = np.sin(t)
+dx = numerical_derivative(x,t)
+print("dx: ", dx)
+
+def numerical_derivative(x,t):
+
+  if len(x) > 4:
+    dx0 = np.ones(len(x))
+    for i in range(len(x)-1):
+      dx0[i] = ( x[i+1] - x[i] ) / ( t[i+1] - t[i] )
+      dx = dx0[0:len(dx0)-2], dx0[len(dx0)-2], dx0[len(dx0)-2]
+  else:
+    # More precise for short x signal
+    dx = ( x[-1] - x[0] ) / ( t[-1] - t[0] )
+
+  return dx
+python|pip install numpy
