@@ -2,7 +2,9 @@ import numpy as np
 
 n = 50;
 f = 1/10; // sampling rate.
-t = range(0, n*f, f)
+t = [i*f for i in range(0, n)]
+print("t: ", t)
+
 x = np.sin(t)
 dx = numerical_derivative(x,t)
 print("dx: ", dx)
