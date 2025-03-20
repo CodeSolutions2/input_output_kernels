@@ -1,1 +1,140 @@
- 
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<!-- <i class="fas fa-robot"></i> -->
+
+<div id="output"></div>
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  
+
+<script>
+
+// [0] Get the fontawesome stylesheet.
+// var text = document.getElementById("fontawesome").stylesheets;
+// document.getElementById("output").innerHTML += text+"<br>";   // undefined
+// OR
+var url = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css";
+var stylesheet = call_fetch_method(url, {}, {}, "GET")
+document.getElementById("output").innerHTML += stylesheet;
+
+// var icons_nodelist = document.querySelectorAll(".fas");
+// document.getElementById("output").innerHTML += icons_nodelist+", length: "+icons_nodelist.length+"<br>";
+// Nodelist
+
+
+
+
+  
+//var css_rules = Array.from(stylesheet.cssRules);
+//document.getElementById("output").innerHTML += css_rules+"<br>";
+
+
+
+
+
+function call_fetch_method(url, data, headers_additional, method) {
+	
+	const CORS_method_list = ["jQuery_json", "fetch_json"];
+	
+	var response = undefined;
+		
+	for (var i=0; i<CORS_method_list.length; i++) {
+		try {
+			if (i == 0) {
+				response = fetch_json(url, data, headers_additional, method);
+			} else {
+				response = jQuery_json(url, data, headers_additional, method);
+			}
+			
+		} catch (error) {
+			console.log("error: ", error);
+		}
+		if (response != undefined) {
+			break;
+		}
+	}
+	return response;
+}
+
+// -----------------------------------------------
+
+function fetch_json(url, data, headers_additional, method) {
+	
+	var headers = {
+		"Content-Type": "application/json",
+		"Referer": url,
+		// "Origin": "https://codesolutions2.github.io",
+		"Connection": "keep-alive",
+		// "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
+		"Access-Control-Allow-Origin": "*",
+	};
+
+  headers = Object.assign({}, headers, headers_additional);
+	
+	var options = { 
+		method : method,
+		mode: 'cors',
+		headers: new Headers(headers),
+		cache: "no-cache",
+		crossorigin: 'anonymous',
+		redirect: "follow"
+	};
+
+	if (method == 'POST') {
+		options.body = JSON.stringify(data);
+	}
+	
+	return fetch(url, options)
+		.then(res => res.json())
+		.then(obj => { return obj; })
+		.catch(error => { console.error("error: ", error); });
+
+}
+
+// -----------------------------------------------
+
+function jQuery_json(url, data, headers_additional, method) {
+	
+	var headers = {
+		"Content-Type": "application/json",
+		"Referer": url,
+		// "Origin": "https://codesolutions2.github.io",
+		"Connection": "keep-alive",
+		// "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
+		"Access-Control-Allow-Origin": "*",
+	};
+
+  headers = Object.assign({}, headers, headers_additional);
+	
+	var settings = {
+		// url: url,
+		type : method,
+		async: true,
+		crossDomain: true,
+		beforeSend: function(xhr) {xhr.withCredentials = true;},
+		headers: new Headers(headers),
+		xhrFields: {responseType: 'json'},
+		dataType: 'json',
+		success: function(response) { console.log('Success'); },
+		error: function(xhr, status, error) { console.error("error: ", error); }
+	};
+
+	if (method == 'POST') {
+		settings.body = JSON.stringify(data);
+	}
+	
+	return $.ajax(url, [,settings]).done(function(response) { return response; });
+
+}
+
+
+</script>
+</body>
+</html>
