@@ -3,6 +3,8 @@
 <head></head>
 <body>
 
+<button onclick="run_selection()">Run selection</button>
+
 <!-- <i class="fas fa-robot"></i> -->
 
 <div id="output"></div>
@@ -16,12 +18,15 @@
 
 <script>
 
-// [0] Get the fontawesome stylesheet.
+
+async function run_selection() {
+
+  // [0] Get the fontawesome stylesheet.
 // var text = document.getElementById("fontawesome").stylesheets;
 // document.getElementById("output").innerHTML += text+"<br>";   // undefined
 // OR
 var url = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css";
-var stylesheet = call_fetch_method(url, {}, {}, "GET").then(res => {return res; })
+var stylesheet = await call_fetch_method(url, {}, {}, "GET")
 document.getElementById("output").innerHTML += stylesheet;
 
 // var icons_nodelist = document.querySelectorAll(".fas");
@@ -35,11 +40,11 @@ document.getElementById("output").innerHTML += stylesheet;
 //var css_rules = Array.from(stylesheet.cssRules);
 //document.getElementById("output").innerHTML += css_rules+"<br>";
 
+}
 
 
 
-
-function call_fetch_method(url, data, headers_additional, method) {
+async function call_fetch_method(url, data, headers_additional, method) {
 	
 	const CORS_method_list = ["jQuery_json", "fetch_json"];
 	
@@ -48,9 +53,9 @@ function call_fetch_method(url, data, headers_additional, method) {
 	for (var i=0; i<CORS_method_list.length; i++) {
 		try {
 			if (i == 0) {
-				response = fetch_json(url, data, headers_additional, method);
+				response = await fetch_json(url, data, headers_additional, method);
 			} else {
-				response = jQuery_json(url, data, headers_additional, method);
+				response = await jQuery_json(url, data, headers_additional, method);
 			}
 			
 		} catch (error) {
@@ -65,7 +70,7 @@ function call_fetch_method(url, data, headers_additional, method) {
 
 // -----------------------------------------------
 
-function fetch_json(url, data, headers_additional, method) {
+async function fetch_json(url, data, headers_additional, method) {
 	
 	var headers = {
 		"Content-Type": "application/json",
@@ -91,7 +96,7 @@ function fetch_json(url, data, headers_additional, method) {
 		options.body = JSON.stringify(data);
 	}
 	
-	return fetch(url, options)
+	return await fetch(url, options)
 		.then(res => res.text())
 		.then(obj => { return obj; })
 		.catch(error => { console.error("error: ", error); });
@@ -100,7 +105,7 @@ function fetch_json(url, data, headers_additional, method) {
 
 // -----------------------------------------------
 
-function jQuery_json(url, data, headers_additional, method) {
+async function jQuery_json(url, data, headers_additional, method) {
 	
 	var headers = {
 		"Content-Type": "application/json",
@@ -129,7 +134,7 @@ function jQuery_json(url, data, headers_additional, method) {
 		settings.body = JSON.stringify(data);
 	}
 	
-	return $.ajax(url, [,settings]).done(function(response) { return response; });
+	return await $.ajax(url, [,settings]).done(function(response) { return response; });
 
 }
 
