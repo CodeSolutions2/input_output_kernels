@@ -21,7 +21,7 @@
 // document.getElementById("output").innerHTML += text+"<br>";   // undefined
 // OR
 var url = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css";
-var stylesheet = call_fetch_method(url, {}, {}, "GET")
+var stylesheet = call_fetch_method(url, {}, {}, "GET").then(res => {return res; })
 document.getElementById("output").innerHTML += stylesheet;
 
 // var icons_nodelist = document.querySelectorAll(".fas");
