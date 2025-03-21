@@ -5,6 +5,8 @@
 
 <button id="diy_unicode_button0"><i class="fa">&#xf544</i>DIY Unicode Button</button>
 
+<p>Text text <i class="fa">&#xf544</i> text text</p>
+
 </body>
 
 <style>
