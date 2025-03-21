@@ -4,7 +4,7 @@
 <body>
 
 
-<button class="pure-button"><i class="fas fa-robot"></i>Yahoo Pure Button</button>
+<button class="pure-button button-custom"><i class="fas fa-robot"></i>Yahoo Pure Button</button>
 
 <button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
 
@@ -14,10 +14,10 @@
 
 
 <style>
-.pure-button {
+.button-custom {
    color: white;
    font-weight: bold;
-   width: 150px;
+   width: 250px;
    border-radius: 5px;
    background: seagreen;
 }
@@ -33,7 +33,7 @@ button#diy_button {
 button#diy_unicode_button { 
    color: white;
    font-weight: bold;
-   width: 150px;
+   width: 250px;
    border-radius: 5px;
    background: seagreen;
 }
