@@ -3,25 +3,19 @@
 <head></head>
 <body>
 
-<button id="diy"><div id="diy_unicode">&#xf544;</div>DIY Unicode Button</button>
+<button id="diy_unicode_button0"><i class="fa">&#xf544</i>DIY Unicode Button</button>
 
-<p>Text text <div id="diy_unicode">&#xf544;</div> text text</p>
+<p>Text text <i class="fa">&#xf544;</i> text text</p>
 
 </body>
 
 <style>
-#diy_unicode {
-   font-family: "Font Awesome 5 Free";
-   content: "\f544";
-}
-
-button#diy { 
+button#diy_unicode_button0 { 
    color: white;
    font-weight: bold;
    width: 250px;
    border-radius: 5px;
    background: seagreen;
-   text-align: left;
 }
 </style>
 
