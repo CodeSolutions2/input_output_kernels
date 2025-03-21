@@ -3,15 +3,15 @@
 <head></head>
 <body>
 
-<button class="pure-button button-custom"><i class="fas fa-robot"></i>Yahoo Pure Button</button>
+<button class="button-custom pure-button"><i class="fas fa-robot"></i>Yahoo Pure Button</button>
 
 <button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
 
 <button id="diy_unicode_button0"><i class="fa">&#xf544</i>DIY Unicode Button</button>
 
-<button id="diy_unicode_button0"><i class="fa"></i>&#xf544; DIY Unicode Button</button>
-
 <button id="diy_unicode_button1">&#xf544; DIY Unicode Button</button>
+
+<button id="diy_unicode_button2">&#xf544; DIY Unicode Button</button>
 
 </body>
 
@@ -44,8 +44,16 @@ button#diy_unicode_button0 {
 button#diy_unicode_button1 { 
    color: white;
    font-family: "Font Awesome 5 Free";
-   font-weight: 900;
+   font-weight: 300;
    content: "\f544";
+   border-radius: 5px;
+   background: seagreen;
+}
+
+button#diy_unicode_button2 { 
+   color: white;
+   font-family: "Font Awesome 5 Free";
+   font-weight: 300;
    border-radius: 5px;
    background: seagreen;
 }
