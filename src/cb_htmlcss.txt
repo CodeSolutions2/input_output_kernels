@@ -10,7 +10,7 @@
 </body>
 
 <style>
-button#diy_unicode { 
+#diy_unicode { 
    color: white;
    font-family: "Font Awesome 5 Free";
    font-weight: bold;
