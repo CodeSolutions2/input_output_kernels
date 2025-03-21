@@ -8,7 +8,7 @@
 
 <button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
 
-<button id="diy_unicode_button"></i>&#x1F916; DIY Unicode Button</button>
+<button id="diy_unicode_button"></i>&#xF544; DIY Unicode Button</button>
 
 </body>
 
@@ -19,7 +19,7 @@
    font-weight: bold;
    width: 250px;
    border-radius: 5px;
-   background: seagreen;
+   background: rgb(46, 139, 87);
 }
 
 button#diy_button { 
