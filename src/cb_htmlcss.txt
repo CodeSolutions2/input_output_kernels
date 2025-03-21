@@ -3,21 +3,18 @@
 <head></head>
 <body>
 
-<button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
-
-<p>Text text <i class="fas fa-robot"> text text</i></p>
+<button id="diy_unicode_button0"><i class="fa">&#xf544</i>DIY Unicode Button</button>
 
 </body>
 
 <style>
-button#diy_button { 
+button#diy_unicode_button0 { 
    color: white;
    font-weight: bold;
-   width: 150px;
+   width: 250px;
    border-radius: 5px;
    background: seagreen;
 }
-
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
