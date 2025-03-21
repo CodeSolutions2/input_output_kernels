@@ -4,18 +4,36 @@
 <body>
 
 
-<button class="pure-button pure-button-primary"><i class="fas fa-robot"></i>Pure Button</button>
+<button class="pure-button"><i class="fas fa-robot"></i>Yahoo Pure Button</button>
 
 <button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
+
+<button id="diy_unicode_button"></i>&#x1F916; DIY Unicode Button</button>
 
 </body>
 
 
 <style>
+.pure-button {
+   color: white;
+   font-weight: bold;
+   width: 150px;
+   border-radius: 5px;
+   background: seagreen;
+}
+
 button#diy_button { 
    color: white;
    font-weight: bold;
-   width: 200px;
+   width: 150px;
+   border-radius: 5px;
+   background: seagreen;
+}
+
+button#diy_unicode_button { 
+   color: white;
+   font-weight: bold;
+   width: 150px;
    border-radius: 5px;
    background: seagreen;
 }
