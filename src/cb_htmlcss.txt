@@ -1,1 +1,31 @@
- 
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+
+<button class="pure-button pure-button-primary"><i class="fas fa-robot"></i>Pure Button</button>
+
+<button id="diy_button"><i class="fas fa-robot"></i>DIY Button</button>
+
+</body>
+
+
+<style>
+button#diy_button { 
+   color: white;
+   font-weight: bold;
+   width: 200px;
+   border-radius: 5px;
+   background: seagreen;
+}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+
+
+<script></script>
+</body>
+</html>
