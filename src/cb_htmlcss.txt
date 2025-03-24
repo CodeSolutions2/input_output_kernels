@@ -9,6 +9,10 @@
 
 <div id="output">
 
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+
 <script>
 
 // Obtain training dataset.
