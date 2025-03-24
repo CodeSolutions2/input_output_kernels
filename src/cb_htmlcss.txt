@@ -7,6 +7,9 @@
 
 <button onclick="compile_model()">1. Compile model</button>
 
+<button onclick="train_model()">2. Train model</button>
+
+
 <div id="display_data">
 
 <div id="output">
@@ -124,6 +127,19 @@ function regression_model() {
 
 function compile_model() {
   model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
+}
+
+
+
+function train_model() {  
+
+  const batchSize = 1;
+  const epochs = 100;
+  const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
+	batchSize: batchSize, 
+	epochs: epochs,
+  });
+  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 }
 
 </script>
