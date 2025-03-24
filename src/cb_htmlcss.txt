@@ -29,7 +29,7 @@ var model = regression_model(featureNum, outputNum);
 document.getElementById("output").innerHTML += "model: "+model;
 
 // Compile model.
-model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
+// model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
 
 // Train model.
 // train_model(model, xs_2d, ys_1d);
