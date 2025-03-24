@@ -107,7 +107,7 @@ function obtain_test_data() {
   // Current dataset
   var feature0_ds2 = sin0.map((v,i) => { return v+(0.001*Math.random()); });
   var feature1_ds2 = sin1.map((v,i) => { return v+(0.001*Math.random()); });
-  var xs_test = [feature0_ds2, feature1_ds2];
+  var xs_test = feature0_ds2.map((v,i) => { return [v, feature1_ds2.at(i)]; });
 
   return xs_test;
 }
@@ -148,7 +148,7 @@ function train_model() {
 function predict() {
 
   // test one output.
-  var result = model.predict(tf.tensor(xs_test[0]));
+  var result = model.predict(tf.tensor(xs_test.at(0)));
   //document.getElementById("output").innerHTML += "output0: "+result.data()+"<br>";
   //document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
   document.getElementById("output").innerHTML += "output2: "+result+"<br>";
