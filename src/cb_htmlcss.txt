@@ -33,7 +33,7 @@ document.getElementById("output").innerHTML += "ys_1d: "+ys_1d+"<br>";
 
 // Obtain test dataset.
 var xs_test = obtain_test_data();
-document.getElementById("output").innerHTML += "xs_test: "+xs_test[0]+"<br>";
+document.getElementById("output").innerHTML += "xs_test: "+xs_test+"<br>";
 
 var featureNum = xs_2d.at(0).length; // columns of xs
 document.getElementById("output").innerHTML += "featureNum: "+featureNum+"<br>";
@@ -148,7 +148,7 @@ function train_model() {
 function predict() {
 
   // test one output.
-  var result = model.predict(tf.tensor(xs_test));
+  var result = model.predict(tf.tensor(xs_2d));
   //document.getElementById("output").innerHTML += "output0: "+result.data()+"<br>";
   //document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
   document.getElementById("output").innerHTML += "output2: "+result+"<br>";
