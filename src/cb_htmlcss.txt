@@ -134,11 +134,10 @@ function compile_model() {
 }
 
 
-
 function train_model() {  
 
   const batchSize = 1;
-  const epochs = 100;
+  const epochs = 300;
   const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
 	batchSize: batchSize, 
 	epochs: epochs,
@@ -149,7 +148,6 @@ function train_model() {
 
 function predict() {
 
-  // test one output.
   var result = model.predict(tf.tensor(xs_test));
 
   feature2_ds2 = result.arraySync();
