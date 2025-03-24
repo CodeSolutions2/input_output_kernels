@@ -7,7 +7,6 @@
 
 <div id="output">
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
 <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
 
@@ -21,22 +20,6 @@ document.getElementById("output").innerHTML += "ys_1d: "+ys_1d+"<br>";
 // Obtain test dataset.
 var xs_test = obtain_test_data();
 document.getElementById("output").innerHTML += "xs_test: "+xs_test+"<br>";
-
-// Define model.
-var featureNum = xs_2d.at(0).length; // columns of xs
-const outputNum = 1; // columns of ys
-var model = regression_model(featureNum, outputNum);
-document.getElementById("output").innerHTML += "model: "+model;
-
-// Compile model.
-// model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
-
-// Train model.
-// train_model(model, xs_2d, ys_1d);
-
-// Predict the missing feature using historical data.
-// predict_data(model, xs_test, ys_1d);
-
 
 
 
@@ -108,41 +91,6 @@ function obtain_test_data() {
   var xs_test = [feature0_ds2, feature1_ds2];
 
   return xs_test;
-}
-
-
-
-function regression_model(featureNum, outputNum) {
-
-  const input = tf.input({shape: [featureNum]}); 
-  const denseLayer1 = tf.layers.dense({units: 64, activation: "relu"});
-  const denseLayer2 = tf.layers.dense({units: 64, activation: "relu"});
-  const denseLayer3 = tf.layers.dense({units: 64, activation: "relu"});
-  const denseLayer4 = tf.layers.dense({units: outputNum});  
-  const output = denseLayer4.apply(denseLayer3.apply(denseLayer2.apply(denseLayer1.apply(input))));
-  const model = tf.model({inputs: input, outputs: output});
-
-  return model;
-}
-
-
-
-function train_model(model, xs_2d, ys_1d) {  
-
-  const batchSize = 1;
-  const epochs = 100;
-  const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
-	batchSize: batchSize, 
-	epochs: epochs, 
-	callbacks: { 
-          onEpochEnd: function(epoch, logs) => { 
-	    if (epoch % 50 == 0) {
-	      document.getElementById("output").innerHTML += ".<br>";	
-	    }
-	  }
-        } 
-  });
-  document.getElementById("output").innerHTML += "history: "+history+"<br>";
 }
 
 
