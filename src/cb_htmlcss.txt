@@ -11,7 +11,7 @@
 
 <button onclick="predict()">3. Predict</button>
 
-
+<button onclick="plot_data()">4. Plot</button>
 
 <div id="display_data">
 
@@ -150,7 +150,7 @@ function predict() {
   // test one output.
   var result = model.predict(tf.tensor(xs_2d));
 
-  feature2_ds2 = result.data().flat(Infinity);
+  feature2_ds2 = result.data();
 
   document.getElementById("output").innerHTML += "output0: "+feature2_ds2+"<br>";
   // document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
@@ -161,13 +161,16 @@ function predict() {
 
 function plot_data() {
 
-  var title_text = "Plotting y_prediction and y_actual";
-  var x_text_trace1and2 = "t";
-  var y_text_trace1and2 = "y";
-  var trace1 = {x: t, y: feature2_ds2, mode: "lines+markers", type: "line", name: "y_prediction"};
-  var trace2 = {x: t, y: ys_1d, mode: "lines+markers", type: "line", name: "y_actual"};
-  var data = [trace1, trace2];
-  var layout = {grid: {rows: 1, columns: 1, pattern: "independent"}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}};
+  var y_prediction = feature2_ds2.flat();
+  var y_actual = ys_1d.flat();
+
+  var title_text = "plot title"; 
+  var x_text_trace1and2 = "x"; 
+  var y_text_trace1and2 = "y"; 
+  var trace1 = {x: t, y: y_prediction, mode: "lines+markers", type: "line", name: "y_prediction"}; 
+  var trace2 = {x: t, y: y_actual, mode: "lines+markers", type: "line", name: "y_actual"}; 
+  var data = [trace1, trace2]; 
+  var layout = {grid: {rows: 1, columns: 1, pattern: "independent"}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}}; 
   Plotly.newPlot("data_display", data, layout);
 }
 
