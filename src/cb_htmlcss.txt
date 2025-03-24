@@ -4,7 +4,7 @@
 <body>
 
 
-<button id="trainModel0" onclick="trainModel0();"></button>
+<button id="trainModel0" onclick="trainModel0();">trainModel0</button>
 
 <progress id="progress_bar" max="100" value="0" style="display:none">0%</progress>
 
