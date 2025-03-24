@@ -3,10 +3,13 @@
 <head></head>
 <body>
 
+<button onclick="regression_model()">regression_model</button>
+
 <div id="display_data">
 
 <div id="output">
 
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
 <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
 
@@ -20,6 +23,10 @@ document.getElementById("output").innerHTML += "ys_1d: "+ys_1d+"<br>";
 // Obtain test dataset.
 var xs_test = obtain_test_data();
 document.getElementById("output").innerHTML += "xs_test: "+xs_test+"<br>";
+
+var featureNum = xs_2d.at(0).length; // columns of xs
+const outputNum = 1; // columns of ys
+var model;
 
 
 
@@ -91,6 +98,20 @@ function obtain_test_data() {
   var xs_test = [feature0_ds2, feature1_ds2];
 
   return xs_test;
+}
+
+
+function regression_model() {
+
+  const input = tf.input({shape: [featureNum]}); 
+  const denseLayer1 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer2 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer3 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer4 = tf.layers.dense({units: outputNum});  
+  const output = denseLayer4.apply(denseLayer3.apply(denseLayer2.apply(denseLayer1.apply(input))));
+  model = tf.model({inputs: input, outputs: output});
+
+  document.getElementById("output").innerHTML += "model: "+model;
 }
 
 
