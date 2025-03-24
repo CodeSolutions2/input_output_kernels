@@ -148,7 +148,7 @@ function train_model() {
 function predict() {
 
   // test one output.
-  var result = model.predict(tf.tensor(xs_2d));
+  var result = model.predict(tf.tensor(xs_test));
   //document.getElementById("output").innerHTML += "output0: "+result.data()+"<br>";
   //document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
   document.getElementById("output").innerHTML += "output2: "+result+"<br>";
