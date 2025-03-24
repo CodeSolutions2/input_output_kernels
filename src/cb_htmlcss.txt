@@ -9,6 +9,8 @@
 
 <button onclick="train_model()">2. Train model</button>
 
+<button onclick="predict()">3. Predict</button>
+
 
 <div id="display_data">
 
@@ -141,6 +143,17 @@ function train_model() {
   });
   document.getElementById("output").innerHTML += "history: "+history+"<br>";
 }
+
+
+function predict() {
+
+  // test one output.
+  var result = model.predict(tf.tensor(xs_test.at(0)));
+  document.getElementById("output").innerHTML += "output0: "+result.data()+"<br>";
+  document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
+  document.getElementById("output").innerHTML += "output2: "+result+"<br>";
+}
+
 
 </script>
 </body>
