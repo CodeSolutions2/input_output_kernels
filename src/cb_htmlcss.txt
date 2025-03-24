@@ -14,8 +14,6 @@
 
 
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
 <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
@@ -25,9 +23,12 @@
 
 async function trainModel0() {
 
+  // Obtain training data.
   var [xs_2d, ys_1d] = await obtain_train_data();
+  document.getElementById("output").innerHTML += "xs_2d: "+xs_2d;
+  document.getElementById("output").innerHTML += "ys_1d: "ys_1d;
 
-
+  /*
   var xs_tf_2d = await tf.tensor(xs_2d);
   var ys_tf_1d = await tf.tensor1d(ys_1d);
   document.getElementById("output").innerHTML += xs_tf_2d;
@@ -45,7 +46,6 @@ async function trainModel0() {
 
   // Train model
   document.getElementById("progress_bar").style.display = "block";
-
   const batchSize = 1;
   const epochs = 100;
   const history = await model.fit(xs_2d, ys_1d, { 
@@ -59,13 +59,11 @@ async function trainModel0() {
 	  }
         } 
   });
-  
   document.getElementById("progress_bar").style.display = "none";
-
-
-
+ 
+  // Predict the missing feature using historical data.
   await predict_data(model, ys_1d);
-
+  */
 }
 
 
@@ -143,7 +141,7 @@ async function obtain_test_data() {
 
 
 
-function plot_data(x, y0, y1, y0_name, y1_name) {
+async function plot_data(x, y0, y1, y0_name, y1_name) {
 
   var title_text = "Plotting x by y";
   var x_text_trace1and2 = "x";
@@ -165,14 +163,14 @@ async function regression_model(featureNum, outputNum) {
   const denseLayer3 = tf.layers.dense({units: 64, activation: "relu"});
   const denseLayer4 = tf.layers.dense({units: outputNum});  
   const output = denseLayer4.apply(denseLayer3.apply(denseLayer2.apply(denseLayer1.apply(input))));
-  const model = tf.model({inputs: input, outputs: output});
+  const model = await tf.model({inputs: input, outputs: output});
 
   return model;
 }
 
 
 
-function predict_data(model, ys_1d) {
+async function predict_data(model, ys_1d) {
 
   var xs_test = await obtain_test_data();
 
