@@ -1,10 +1,7 @@
-
 <!DOCTYPE>
 <html>
 <head></head>
 <body>
-
-<progress id="progress_bar" max="100" value="0">0%</progress>
 
 <div id="display_data">
 
@@ -140,12 +137,11 @@ function train_model(model, xs_2d, ys_1d) {
 	callbacks: { 
           onEpochEnd: function(epoch, logs) => { 
 	    if (epoch % 50 == 0) {
-	      // document.getElementById("progress_bar").value = epoch/epochs * 100;	
+	      document.getElementById("output").innerHTML += ".<br>";	
 	    }
 	  }
         } 
   });
-
   document.getElementById("output").innerHTML += "history: "+history+"<br>";
 }
 
