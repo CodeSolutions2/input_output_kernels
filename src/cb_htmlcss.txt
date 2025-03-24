@@ -152,7 +152,7 @@ function predict() {
   // test one output.
   var result = model.predict(tf.tensor(xs_test));
 
-  feature2_ds2 = result.arraySync()[0];
+  feature2_ds2 = result.arraySync();
 
   document.getElementById("output").innerHTML += "output0: "+feature2_ds2+"<br>";
   // document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
