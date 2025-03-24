@@ -11,6 +11,7 @@
 
 <button onclick="predict()">3. Predict</button>
 
+<button onclick="plot_data()">4. Plot</button>
 
 <div id="display_data">
 
@@ -40,7 +41,7 @@ var featureNum = xs_2d.at(0).length; // columns of xs
 document.getElementById("output").innerHTML += "featureNum: "+featureNum+"<br>";
 const outputNum = 1; // columns of ys
 var model;
-var t = timeSampling_array();
+var t;
 var feature2_ds2;
 
 
@@ -54,6 +55,8 @@ function timeSampling_array() {
 
 
 function topic_measurements() {
+  
+  t = timeSampling_array();
 
   var sin0 = t.map((v,i) => { return Math.sin(v); });
   var sin1 = t.map((v,i) => { return 5*Math.sin(v); });
@@ -147,7 +150,7 @@ function train_model() {
 function predict() {
 
   // test one output.
-  var result = model.predict(tf.tensor(xs_2d));
+  var result = model.predict(tf.tensor(xs_test));
 
   feature2_ds2 = result.data();
 
