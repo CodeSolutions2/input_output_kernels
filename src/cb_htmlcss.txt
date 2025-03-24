@@ -3,11 +3,23 @@
 <head></head>
 <body>
 
-<button onclick="regression_model()">regression_model</button>
+<button onclick="regression_model()">0. Regression model</button>
+
+<button onclick="compile_model()">1. Compile model</button>
+
+<button onclick="train_model()">2. Train model</button>
+
+<button onclick="predict()">3. Predict</button>
 
 <div id="display_data">
 
 <div id="output">
+
+
+<style>
+button { background-color: green; }
+button:active { background-color: red; }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
@@ -112,6 +124,74 @@ function regression_model() {
   model = tf.model({inputs: input, outputs: output});
 
   document.getElementById("output").innerHTML += "model: "+model;
+}
+
+
+function compile_model() {
+  model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
+}
+
+
+function train_model() {  
+
+  const batchSize = 1;
+  const epochs = 100;
+  const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
+	batchSize: batchSize, 
+	epochs: epochs, 
+	callbacks: { 
+          onEpochEnd: function(epoch, logs) => { 
+	    if (epoch % 50 == 0) {
+	      document.getElementById("output").innerHTML += ".<br>";	
+	    }
+	  }
+        } 
+  });
+  document.getElementById("output").innerHTML += "history: "+history+"<br>";
+}
+
+
+
+function predict() {
+
+  // test one output.
+  var result = model.predict(tf.tensor(xs_test.at(0)));
+  document.getElementById("output").innerHTML += "output0: "+result.data()+"<br>";
+  document.getElementById("output").innerHTML += "output1: "+result.dataSync()+"<br>";
+  document.getElementById("output").innerHTML += "output2: "+result+"<br>";
+
+  /*
+  var feature2_ds2 = [];
+  for (var i=0; i<xs_test.length; i++) {
+    var xs_tf_test = tf.tensor(xs_test.at(i));
+
+    const result = model.predict(xs_tf_test);
+
+    // const output_value0 = result.data();
+			
+    const output_value = result.dataSync();  
+    
+
+    feature2_ds2.push(output_value);
+  }
+*/
+  
+  // var t = timeSampling_array();
+  // plot_data(t, feature2_ds2, ys_1d, "y_prediction", "y_actual")
+}
+
+
+
+function plot_data(x, y0, y1, y0_name, y1_name) {
+
+  var title_text = "Plotting x by y";
+  var x_text_trace1and2 = "x";
+  var y_text_trace1and2 = "y";
+  var trace1 = {x: x, y: y0, mode: "lines+markers", type: "line", name: y0_name};
+  var trace2 = {x: x, y: y1, mode: "lines+markers", type: "line", name: y1_name};
+  var data = [trace1, trace2];
+  var layout = {grid: {rows: 1, columns: 1, pattern: "independent"}, title: title_text, xaxis: {title: x_text_trace1and2}, yaxis: {title: y_text_trace1and2}};
+  Plotly.newPlot("data_display", data, layout);
 }
 
 
