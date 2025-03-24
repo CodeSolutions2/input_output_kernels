@@ -3,7 +3,7 @@
 <head></head>
 <body>
 
-<progress id="progress_bar" max="100" value="0">0%</progress>
+<!-- <progress id="progress_bar" max="100" value="0">0%</progress>-->
 
 <div id="display_data">
 
