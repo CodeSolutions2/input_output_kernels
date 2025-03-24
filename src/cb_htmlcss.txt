@@ -11,9 +11,36 @@
 
 <script>
 
+// Obtain training dataset.
 var [xs_2d, ys_1d] = obtain_train_data();
-document.getElementById("output").innerHTML += "xs_2d: "+xs_2d;
-  document.getElementById("output").innerHTML += "ys_1d: "+ys_1d;
+document.getElementById("output").innerHTML += "xs_2d: "+xs_2d+"<br>";
+document.getElementById("output").innerHTML += "ys_1d: "+ys_1d+"<br>";
+
+
+// Obtain test dataset.
+var xs_test = obtain_test_data();
+document.getElementById("output").innerHTML += "xs_test: "+xs_test+"<br>";
+
+  
+// Define model.
+var featureNum = xs_2d.at(0).length; // columns of xs
+const outputNum = 1; // columns of ys
+var model = regression_model(featureNum, outputNum);
+document.getElementById("output").innerHTML += "model: "+model;
+
+
+// Compile model.
+model.compile({optimizer: tf.train.adam(), loss: tf.losses.meanSquaredError, metrics: ["mse"],});
+
+
+// Train model.
+train_model(model, xs_2d, ys_1d);
+
+// Predict the missing feature using historical data.
+// predict_data(model, ys_1d);
+
+
+
 
 
 function timeSampling_array() {
@@ -71,6 +98,59 @@ function obtain_train_data() {
   }
     return [xs, ys];
 }
+
+
+function obtain_test_data() {
+
+  var [sin0, sin1, sin2] = topic_measurements();
+
+  // Current dataset
+  var feature0_ds2 = sin0.map((v,i) => { return v+(0.001*Math.random()); });
+  var feature1_ds2 = sin1.map((v,i) => { return v+(0.001*Math.random()); });
+  var xs_test = [feature0_ds2, feature1_ds2];
+
+  return xs_test;
+}
+
+
+
+function regression_model(featureNum, outputNum) {
+
+  const input = tf.input({shape: [featureNum]}); 
+  const denseLayer1 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer2 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer3 = tf.layers.dense({units: 64, activation: "relu"});
+  const denseLayer4 = tf.layers.dense({units: outputNum});  
+  const output = denseLayer4.apply(denseLayer3.apply(denseLayer2.apply(denseLayer1.apply(input))));
+  const model = tf.model({inputs: input, outputs: output});
+
+  return model;
+}
+
+
+
+function train_model(model, xs_2d, ys_1d) {  
+
+  document.getElementById("progress_bar").style.display = "block";
+  const batchSize = 1;
+  const epochs = 100;
+  const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
+	batchSize: batchSize, 
+	epochs: epochs, 
+	callbacks: { 
+          onEpochEnd: async (epoch, logs) => { 
+	    if (epoch % 50 == 0) {
+	      document.getElementById("progress_bar").value = epoch/epochs * 100;	
+	    }
+	  }
+        } 
+  });
+  document.getElementById("progress_bar").style.display = "none";
+
+  document.getElementById("output").innerHTML += "history: "+history;
+}
+
+
 
 
 </script>
