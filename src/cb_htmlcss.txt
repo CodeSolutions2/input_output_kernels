@@ -137,7 +137,7 @@ function compile_model() {
 function train_model() {  
 
   const batchSize = 1;
-  const epochs = 300;
+  const epochs = 100;
   const history = model.fit(tf.tensor(xs_2d), tf.tensor(ys_1d), { 
 	batchSize: batchSize, 
 	epochs: epochs,
