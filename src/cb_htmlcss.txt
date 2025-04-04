@@ -122,8 +122,7 @@ function step3_create_unique_data() {
 
 
 function step4() {
-
-document.getElementById("output").innerHTML += "x3d_label0.length :"+x3d_label0.length+"<br>";
+  document.getElementById("output").innerHTML += "x3d_label0.length :"+x3d_label0.length+"<br>";
   TypedArray0 = xs3d_to_TypedArray(x3d_label0, normalArray0);
   TypedArray1 = xs3d_to_TypedArray(x3d_label1, normalArray1);
 }
@@ -138,10 +137,10 @@ function step5_change_visor() {
 // Create train and test data.
 // --------------------------
 function step6_create_ys_data() {
-
+  var n = 10;
   // Generate label, Shuffle.
   ys = Array.from({length: n}, (v,i) => { return (i < Math.floor(n/2)) ? 0 : 1; }).sort(() => Math.random() - 0.5);
-  document.getElementById("output").innerHTML += "ys :"+ys+"<br>";
+  document.getElementById("output").innerHTML = "ys :"+ys+"<br>";
 }
 
 
@@ -177,9 +176,10 @@ function step8_load_test_data() {
 function step9_load_model() {
 
   const input = tf.input({ batchShape: [batch_size, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS] });
-  document.getElementById("output").innerHTML += "input.shape:"+input.shape+"<br>";
+  document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
 
 
+  /*
   const conv0 = tf.layers.conv2d({
     inputShape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],
     kernelSize: 5,
@@ -213,6 +213,7 @@ function step9_load_model() {
 
   model = tf.model({inputs: input, outputs: output});
   document.getElementById("output").innerHTML += "model: "+model+"<br>";
+  */
 }
 
 /*
