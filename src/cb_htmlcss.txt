@@ -52,8 +52,8 @@
 
 
 <script>
-var width = 100;
-var height = 100;
+var width = 28;
+var height = 28;
 
 var canvasElement0;
 var ctx0;
@@ -179,16 +179,20 @@ function step9_load_model() {
   document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
 
 
-  /*
+  
   const conv0 = tf.layers.conv2d({
-    inputShape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],
+   // inputShape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],
     kernelSize: 5,
     filters: 8,
     strides: 1,
-    activation: 'relu',
+    activation: "relu",
     kernelInitializer: 'varianceScaling'
   });
+  document.getElementById("output").innerHTML += "conv0.shape: "+conv0.shape+"<br>";
 
+
+
+/*
   const maxpool0 = tf.layers.maxPooling2d({poolSize: [2, 2], strides: [2, 2]});
   
   const conv1 = tf.layers.conv2d({
