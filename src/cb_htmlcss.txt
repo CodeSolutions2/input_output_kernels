@@ -192,7 +192,7 @@ function step9_load_model() {
 
 
 
-/*
+
   const maxpool0 = tf.layers.maxPooling2d({poolSize: [2, 2], strides: [2, 2]});
   
   const conv1 = tf.layers.conv2d({
@@ -217,7 +217,7 @@ function step9_load_model() {
 
   model = tf.model({inputs: input, outputs: output});
   document.getElementById("output").innerHTML += "model: "+model+"<br>";
-  */
+  
 }
 
 /*
