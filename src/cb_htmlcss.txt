@@ -1,1 +1,150 @@
- 
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<button class="button_row" onclick="step0_display_visor()">0. Display Visor</button>
+<button class="button_row" onclick="step1_clear_visor()">1. Clear Visor</button>
+<button class="button_row" onclick="step2_get_ImageArray()">2. Get canvas ImageData</button>
+<button class="button_row" onclick="step3_change_ImageArray()">3. Change ImageData</button>
+<button class="button_row" onclick="step4_change_visor()">4. Change Visor</button>
+
+<div id="display_data"></div> 
+
+<div id="output"></div>
+
+<style>
+.button_row { 
+  background-color: seagreen; 
+}
+
+.button_row:focus { 
+  background-color: lightpink;
+}
+
+.canvas_simple {
+  position: relative;
+  border: "2px solid black";
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+</style>
+
+
+<script>
+var width = 100;
+var height = 100;
+
+var canvasElement0;
+var ctx0;
+var canvasElement1;
+var ctx1;
+
+var normalArray0;
+var normalArray1;
+
+var x3d_label0;
+var x3d_label1;
+
+var TypedArray0;
+var TypedArray1;
+
+
+function step0_display_visor() {
+  [ctx0, canvasElement0] = create_canvas("canvasElement_id0");
+  [ctx1, canvasElement1] = create_canvas("canvasElement_id1");
+}
+
+function step1_clear_visor() {
+  reset(canvasElement0);
+  reset(canvasElement1)
+}
+
+function step2_get_ImageArray() {
+  normalArray0 = convert_canvas_into_ImageData(ctx0);
+  document.getElementById("output").innerHTML =+ "normalArray0.length :"+normalArray0.length+"<br>";
+  
+  normalArray1 = convert_canvas_into_ImageData(ctx1);
+  document.getElementById("output").innerHTML =+ "normalArray1.length :"+normalArray1.length+"<br>";
+}
+
+function step3_change_ImageArray() {
+  TypedArray0 = convert_xs3d_to_ImageArray(x3d_label0, normalArray0);
+  TypedArray1 = convert_xs3d_to_ImageArray(x3d_label1, normalArray1);
+}
+
+function step4_change_visor() {
+  put_ImageArray_on_canvas(ctx0, TypedArray0);
+  put_ImageArray_on_canvas(ctx1, TypedArray1);
+}
+
+// --------------------------
+
+// Subfunctions
+function create_canvas(canvasElement_id) {
+
+  // Create a canvas element
+  var canvasElement = document.createElement('canvas');
+
+  // Set attributes of the canvas
+  canvasElement.width = width;
+  canvasElement.height = height;
+  canvasElement.id = canvasElement_id;
+  canvasElement.class = "canvas_simple";
+
+  document.getElementById('display_data').appendChild(canvasElement);
+
+  var ctx = canvasElement.getContext("2d");
+  
+  const [r, g, b, alpha] = [Math.floor(Math.random()*255), Math.floor(Math.random()*255), Math.floor(Math.random()*255), 255];
+  
+  ctx.fillStyle = `rgb(${r} ${g} ${b} / ${alpha}%)`;
+  
+  ctx.fillRect(0, 0, width, height);
+
+  return [ctx, canvasElement];
+}
+
+
+function reset(canvasElement) {
+  document.getElementById('display_data').removeChild(canvasElement);
+}
+
+
+function convert_canvas_into_ImageData(ctx) {
+  // Get canvas image
+  const TypedArray = ctx.getImageData(0, 0, width, height); // Uint8ClampedArray
+	
+  // Convert TypedArray to normalArray
+  return Array.from(TypedArray.data);
+}
+
+
+function convert_xs3d_to_ImageArray(xs3d, normalArray) {
+  const color_name = ['r', 'g', 'b', 'alpha'];
+
+  var r_layer = xs3d.at(0).flat(Infinity);
+  var g_layer = xs3d.at(1).flat(Infinity);
+  var b_layer = xs3d.at(2).flat(Infinity);
+
+  var c = 0;
+  for (var i=0; i<normalArray.length; i+=color_name.length ) {
+    normalArray[i] = r_layer.at(c);
+    normalArray[i+1] = g_layer.at(c);
+    normalArray[i+2] = b_layer.at(c);
+    normalArray[i+3] = 255;
+    c = c + 1;
+  }
+  return new Uint8ClampedArray(normalArray); // TypedArray
+}
+
+
+function put_ImageArray_on_canvas(ctx, TypedArray) {
+  const imageData = new ImageData(TypedArray, width, height);
+  ctx.putImageData(imageData, 0, 0);
+}
+
+</script>
+</body>
+</html>
