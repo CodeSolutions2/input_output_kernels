@@ -1,0 +1,139 @@
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+
+
+<canvas id="canvasElement_id"></canvas>
+
+<div id ="output">
+
+<style>
+
+#canvasElement_id {
+  border: "2px solid gray";
+  width: 120px;
+  height: 120px;
+  background: conic-gradient(
+    hsl(360 100% 50%),
+    hsl(315 100% 50%),
+    hsl(270 100% 50%),
+    hsl(225 100% 50%),
+    hsl(180 100% 50%),
+    hsl(135 100% 50%),
+    hsl(90 100% 50%),
+    hsl(45 100% 50%),
+    hsl(0 100% 50%)
+  );
+
+}
+
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+var canvasElement = document.getElementById("canvasElement_id");
+canvasElement.setAttribute('crossOrigin', "anonymous");
+var ctx = canvasElement.getContext("2d");
+
+var normalArray;
+var r2d_arr;
+var g2d_arr;
+var b2d_arr;
+var alpha2d_arr;
+
+// --------------------------
+
+getImageArray();
+// get_rgb_layers();
+
+// -------------------------
+
+canvasElement.addEventListener("click", processEvent_click, false);
+
+function processEvent_click(event) {
+
+  var x = event.offsetX;
+  var y = event.offsetY;
+  document.getElementById("output").innerHTML += "[x, y]: "+[x, y]+"<br>";
+
+  // Read r, g, b value from [x=rows,y=cols] position.
+  //var r = r2d_arr.at(x).at(y);
+  //var g = g2d_arr.at(x).at(y);
+  //var b = b2d_arr.at(x).at(y);
+  //var alpha = alpha2d_arr.at(x).at(y);
+  //document.getElementById("output").innerHTML += "[r, g, b, alpha]: "+[r, g, b, alpha]+"<br>";
+}
+
+// -------------------------
+
+
+function getImageArray() {
+
+  // Get ImageArray.
+  document.getElementById("output").innerHTML += "ctx: "+ctx+"<br>";
+  
+  // Way 0
+  // const TypedArray = ctx.getImageData(0, 0, width, height);
+  // var normalArray = Array.from(TypedArray.data);
+  // OR
+  // Way 1
+  var url = canvasElement.toDataURL('image/png');
+  var settings = {
+    type : 'GET',
+    async: true,
+    crossDomain: true,
+    xhrFields: {responseType: 'arrayBuffer'},
+    dataType: 'binary',
+    beforeSend: function(xhr) {xhr.withCredentials = true;},
+    success: function(response) { document.getElementById("output").innerHTML += "Success"+"<br>"; },
+    error: function(xhr, status, error) { document.getElementById("output").innerHTML += "Error: "+error+"<br>"; }
+  };
+
+  var binaryString = $.ajax(url, [,settings]).done(function(response) { return response; });
+  document.getElementById("output").innerHTML += "binaryString: "+binaryString+"<br>";
+
+}
+
+
+function get_rgb_layers() {
+
+  // Get r_layer, g_layer, b_layer, alpha_layer.
+  var r_layer = [];
+  var g_layer = [];
+  var b_layer = [];
+  var alpha_layer = [];
+  const color_name = ["r", "g", "b", "alpha"];
+  for (var i=0; i<normalArray.length; i+=color_name.length) {
+    r_layer.push(normalArray[i]);
+    g_layer.push(normalArray[i+1]);
+    b_layer.push(normalArray[i+2]);
+    alpha_layer.push(normalArray[i+3]);
+  }
+
+  // Reshape 1d arrays to [width=cols, height=rows].
+  r2d_arr = [];
+  g2d_arr = [];
+  b2d_arr = [];
+  alpha2d_arr = [];
+  var c = 0;
+  for (var i=0; i<height; i++) {
+    r2d_arr.push(r_layer.slice(c, c+width));
+    g2d_arr.push(g_layer.slice(c, c+width));
+    b2d_arr.push(b_layer.slice(c, c+width));
+    alpha2d_arr.push(alpha_layer.slice(c, c+width));
+    c = c + width;
+  }
+
+  document.getElementById("output").innerHTML += "r2d_arr: "+r2d_arr+"<br>";
+}
+
+
+
+</script>
+</body>
+</html>
