@@ -1,0 +1,131 @@
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<button onclick="steps()">0. steps</button>
+
+<div id="output"></div>
+
+
+<style>
+
+button {
+  background-color: seagreen;
+}
+
+button:focus { 
+  background-color: hsl(321, 100%, 50%);
+}
+
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+
+<script>
+var BATCH_SIZE = 10;
+var IMAGE_WIDTH = 28;
+var IMAGE_HEIGHT = 28;
+var IMAGE_CHANNELS = 3;
+var NUM_OF_OUTPUTS = 2;
+
+
+function steps() {
+
+  const input = tf.input({
+    batchShape: [BATCH_SIZE, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: 10,28,28,3
+    // OR
+    // shape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: ,28,28,3
+  });
+  document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
+
+  // --------------------------
+
+  const conv0 = tf.layers.conv2d({
+    inputShape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],
+    kernelSize: 3,
+    filters: 16,
+    strides: 1,
+    activation: "relu",
+    kernelInitializer: "heNormal"
+  });
+  document.getElementById("output").innerHTML += "conv0: "+conv0+"<br>";
+
+  const layer0 = conv0.apply(input);
+  document.getElementById("output").innerHTML += "layer0: "+layer0+"<br>";
+
+  // --------------------------
+
+  const maxpool0 = tf.layers.maxPooling2d({
+    poolSize: [2,2],
+    strides: [2,2],
+    padding: "same"
+  });
+  document.getElementById("output").innerHTML += "maxpool0.shape: "+maxpool0.shape+"<br>";
+
+  const layer1 = maxpool0.apply(layer0);
+  document.getElementById("output").innerHTML += "layer1: "+layer1+"<br>";
+
+  // --------------------------
+
+  const conv1 = tf.layers.conv2d({
+    kernelSize: 3,
+    filters: 32,
+    strides: 1,
+    activation: "relu",
+    kernelInitializer: "heNormal"
+  });
+  document.getElementById("output").innerHTML += "conv1.shape: "+conv1.shape+"<br>";
+
+  const layer2 = conv1.apply(layer1);
+  document.getElementById("output").innerHTML += "layer2: "+layer2+"<br>";
+
+  // --------------------------
+
+  const maxpool1 = tf.layers.maxPooling2d({
+    poolSize: [2,2],
+    strides: [2,2],
+    padding: "same"
+  });
+  document.getElementById("output").innerHTML += "maxpool1.shape: "+maxpool1.shape+"<br>";
+
+  const layer3 = maxpool1.apply(layer2);
+  document.getElementById("output").innerHTML += "layer3: "+layer3+"<br>";
+
+  // --------------------------
+
+  const flatten = tf.layers.flatten();
+  document.getElementById("output").innerHTML += "flatten.shape: "+flatten.shape+"<br>";
+
+  const layer4 = flatten.apply(layer3);
+  document.getElementById("output").innerHTML += "layer4: "+layer4+"<br>";
+
+  // --------------------------
+
+  const dense = tf.layers.dense({
+    units: NUM_OF_OUTPUTS,
+    kernelInitializer: "heNormal",
+    activation: "softmax"
+  });
+  document.getElementById("output").innerHTML += "dense.shape: "+dense.shape+"<br>";
+
+  const output = dense.apply(layer4);
+  document.getElementById("output").innerHTML += "output: "+output+"<br>";
+
+  // --------------------------
+
+  const model = tf.model({
+    inputs: input,
+    outputs: output
+  });
+  document.getElementById("output").innerHTML += "model: "+model+"<br>";
+
+}
+
+
+</script>
+</body>
+</html>
