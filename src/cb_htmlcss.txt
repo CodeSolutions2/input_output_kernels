@@ -37,22 +37,19 @@ function correct_output() {
 
   const input = tf.input({shape: [32]});
   document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
-  document.getElementById("output").innerHTML += "input: "+JSON.stringify(input)+"<br>";
+  document.getElementById("output").innerHTML += "input.print(): "+input.print()+"<br>";
 
   const dense = tf.layers.dense({units: 3, activation: 'softmax'});
   document.getElementById("output").innerHTML += "dense.shape: "+dense.shape+"<br>";
   document.getElementById("output").innerHTML += "dense.print(): "+dense.print()+"<br>";
-  document.getElementById("output").innerHTML += "dense: "+JSON.stringify(dense)+"<br>";
-
+  
   const output = dense.apply(input);
   document.getElementById("output").innerHTML += "output.shape: "+output.shape+"<br>";
-  document.getElementById("output").innerHTML += "output: "+JSON.stringify(output)+"<br>";
-
+  
   const model = tf.model({inputs: input, outputs: output});
   document.getElementById("output").innerHTML += "model.shape: "+model.shape+"<br>";
   document.getElementById("output").innerHTML += "model.summary: "+model.summary()+"<br>";
-  document.getElementById("output").innerHTML += "model: "+JSON.stringify(model)+"<br>";
-
+  
 }
 
 
@@ -69,8 +66,7 @@ function steps() {
     // input.shape: ,28,28,3
   });
   document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
-  document.getElementById("output").innerHTML += "input: "+JSON.stringify(input)+"<br>";
-
+  
   // --------------------------
 
   const conv0 = tf.layers.conv2d({
