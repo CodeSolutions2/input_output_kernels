@@ -3,9 +3,8 @@
 <head></head>
 <body>
 
-<button onclick="step0()">0. Input</button>
-<button onclick="step1_batch()">1. Inputbatch Conv2d</button>
-<button onclick="step1_conv2d_only()">1. Conv2d only</button>
+<button onclick="step1_noinputShape()">0. Input</button>
+<button onclick="step1_inputShape()">1. Inputbatch Conv2d</button>
 
 <div id="output"></div>
 
@@ -34,22 +33,14 @@ var NUM_OF_OUTPUTS = 2;
 
 
 
-function step0() {
-
-  const input = tf.input({
-    // batchShape: [BATCH_SIZE, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
-    shape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
-  });
-  document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
-
-}
-
-
-function step1_batch() {
-
+function step1_noinputShape() {
+  
   const input = tf.input({
     batchShape: [BATCH_SIZE, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: 10,28,28,3
+    // OR
     // shape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: ,28,28,3
   });
   document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
 
@@ -65,12 +56,22 @@ function step1_batch() {
   document.getElementById("output").innerHTML += "conv0: "+conv0+"<br>";
 
   const layer0 = conv0.apply(input);
-  document.getElementById("output").innerHTML += "layer0: "+JSON.stringify(layer0)+"<br>";
+  document.getElementById("output").innerHTML += "layer0: "+layer0+"<br>";
 
 }
 
 
-function step1_conv2d_only() {
+function step1_inputShape() {
+
+  const input = tf.input({
+    batchShape: [BATCH_SIZE, IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: 10,28,28,3
+    // OR
+    // shape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS]
+    // input.shape: ,28,28,3
+  });
+  document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
+
 
   const conv0 = tf.layers.conv2d({
     inputShape: [IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_CHANNELS],
@@ -82,9 +83,12 @@ function step1_conv2d_only() {
   });
   document.getElementById("output").innerHTML += "conv0: "+conv0+"<br>";
 
-  document.getElementById("output").innerHTML += "conv0.shape: "+conv0.shape+"<br>";
+  const layer0 = conv0.apply(input);
+  document.getElementById("output").innerHTML += "layer0: "+layer0+"<br>";
 
 }
+
+
 
 
 
