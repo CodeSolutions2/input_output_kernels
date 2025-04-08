@@ -3,7 +3,9 @@
 <head></head>
 <body>
 
+<button onclick="correct_output()">correct_output</button>
 <button onclick="steps()">0. steps</button>
+
 
 <div id="output"></div>
 
@@ -31,6 +33,32 @@ var IMAGE_CHANNELS = 3;
 var NUM_OF_OUTPUTS = 2;
 
 
+function correct_output() {
+
+  const input = tf.input({shape: [32]});
+  document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
+  document.getElementById("output").innerHTML += "input: "+JSON.stringify(input)+"<br>";
+
+  const dense = tf.layers.dense({units: 3, activation: 'softmax'});
+  document.getElementById("output").innerHTML += "dense.shape: "+dense.shape+"<br>";
+  document.getElementById("output").innerHTML += "dense.print(): "+dense.print()+"<br>";
+  document.getElementById("output").innerHTML += "dense: "+JSON.stringify(dense)+"<br>";
+
+  const output = dense.apply(input);
+  document.getElementById("output").innerHTML += "output.shape: "+output.shape+"<br>";
+  document.getElementById("output").innerHTML += "output: "+JSON.stringify(output)+"<br>";
+
+  const model = tf.model({inputs: input, outputs: output});
+  document.getElementById("output").innerHTML += "model.shape: "+model.shape+"<br>";
+  document.getElementById("output").innerHTML += "model.summary: "+model.summary()+"<br>";
+  document.getElementById("output").innerHTML += "model: "+JSON.stringify(model)+"<br>";
+
+}
+
+
+
+
+
 function steps() {
 
   const input = tf.input({
@@ -41,6 +69,7 @@ function steps() {
     // input.shape: ,28,28,3
   });
   document.getElementById("output").innerHTML += "input.shape: "+input.shape+"<br>";
+  document.getElementById("output").innerHTML += "input: "+JSON.stringify(input)+"<br>";
 
   // --------------------------
 
@@ -53,6 +82,7 @@ function steps() {
     kernelInitializer: "heNormal"
   });
   document.getElementById("output").innerHTML += "conv0: "+conv0+"<br>";
+  document.getElementById("output").innerHTML += "conv0.shape: "+conv0.shape+"<br>";
 
   const layer0 = conv0.apply(input);
   document.getElementById("output").innerHTML += "layer0: "+layer0+"<br>";
@@ -121,7 +151,7 @@ function steps() {
     inputs: input,
     outputs: output
   });
-  document.getElementById("output").innerHTML += "model: "+model+"<br>";
+  document.getElementById("output").innerHTML += "model: "+model.summary()+"<br>";
 
 }
 
