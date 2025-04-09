@@ -43,7 +43,7 @@ function make_short_arr_long(x, n_longer) {
 
   // Make x [have a large amplitude] to reduce residual errors during linear interpolation.
   // [Multiplying by the largeNumber, performing the calculation, dividing by the largeNumber] also has a smoothing/filter effect on the output.
-  var largeNumber = 100;
+  var largeNumber = 10000;
   x = x.map((v,i) => { return v*largeNumber; });
 
   var n = x.length;
