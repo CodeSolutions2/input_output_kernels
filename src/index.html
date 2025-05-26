@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<div class="javascript_css"></div>
+
+<div id="output"></div>
+
+<style>
+.javascript_css {
+  width: 150px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.javascript_css::before {
+  content: "Click to Start";
+}
+
+.javascript_css:hover {
+  border: 5px solid seagreen;
+}
+
+</style>
+
+<script>
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+
+
+document.getElementsByClassName("javascript_css")[0].onclick = (event) => {
+  run_selection();
+}
+
+
+function run_selection() {
+  recognition.start();
+  document.getElementById("output").innerHTML += "Start speaking...";
+}
+
+
+recognition.onresult = (event) => {
+  document.getElementById("output").innerHTML += `Result received: ${event.results[0][0].transcript}`;
+}
+
+
+</script>
+</body>
+</html>
