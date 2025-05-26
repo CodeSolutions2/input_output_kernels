@@ -27,14 +27,14 @@
 
 <script>
 
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+
+
 document.getElementsByClassName("javascript_css")[0].onclick = (event) => {
-  
-  const recognition = new SpeechRecognition();
-
-  recognition.lang = "en-US";
-
   run_selection();
-  
 }
 
 
