@@ -1,0 +1,55 @@
+<!DOCTYPE>
+<html>
+<head></head>
+<body>
+
+<div class="javascript_css"></div>
+
+<style>
+.javascript_css {
+  width: 150px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.javascript_css::before {
+  content: attr(value);
+}
+
+.javascript_css:hover {
+  border: 5px solid seagreen;
+}
+
+</style>
+
+<script>
+
+document.getElementsByClassName("javascript_css")[0].setAttribute("value", "Click to Start.");
+
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+
+
+document.getElementsByClassName("javascript_css")[0].onclick = (event) => {
+  run_selection();
+}
+
+
+function run_selection() {
+  recognition.start();
+  document.getElementsByClassName("javascript_css")[0].setAttribute("value", "Start speaking...");
+}
+
+
+recognition.onresult = (event) => {
+  document.getElementsByClassName("javascript_css")[0].setAttribute("value", `Result received: ${event.results[0][0].transcript}. Click to restart.`);
+}
+
+
+</script>
+</body>
+</html>
